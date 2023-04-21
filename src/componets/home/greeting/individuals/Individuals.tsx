@@ -12,24 +12,24 @@ import { useRef } from "react";
 import styled from "styled-components";
 
 const Individuals: React.FC = () => {
-  const target = useRef(null);
+  const target = useRef<HTMLDivElement>(null);
 
-  const thirdL = useParallax({
+  const thirdL = useParallax<HTMLDivElement>({
     opacity: [1, 0.1],
     translateX: [0, 40],
     // speed: 10,
   });
-  const secondL = useParallax({
+  const secondL = useParallax<HTMLDivElement>({
     opacity: [1, 0.3],
     translateX: [0, 20],
     // speed: 10,
   });
-  const secondR = useParallax({
+  const secondR = useParallax<HTMLDivElement>({
     opacity: [1, 0.3],
     translateX: [0, -20],
     // speed: 10,
   });
-  const thirdR = useParallax({
+  const thirdR = useParallax<HTMLDivElement>({
     opacity: [1, 0.1],
     translateX: [0, -40],
     // speed: 10,
