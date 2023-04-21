@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import HeaderModal from "../../common/headerModal/HeaderModal";
-import WrapperBackground from "@/componets/signup/WrapperBakground";
 import WrapperCentring from "@/wrappers/WrapperCentring";
 import WrapperModal from "@/wrappers/WrapperModal";
 import FreeOfferBlock from "@/componets/paywall/FreeOfferBlock";
@@ -11,6 +10,7 @@ import TitleMedium from "../../common/title/TitleMedium";
 import individualsImage from "@images/individuals.png";
 import CardpayBlock from "@/componets/paywall/CardpayBlock";
 import StaticIndividuals from "@/componets/paywall/elements/StaticIndividuals";
+import WrapperBackground from "@/wrappers/WrapperBakground";
 
 const Paywall: React.FC = () => {
   return (

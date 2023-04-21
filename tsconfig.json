@@ -16,7 +16,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@const/*": ["src/constants/*"],
+      "@const/*": ["./src/constants/*"],
       "@icons/*": ["./public/icons/*"],
       "@images/*": ["./public/images/*"],
     }

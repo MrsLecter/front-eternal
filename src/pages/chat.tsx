@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Header from "../common/header/Header";
-import ChatContainer from "@/componets/ChatContainer";
 import { useState } from "react";
 import MenuModal from "../common/modals/menuModal/MenuModal";
 import SoulsModal from "../common/modals/soulModal/SoulsModal";
+import ChatContainer from "@/componets/chat/ChatContainer";
 
 const Chat: React.FC = () => {
   const [showModalMenu, toggleModalMenu] = useState(false);

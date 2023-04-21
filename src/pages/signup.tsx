@@ -1,6 +1,6 @@
+import WrapperBackground from "@/wrappers/WrapperBakground";
 import HeaderModal from "../common/headerModal/HeaderModal";
 import StartedForm from "@/componets/signup/StartedForm";
-import WrapperBackground from "@/componets/signup/WrapperBakground";
 import WrapperCentring from "@/wrappers/WrapperCentring";
 import WrapperModal from "@/wrappers/WrapperModal";
 import Head from "next/head";

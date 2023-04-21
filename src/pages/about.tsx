@@ -1,8 +1,8 @@
 import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
 import HeaderModal from "../common/headerModal/HeaderModal";
 import Checkbox from "@/componets/about/Checkbox";
-import WrapperBackground from "@/componets/signup/WrapperBakground";
 import { ABOUT_TEXT } from "@/constants/modals";
+import WrapperBackground from "@/wrappers/WrapperBakground";
 import WrapperCentring from "@/wrappers/WrapperCentring";
 import WrapperModal from "@/wrappers/WrapperModal";
 import Head from "next/head";
