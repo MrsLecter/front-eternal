@@ -1,48 +1,53 @@
-import IndividualsCard from "../../../individualsCard/IndividualsCard";
 import styled from "styled-components";
 
 const SoulsContainer: React.FC = () => {
   return (
     <StyledSoulsContainer>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
       <div>
-        <IndividualsCard />
+        <StyledIndividualsCard />
       </div>
     </StyledSoulsContainer>
   );
 };
+
+const StyledIndividualsCard = styled.div`
+  width: 269.78;
+  height: 297.72px;
+  background-color: lightblue;
+`;
 
 const StyledSoulsContainer = styled.div`
   position: relative;
