@@ -1,0 +1,15 @@
+<svg width="719" height="827" viewBox="0 0 719 827" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g style="mix-blend-mode:screen">
+<path d="M359.431 742.092C516.521 742.092 634.365 589.195 634.365 413.523C634.365 237.851 516.521 84.9535 359.43 84.9535C202.34 84.9535 84.4965 237.851 84.4965 413.523C84.4965 589.195 202.34 742.092 359.431 742.092Z" stroke="#F82D98" stroke-width="59.657"/>
+</g>
+<g style="mix-blend-mode:screen" filter="url(#filter0_f_0_1)">
+<path d="M359.431 742.092C516.521 742.092 634.365 589.195 634.365 413.523C634.365 237.851 516.521 84.9535 359.43 84.9535C202.34 84.9535 84.4965 237.851 84.4965 413.523C84.4965 589.195 202.34 742.092 359.431 742.092Z" stroke="#F82D98" stroke-width="59.657"/>
+</g>
+<defs>
+<filter id="filter0_f_0_1" x="0.43433" y="0.891361" width="717.992" height="825.263" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="27.1168" result="effect1_foregroundBlur_0_1"/>
+</filter>
+</defs>
+</svg>
