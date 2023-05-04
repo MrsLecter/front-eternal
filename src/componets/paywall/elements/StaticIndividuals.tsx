@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import individualsImage from "@images/individuals.png";
+// import individualsImage from "@images/individuals.png";
 import Image from "next/image";
 
 const StaticIndividuals: React.FC = () => {
   return (
     <WrapperStaticIndividuals>
       <div>
-        <Image
+        {/* <Image
           alt="travel"
           src={individualsImage}
           fill={true}
           style={{ objectFit: "cover" }}
           quality={100}
-        />
+        /> */}
       </div>
     </WrapperStaticIndividuals>
   );

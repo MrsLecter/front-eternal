@@ -1,11 +1,15 @@
-export const cloudImageLoader = ({
-  src,
-  width,
-  height,
-}: {
-  src: string;
-  width: string;
-  height: string;
-}) => {
-  return `${src}?w=${width}&h=${height}&q=100`;
+import { INDIVIDUALS_DATA } from "@/constants/greeting";
+import { IIndividualsData } from "@/types/common.types";
+
+export const getIndividualDataForId = (
+  id: string
+): IIndividualsData | undefined => {
+  return INDIVIDUALS_DATA.find((individual) => individual.id === parseInt(id));
+};
+
+export const getRandomIndividualId = () => {
+  const maxId = INDIVIDUALS_DATA.length;
+  const minId = INDIVIDUALS_DATA[0].id;
+
+  return Math.floor(Math.random() * (maxId - minId) + minId);
 };

@@ -1,27 +1,36 @@
-import ProBtn from "../../common/buttons/ProBtn";
-import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
-import TextBtn from "../../common/buttons/TextBtn";
 import Image from "next/image";
 import styled from "styled-components";
-import Pricing from "../../common/title/TitlePricing";
-import CardNumberInput from "../../common/input/CardNumberInput";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
+import ProBtn from "../common/buttons/ProBtn";
+import CardNumberInput from "../common/input/CardNumberInput";
+import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
+import PricingBlock from "../common/pricingBlock/PricingBlock";
+import TextBtn from "../common/buttons/TextBtn";
+import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
+import { useAppSelector } from "@/hooks/reducers.hook";
 
 const UpdatePaymentBlock: React.FC = () => {
+  const { nextPayment } = useAppSelector((store) => store.userReducer);
+  console.log("nextPayment", nextPayment);
   return (
     <StyledUpadatePaymentBlock>
-      <ProBtn />
-      <Pricing paymentMonthly={10} nextPayment={"April 6"} />
-      <StyledCardWrapper>
-        <CardNumberInput />
-        <div>
-          <PrimarySubmitBtn label={"save"} />
-        </div>
-      </StyledCardWrapper>
-      {/* <SecondaryWhiteBtn label={"update payment"} />
-      <StyledTextWrapper>
-        <TextBtn label={"cancel subscription"} />
-      </StyledTextWrapper> */}
+      <PricingBlock paymentMonthly={10} nextPayment={nextPayment} />
+      {nextPayment ? (
+        <>
+          <SecondaryWhiteBtn label={"update payment"} />
+          <StyledTextWrapper>
+            <TextBtn label={"cancel subscription"} />
+          </StyledTextWrapper>
+        </>
+      ) : (
+        <>
+          <StyledCardWrapper>
+            <CardNumberInput />
+            <div>
+              <PrimarySubmitBtn label={"save"} />
+            </div>
+          </StyledCardWrapper>
+        </>
+      )}
     </StyledUpadatePaymentBlock>
   );
 };
@@ -32,17 +41,18 @@ const StyledCardWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: -32px;
 
-  & > div:last-child {
+  & > div:nth-child(2) {
     margin-left: 16px;
-    width: 162px;
+    width: 119px;
   }
 
   @media (max-width: 375px) {
     flex-direction: column;
     justify-content: center;
 
-    & > div:last-child {
+    & > div:nth-child(2) {
       width: 100%;
       margin-left: 0px;
       margin-top: 16px;
@@ -59,7 +69,16 @@ const StyledUpadatePaymentBlock = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
-  margin-top: 23px;
+  margin-top: 14px;
+  margin-bottom: -48px;
+
+  @media (max-width: 870px) {
+    margin-bottom: -46px;
+    margin-top: 8px;
+    button {
+      font-size: 12px;
+    }
+  }
 `;
 
 export default UpdatePaymentBlock;

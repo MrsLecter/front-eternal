@@ -11,7 +11,10 @@ const UserInput: React.FC = () => {
 };
 
 const StyledUserInput = styled.div`
-  width: 100%;
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  width: calc(100% - 78px);
   min-width: 300px;
   height: 78px;
   z-index: 1;
@@ -23,13 +26,19 @@ const StyledUserInput = styled.div`
     justify-content: flex-end;
     align-items: flex-end;
   }
+
+  @media (max-width: 1250px) {
+    width: calc(100% - 32px);
+    bottom: 0px;
+    right: 16px;
+  }
 `;
 
 const SubmitMessageInput: React.FC = () => {
   return (
     <StyledMessageInputWrapper>
       <input type="text" placeholder="Enter your message..." name="message" />
-      <SubmitMessageBtn />
+      {document.documentElement.clientWidth > 800 && <SubmitMessageBtn />}
     </StyledMessageInputWrapper>
   );
 };
@@ -39,14 +48,14 @@ const StyledMessageInputWrapper = styled.div`
   width: 100%;
 
   height: 78px;
-  padding: 2px;
+  padding: 1px;
   border-radius: 120px;
   background-image: linear-gradient(281deg, #f82d98 0%, #5833ef 90%);
   /* background-image: linear-gradient(90deg, #08081e 100%, #21050c 100%); */
 
   & > input {
     width: 100%;
-    height: 74px;
+    height: 76px;
     font-family: "Avenir Regular";
     font-weight: 400;
     font-size: 18px;
@@ -63,7 +72,7 @@ const StyledMessageInputWrapper = styled.div`
     }
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 800px) {
     button {
       display: none;
     }

@@ -1,5 +1,6 @@
-import WrapperCentring from "@/wrappers/WrapperCentring";
+import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
 import { InferGetServerSidePropsType } from "next";
+import Image from "next/image";
 
 import Head from "next/head";
 import React from "react";
@@ -9,27 +10,12 @@ import { ISoulsResponse } from "@/api/souls-service-types";
 import { gql } from "@apollo/client";
 import soulsQuery from "@/api/souls-query";
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: soulsQuery.getAllSouls,
-  });
-  console.log(data, "ssr");
+import PicWebP from "../../public/images/picture-compare/Picture-with-fon.webp";
+import PicTinyPng from "../../public/images/picture-compare/Picture-with-fon-tiny.png";
+import PicPng from "../../public/images/picture-compare/Picture-with-fon.png";
+import styled from "styled-components";
 
-  return {
-    props: {
-      allSoulsData: data,
-    },
-  };
-}
-
-interface ISampleProps {
-  data: InferGetServerSidePropsType<typeof getServerSideProps>;
-}
-
-function Sample({
-  allSoulsData,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log("props", allSoulsData);
+function Sample() {
   return (
     <>
       <Head>
@@ -38,16 +24,18 @@ function Sample({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <WrapperCentring>
-        hello world
-        {allSoulsData.souls &&
-          allSoulsData.souls.map((item: ISoulInfo) => {
-            return <div key={item.id}>{item.name}</div>;
-          })}
+        <StyledBtn>Btn</StyledBtn>
       </WrapperCentring>
     </>
   );
 }
+
+const StyledBtn = styled.button`
+  background-color: green;
+  border: 10px solid;
+  border-left-width: 3px;
+  border-image: ${({ theme }) => theme.backgroundColorGradient};
+`;
 
 export default Sample;

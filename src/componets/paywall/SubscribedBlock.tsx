@@ -1,12 +1,9 @@
-import ProBtn from "../../common/buttons/ProBtn";
 import { StyledOfferBlock } from "./FreeOfferBlock";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import styled from "styled-components";
-import CardNumberInput from "../../common/input/CardNumberInput";
-import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
 import paypalIcon from "@icons/paypal.svg";
-import TitlePricing from "../../common/title/TitlePricing";
+
 import CheckmarkBtn from "./elements/CheckmarkBtn";
+import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
 
 const SubscribedBlock: React.FC = () => {
   return (

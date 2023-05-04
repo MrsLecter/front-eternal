@@ -19,8 +19,9 @@
       "@const/*": ["./src/constants/*"],
       "@icons/*": ["./public/icons/*"],
       "@images/*": ["./public/images/*"],
+      "@typography/*": ["./src/styles/textStyles/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/common/modals/menuModal/menuButtons"],
   "exclude": ["node_modules"]
 }

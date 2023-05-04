@@ -1,11 +1,11 @@
-import ProBtn from "../../common/buttons/ProBtn";
 import { StyledOfferBlock } from "./FreeOfferBlock";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import styled from "styled-components";
-import CardNumberInput from "../../common/input/CardNumberInput";
-import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
 import paypalIcon from "@icons/paypal.svg";
-import TitlePricing from "../../common/title/TitlePricing";
+import ProBtn from "../common/buttons/ProBtn";
+import TitlePricing from "../common/title/TitlePricing";
+import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
+import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
+import CardNumberInput from "../common/input/CardNumberInput";
 
 const CardpayBlock: React.FC = () => {
   return (

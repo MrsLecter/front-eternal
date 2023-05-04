@@ -11,6 +11,7 @@ const OfferList: React.FC = () => {
 };
 
 const StyledOfferList = styled.ul`
+  position: relative;
   margin-bottom: 8px;
   width: 100%;
   list-style-type: none;
@@ -21,18 +22,19 @@ const StyledOfferList = styled.ul`
   letter-spacing: -0.01em;
   color: white;
 
-  & > li:before {
-    content: "✓";
-    position: absolute;
-    top: 1px;
-    left: 0;
-    width: 16px;
-    height: 11px;
-  }
-
   li {
+    position: relative;
     margin-left: 20px;
     margin-bottom: 16px;
+  }
+
+  li:before {
+    content: "✓";
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 16px;
+    height: 11px;
   }
 
   @media (max-width: 375px) {

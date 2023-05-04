@@ -1,14 +1,10 @@
-import { ISoulsResponse } from "@/api/souls-service-types";
-import Title from "../../../common/title/Title";
 import IndividualsCard from "./individualsCard/IndividualsCard";
 import IndividualsContainer from "./individualsContainer/IndividualsContainer";
 import styled from "styled-components";
+import { INDIVIDUALS_DATA } from "@/constants/greeting";
+import Title from "@/componets/common/title/Title";
 
-interface IIndividualsProps {
-  individualsData: ISoulsResponse;
-}
-
-const Individuals: React.FC<IIndividualsProps> = ({ individualsData }) => {
+const Individuals: React.FC = () => {
   return (
     <StyledSectionLeft>
       <Title
@@ -19,14 +15,16 @@ const Individuals: React.FC<IIndividualsProps> = ({ individualsData }) => {
         }
       />
       <IndividualsContainer>
-        {individualsData.souls &&
-          individualsData.souls.map((item) => {
+        {INDIVIDUALS_DATA &&
+          INDIVIDUALS_DATA.map((item) => {
             return (
               <IndividualsCard
+                id={item.id}
                 key={item.id}
                 name={item.name}
                 about={item.about}
-                photoUrl={item.photo}
+                image={item.image}
+                background={item.background}
               />
             );
           })}
@@ -38,16 +36,22 @@ const Individuals: React.FC<IIndividualsProps> = ({ individualsData }) => {
 const StyledSectionLeft = styled.div`
   margin-top: 150px;
   width: 100%;
+  max-width: 1640px;
   /* height: 100%; */
-  padding: 0px 7.3vw;
+  padding: 0px 120px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
+  /* z-index: 1; */
   /* overflow-y: auto; */
 
-  @media (max-width: 375px) {
-    padding: 0px 12px;
+  @media (max-width: 1075px) {
+    padding: 0px 16px;
+  }
+
+  @media (max-width: 860px) {
+    margin-top: 64px;
   }
 `;
 

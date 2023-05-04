@@ -1,4 +1,4 @@
-import WrapperCentring from "@/wrappers/WrapperCentring";
+import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
 import Head from "next/head";
 import React from "react";
 import styled from "styled-components";

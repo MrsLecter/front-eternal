@@ -1,17 +1,22 @@
-import { cloudImageLoader } from "@/utils/functions";
+import { APP_ROUTES } from "@/constants/common";
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface IIndividualsCard {
-  photoUrl: string;
+  id: number;
   name: string;
   about: string;
+  image: string;
+  background: string;
 }
 
 const IndividualsCard: React.FC<IIndividualsCard> = ({
-  photoUrl,
+  id,
   name,
   about,
+  image,
+  background,
 }) => {
   let largeWidth = 0;
   let largeHeight = 0;
@@ -24,59 +29,109 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
     smallHeight = (document.documentElement.clientHeight * 2.71) / 100;
   }
   return (
-    <StyledIndividualsCard>
-      <StyledImageWrapper>
-        {document.documentElement.clientWidth > 375 ? (
-          <Image
-            width={largeWidth}
-            height={largeHeight}
-            src={cloudImageLoader({
-              src: photoUrl,
-              width: String(largeWidth),
-              height: String(largeHeight),
-            })}
-            alt={photoUrl.split("/")[4]}
-            style={{
-              zIndex: 3,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-            quality={100}
-          />
-        ) : (
-          <Image
-            width={largeWidth}
-            height={largeHeight}
-            src={cloudImageLoader({
-              src: photoUrl,
-              width: String(largeWidth),
-              height: String(largeHeight),
-            })}
-            alt={photoUrl.split("/")[4]}
-            style={{
-              zIndex: 3,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-            quality={100}
-          />
-        )}
-      </StyledImageWrapper>
+    <Link href={APP_ROUTES.Chat + id}>
+      <StyledIndividualsCard>
+        <StyledImageWrapper>
+          {document.documentElement.clientWidth > 860 ? (
+            <>
+              <div>
+                <Image
+                  width={largeWidth}
+                  height={smallHeight}
+                  src={background}
+                  alt={background}
+                  // priority={true}
+                  style={{
+                    zIndex: 4,
+                    minHeight: "100%",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "fill",
+                    borderRadius: "16px",
+                    filter: "blur(50px)",
+                  }}
+                  quality={100}
+                />
+              </div>
+              <Image
+                width={largeWidth}
+                height={smallHeight}
+                src={image}
+                alt={image}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  zIndex: 3,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "fill",
+                  borderRadius: "16px",
+                  backgroundColor: "transparent",
+                }}
+                quality={100}
+              />
+            </>
+          ) : (
+            <>
+              <div>
+                <Image
+                  width={smallWidth}
+                  height={largeHeight}
+                  src={background}
+                  alt={background}
+                  // priority={true}
+                  style={{
+                    zIndex: 4,
+                    minHeight: "100%",
+                    maxHeight: "227.72px",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "fill",
+                    borderRadius: "16px",
+                    filter: "blur(50px)",
+                  }}
+                  quality={100}
+                />
+              </div>
+              <Image
+                width={smallWidth}
+                height={largeHeight}
+                src={image}
+                alt={image}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  zIndex: 3,
+                  width: "100%",
+                  height: "100%",
+                  maxHeight: "227.72px",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                  backgroundColor: "transparent",
+                }}
+                quality={100}
+              />
+            </>
+          )}
+        </StyledImageWrapper>
 
-      <StyledIndividualsabout>
-        <p>{name.length > 21 ? name.substring(0, 20) + "..." : name}</p>
-        <p>{about}</p>
-      </StyledIndividualsabout>
-    </StyledIndividualsCard>
+        <StyledIndividualsAbout>
+          <div>{name}</div>
+          <div>{about}</div>
+        </StyledIndividualsAbout>
+      </StyledIndividualsCard>
+    </Link>
   );
 };
 
 const StyledIndividualsCard = styled.div`
   position: relative;
-  width: 100%;
+  /* width: 100%; */
+  /* min-height: 266.72px; */
+  /* height: 300px; */
+  /* min-height: 100%; */
   height: 297.72px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -92,33 +147,72 @@ const StyledIndividualsCard = styled.div`
     }
   }
 
-  @media (max-width: 375px) {
-    height: 278.72px;
+  /* @media (max-width: 1075px) {
+    width: 162px;
+  } */
+
+  @media (max-width: 860px) {
+    width: 162px;
+    height: 281.72px;
+
+    /* height: 100%; */
 
     div:last-child {
-      height: 43px;
+      height: auto;
+    }
+
+    img {
+      height: 227.72px;
     }
 
     &:hover {
       div:last-child {
-        height: 43px;
+        height: auto;
       }
     }
   }
 `;
 
 const StyledImageWrapper = styled.div`
+  position: relative;
   width: 100%;
+  min-width: 163.5px;
   height: 297.72px;
+  min-height: 297.72px;
   border-radius: 16px;
   overflow: hidden;
 
-  @media (max-width: 375px) {
+  img {
+    width: 100%;
+    height: 297.72px;
+  }
+
+  & > div {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    z-index: 3;
+  }
+
+  @media (max-width: 870px) {
+    min-width: 163.5px;
+    min-height: 227.72px;
     height: 227.72px;
+    & > div {
+      min-height: 281.72px;
+      height: auto;
+    }
+
+    img {
+      width: 110%;
+      min-height: 227.72px;
+    }
   }
 `;
 
-const StyledIndividualsabout = styled.div`
+const StyledIndividualsAbout = styled.div`
   position: absolute;
   height: 0px;
   bottom: 0px;
@@ -137,7 +231,7 @@ const StyledIndividualsabout = styled.div`
   transition: 1s;
   cursor: pointer;
 
-  p {
+  div {
     margin-left: 20px;
     margin-right: 20px;
     font-family: "Arquitecta Bold";
@@ -146,34 +240,39 @@ const StyledIndividualsabout = styled.div`
     color: white;
   }
 
-  p:first-child {
-    margin-top: 20px;
+  div:first-child {
+    margin-top: 8px;
   }
 
-  p:last-child {
+  div:last-child {
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.2em;
     opacity: 0.7;
   }
 
-  @media (max-width: 375px) {
-    height: 43px;
+  @media (max-width: 860px) {
+    position: relative;
+    /* top: 227.72px; */
+    margin-top: 8px;
+    /* height: auto; */
+    /* height: 227.72px; */
     font-size: 14px;
     line-height: 110%;
     backdrop-filter: none;
     background-color: transparent;
 
-    p {
+    div {
       margin-left: 0px;
       margin-right: 0px;
       text-align: left;
     }
-    p:first-child {
+
+    div:first-child {
       margin-top: 0px;
     }
 
-    p:last-child {
+    div:last-child {
       margin-top: 4px;
       opacity: 0.7;
     }

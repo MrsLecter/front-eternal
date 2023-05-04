@@ -1,5 +1,5 @@
-import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
 import styled from "styled-components";
+import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
 
 const FreeOfferBlock: React.FC = () => {
   return (

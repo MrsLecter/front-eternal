@@ -1,5 +1,5 @@
 import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
-import QuestionItem from "./questionItem/QuestionItem";
+import QuestionItem from "../questionItem/QuestionItem";
 import styled from "styled-components";
 
 const Questions: React.FC = () => {
@@ -20,7 +20,7 @@ const StyledQuestionContainer = styled.div`
   justify-content: flex-start;
   z-index: 10;
 
-  @media (max-width: 375px) {
+  @media (max-width: 670px) {
     margin-top: 24px;
   }
 `;

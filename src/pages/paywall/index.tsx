@@ -1,14 +1,13 @@
 import Head from "next/head";
-
-import HeaderModal from "../../common/headerModal/HeaderModal";
-import WrapperCentring from "@/wrappers/WrapperCentring";
-import WrapperModal from "@/wrappers/WrapperModal";
+import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
+import WrapperModal from "@/componets/common/wrappers/WrapperModal";
 import FreeOfferBlock from "@/componets/paywall/FreeOfferBlock";
 import ProOfferBlock from "@/componets/paywall/ProOfferBlock";
 import styled from "styled-components";
-import TitleMedium from "../../common/title/TitleMedium";
 import StaticIndividuals from "@/componets/paywall/elements/StaticIndividuals";
-import WrapperBackground from "@/wrappers/WrapperBakground";
+import WrapperBackground from "@/componets/common/wrappers/WrapperBakground";
+import HeaderModal from "@/componets/common/headerModal/HeaderModal";
+import TitleMedium from "@/componets/common/title/TitleMedium";
 
 const Paywall: React.FC = () => {
   return (
@@ -52,7 +51,7 @@ const WrapperContent = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  @media (max-width: 375px) {
+  @media (max-width: 870px) {
     width: 343px;
     justify-content: flex-start;
 
@@ -70,7 +69,7 @@ const ModalsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 880px) {
+  @media (max-width: 870px) {
     flex-direction: column;
     align-items: center;
     width: 343px;

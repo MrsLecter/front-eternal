@@ -3,29 +3,35 @@ import type { AppProps } from "next/app";
 import { Suspense, useEffect, useState } from "react";
 import theme from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
-import { ParallaxProvider } from "react-scroll-parallax";
 import Loader from "./loading";
 import client from "@/api/apollo-client";
 import { ApolloProvider } from "@apollo/client";
+import ProvidersWrapper from "@/app/ProvidersWrapper";
+import { Provider } from "react-redux";
+import { setupStore } from "@/store";
 
-export default function App({ Component, pageProps }: AppProps) {
+const store = setupStore();
+
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const [render, setRender] = useState(false);
 
   useEffect(() => setRender(true), []);
 
   return (
     <Suspense fallback={<Loader />}>
-      <ParallaxProvider scrollAxis="vertical">
+      {/* <ProvidersWrapper session={session}> */}
+      <Provider store={store}>
         <ApolloProvider client={client}>
           <ThemeProvider theme={theme}>
-            {render ? (
-              <Component {...pageProps} />
-            ) : (
-              <p>Error during loading</p>
-            )}
+            {render ? <Component {...pageProps} /> : <p>Loading...</p>}
           </ThemeProvider>
         </ApolloProvider>
-      </ParallaxProvider>
+      </Provider>
+
+      {/* </ProvidersWrapper> */}
     </Suspense>
   );
 }

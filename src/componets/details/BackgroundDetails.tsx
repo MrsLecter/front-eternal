@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-import bluredImage from "@images/background-details-blured.webp";
+import bluredImage from "@images/background-details-blured.png";
 
 const BackgroundDetails: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const BackgroundDetails: React.FC = () => {
         alt="travel"
         src={bluredImage}
         fill={true}
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover", backdropFilter: "blur(107px)" }}
         quality={100}
       />
     </StyledBackgroundDetails>
@@ -18,8 +18,10 @@ const BackgroundDetails: React.FC = () => {
 
 const StyledBackgroundDetails = styled.div`
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   z-index: -1;
 `;

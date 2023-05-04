@@ -1,15 +1,22 @@
 import styled from "styled-components";
 import Image from "next/image";
 import checkmarkIcon from "@icons/checkmark.svg";
+import { useState } from "react";
 
 interface ICheckboxProps {
   label: string;
+  checked: boolean;
+  setChecked: (isChecked:boolean) => void;
 }
 
-const Checkbox: React.FC<ICheckboxProps> = ({ label }) => {
+const Checkbox: React.FC<ICheckboxProps> = ({ label, checked, setChecked }) => {
   return (
     <StyledCheckbox>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        onChange={() => setChecked(!checked)}
+        checked={checked}
+      />
       <span>
         <Image
           alt="checkmark"
@@ -27,7 +34,7 @@ const Checkbox: React.FC<ICheckboxProps> = ({ label }) => {
 const StyledCheckbox = styled.label`
   display: block;
   position: relative;
-  margin-bottom: 34.5px;
+  margin-bottom: 38px;
   font-family: "Avenir Regular";
   font-weight: 400;
   font-size: 18px;
@@ -90,9 +97,24 @@ const StyledCheckbox = styled.label`
     height: 30px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 870px) {
     font-size: 14px;
     line-height: 21px;
+    margin-top: 4px;
+    margin-bottom: 28px;
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 28px;
+      width: 28px;
+    }
+
+    span:after {
+      width: 28px;
+      height: 28px;
+    }
   }
 `;
 

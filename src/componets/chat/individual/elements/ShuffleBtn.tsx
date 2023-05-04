@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Image from "next/image";
 import shuffleIcon from "@icons/shuffle-btn.svg";
-import {
-  StyledSecondary,
-  StyledBorderedBtn,
-} from "../../../../common/buttons/SecondaryBtn";
+import { StyledBorderedBtn, StyledSecondary } from "@/componets/common/buttons/SecondaryBtn";
+
 
 const ShuffleBtn: React.FC = () => {
   return (

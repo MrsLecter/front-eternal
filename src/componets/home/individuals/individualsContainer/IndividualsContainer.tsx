@@ -12,19 +12,23 @@ const IndividualsContainer: React.FC<IIndividualsContainerProps> = ({
 
 const StyledIndividualsContainer = styled.div`
   width: 100%;
+  max-width: 1400px;
   margin-top: 32px;
-  margin-bottom: 5.4vh;
+  margin-bottom: 0px;
   display: grid;
-  column-gap: 1.8%;
-  row-gap: 24px;
-  grid-template-columns: auto auto auto auto auto;
-  grid-auto-flow: row;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   overflow-y: auto;
 
-  @media (max-width: 375px) {
-    grid-template-columns: auto auto;
-    column-gap: 16px;
-    row-gap: 3px;
+  /* @media (max-width: 1075px) {
+    grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
+  } */
+
+  @media (max-width: 860px) {
+    margin-top: 26px;
+    margin-bottom: 58px;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
   }
 `;
 
