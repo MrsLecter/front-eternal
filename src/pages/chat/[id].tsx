@@ -1,21 +1,54 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import Header from "@/componets/common/header/Header";
-import SoulsModal from "@/componets/common/modals/soulModal/SoulsModal";
-import MenuModal from "@/componets/common/modals/menuModal/MenuModal";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import Individual from "@/componets/chat/individual/Individual";
 import Messages from "@/componets/chat/messages/Messages";
-import { getIndividualDataForId } from "@/utils/functions";
+import { getSoulsDataForId } from "@/utils/functions";
 import WrapperPage from "@/componets/common/wrappers/WrapperPage";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { APP_ROUTES, StorageCellEnum } from "@/constants/common";
+import { userSlice } from "@/store/reducers/userSlice";
+import { ILocalStorageData } from "../../../types/common.types";
+import { isConstructorDeclaration } from "typescript";
 
 const Chat: React.FC = () => {
   const router = useRouter();
-  const currentId = router.query.id as string;
-  const currentIndividualData = getIndividualDataForId(currentId);
-  console.log("individuals id:", router.query.id);
+  const soulId = router.query.id as string;
+  const currentSoulsData = getSoulsDataForId(soulId);
+  const { questionsAmount, email } = useAppSelector(
+    (store) => store.userReducer
+  );
+
+  const { signin } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  console.log(">>>questionsAmount", questionsAmount);
+
+  useEffect(() => {
+    let localData = localStorage.getItem(StorageCellEnum.USER);
+    if (localData) {
+      const parsedData: ILocalStorageData = JSON.parse(localData);
+      dispatch(
+        signin({
+          id: parsedData.id,
+          email: parsedData.email,
+          name: parsedData.name!,
+          phone: parsedData.phone!,
+          nextPayment: parsedData.nextpayment as string,
+          questionsAmount: parsedData.questionsamount,
+          readAbout: parsedData.readabout,
+          shareLink: !!parsedData.shareLink,
+        })
+      );
+      if (questionsAmount === 0) {
+        console.log("====0");
+        // router.push(APP_ROUTES.Paywall);
+      }
+      console.log(">>>questionsAmount", questionsAmount);
+    }
+  }, []);
 
   return (
     <>
@@ -27,13 +60,13 @@ const Chat: React.FC = () => {
       </Head>
       <WrapperPage color={"#0a0907"}>
         <StyledSectionWrapper>
-          <Header />
+          <Header isHaveShareBtn={true} />
           <StyledChatContainer>
             <div>
-              <Individual individualData={currentIndividualData} />
+              <Individual individualData={currentSoulsData} />
             </div>
             <div>
-              <Messages avatarImg={currentIndividualData?.image} />
+              <Messages soulId={soulId} avatarImg={currentSoulsData?.image} />
             </div>
           </StyledChatContainer>
         </StyledSectionWrapper>
@@ -45,12 +78,12 @@ const Chat: React.FC = () => {
 const StyledSectionWrapper = styled.section`
   width: 100%;
   height: 100%;
-  min-height: 100%;
+  /* min-height: 100%; */
   background-color: #0a0907;
   overflow: hidden;
 
   @media (min-width: 1600px) {
-    min-height: 1405px;
+    /* min-height: 1405px; */
   }
 
   @media (max-width: 1600px) {

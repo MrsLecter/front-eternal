@@ -21,10 +21,14 @@
     "graphql": "^16.6.0",
     "next": "13.3.0",
     "next-auth": "^4.22.1",
+    "pusher-js": "^8.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "styled-components": "^5.3.9",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "babel-plugin-inline-react-svg": "^2.0.2"
   }
 }

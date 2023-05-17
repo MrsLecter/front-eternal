@@ -4,34 +4,38 @@ import { Suspense, useEffect, useState } from "react";
 import theme from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
 import Loader from "./loading";
-import client from "@/api/apollo-client";
+import apolloClient from "@/api/apollo-client";
 import { ApolloProvider } from "@apollo/client";
 import ProvidersWrapper from "@/app/ProvidersWrapper";
 import { Provider } from "react-redux";
 import { setupStore } from "@/store";
+import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 
 const store = setupStore();
 
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+  pageProps,
+}: // pageProps: { session, ...pageProps },
+AppProps<{
+  session: Session;
+}>) {
   const [render, setRender] = useState(false);
 
   useEffect(() => setRender(true), []);
 
   return (
     <Suspense fallback={<Loader />}>
-      {/* <ProvidersWrapper session={session}> */}
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          <ThemeProvider theme={theme}>
-            {render ? <Component {...pageProps} /> : <p>Loading...</p>}
-          </ThemeProvider>
-        </ApolloProvider>
-      </Provider>
-
-      {/* </ProvidersWrapper> */}
+      <SessionProvider session={pageProps.session}>
+        <Provider store={store}>
+          <ApolloProvider client={apolloClient}>
+            <ThemeProvider theme={theme}>
+              {render ? <Component {...pageProps} /> : <Loader />}
+            </ThemeProvider>
+          </ApolloProvider>
+        </Provider>
+      </SessionProvider>
     </Suspense>
   );
 }

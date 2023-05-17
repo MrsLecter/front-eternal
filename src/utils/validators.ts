@@ -9,8 +9,10 @@ export const isValidInput = (
   if (
     type === "mmyy" &&
     value.length > 4 &&
+    +value.split("/")[0] >0 &&
     +value.split("/")[0] < 13 &&
-    +value.split("/")[1] > 22
+    +value.split("/")[1] >22 &&
+    +value.split("/")[1] < 28
   ) {
     return true;
   }

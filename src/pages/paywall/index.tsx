@@ -8,8 +8,44 @@ import StaticIndividuals from "@/componets/paywall/elements/StaticIndividuals";
 import WrapperBackground from "@/componets/common/wrappers/WrapperBakground";
 import HeaderModal from "@/componets/common/headerModal/HeaderModal";
 import TitleMedium from "@/componets/common/title/TitleMedium";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { useRouter } from "next/router";
+import { APP_ROUTES, StorageCellEnum } from "@/constants/common";
+import SoulsIntro from "@/componets/common/soulsIntro/SoulsIntro";
+import { useEffect } from "react";
+import { userSlice } from "@/store/reducers/userSlice";
+import { ILocalStorageData } from "../../../types/common.types";
 
 const Paywall: React.FC = () => {
+  const { readAbout } = useAppSelector((store) => store.userReducer);
+  const { questionsAmount } = useAppSelector((store) => store.userReducer);
+  const router = useRouter();
+  const { signin } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!questionsAmount) {
+      alert("Notice: you have used up all available questions!");
+    }
+
+    let localData = localStorage.getItem(StorageCellEnum.USER);
+    if (localData) {
+      const parsedData: ILocalStorageData = JSON.parse(localData);
+      dispatch(
+        signin({
+          id: parsedData.id,
+          email: parsedData.email,
+          name: parsedData.name!,
+          phone: parsedData.phone!,
+          nextPayment: parsedData.nextpayment as string,
+          questionsAmount: parsedData.questionsamount,
+          readAbout: parsedData.readabout,
+          shareLink: !!parsedData.shareLink,
+        })
+      );
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -18,7 +54,7 @@ const Paywall: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <WrapperCentring>
+      <WrapperCentring minHeight={900}>
         <HeaderModal />
         <WrapperContent>
           <TitleMedium
@@ -28,15 +64,28 @@ const Paywall: React.FC = () => {
             }
           />
           <ModalsContainer>
-            <WrapperModal width={"514"} noBorder={true}>
+            <WrapperModal
+              width={"514"}
+              noBorder={true}
+              isPayment={true}
+              isPaddingSmall={true}
+              minHeight={236}
+              maxHeight={421}
+            >
               <FreeOfferBlock />
             </WrapperModal>
-            <WrapperModal width={"320"}>
+            <WrapperModal
+              width={"320"}
+              isPayment={true}
+              isPaddingSmall={true}
+              minHeight={315}
+              maxHeight={421}
+            >
               <ProOfferBlock />
             </WrapperModal>
           </ModalsContainer>
         </WrapperContent>
-
+        <SoulsIntro />
         <StaticIndividuals />
         <WrapperBackground />
       </WrapperCentring>

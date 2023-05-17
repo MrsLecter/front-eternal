@@ -31,9 +31,62 @@ export interface ISigninResponse {
     accesstoken: string;
     refreshtoken: string;
     email: string;
-    nextpayment: null | string;
+    nextpayment: Date;
     phone: null | string;
     questionsamount: number;
     readabout: boolean;
+    sharelink: boolean;
   };
+}
+
+export interface IReadaboutResponse {
+  message: {
+    id: number;
+    readabout: number;
+  };
+  status: number;
+}
+
+export interface IChangeDetailsResponse {
+  message: {
+    email: string;
+    id: string;
+    name: string;
+    phone: string;
+  };
+  status: number;
+}
+
+export interface IGoogleAuthResponse {
+  status: number;
+  message: {
+    accesstoken: string;
+    email: string;
+    id: number;
+    refreshtoken: string;
+  };
+}
+
+export interface ISetProPlanResponse {
+  message: {
+    subscription: string;
+    iserid: number;
+  };
+  status: number;
+}
+
+export interface ISetFreePlanResponse {
+  message: {
+    id: number;
+    questions: number;
+  };
+  status: number;
+}
+
+export interface ICancellSubscriptionResponse {
+  message: {
+    subscription: string;
+    userid: number;
+  };
+  status: number;
 }

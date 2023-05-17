@@ -7,4 +7,5 @@ export function middleware(request: NextRequest) {
   //   return NextResponse.redirect("/hello-nextjs");
   // }
   // return NextResponse.next();
+  // console.log("middleware");
 }

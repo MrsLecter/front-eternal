@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledFooter = styled.footer`
+  position: relative;
   width: calc(100% - 64px);
   max-width: 1640px;
   height: 140px;
@@ -17,6 +18,13 @@ export const StyledFooter = styled.footer`
   background-color: ${({ theme }) => theme.color.blured};
 
   & > div:first-child {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 211.44px;
+    height: 44px;
+  }
+
+  & > a:first-child {
     width: 211.44px;
   }
 
@@ -69,5 +77,19 @@ export const StyledSocial = styled.nav`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  a {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-image: ${({ theme }) => theme.backgroundColorGradient};
+  }
+
+  a:hover {
+    background-image: ${({ theme }) => theme.backgroundColorGradientHovered};
   }
 `;

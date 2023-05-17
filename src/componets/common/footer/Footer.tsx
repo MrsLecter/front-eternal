@@ -7,11 +7,16 @@ import twitterIcon from "@icons/social-twitter.svg";
 import youtubeIcon from "@icons/social-youtube.svg";
 import facebokIcon from "@icons/social-facebook.svg";
 import { H6 } from "@/styles/textStyles/Arquitecta";
+import Link from "next/link";
 
-const Footer: React.FC = () => {
+interface IFooterProps {
+  liftToTopHandler?: () => void;
+}
+
+const Footer: React.FC<IFooterProps> = ({ liftToTopHandler }) => {
   return (
     <StyledFooter>
-      <div>
+      <div onClick={liftToTopHandler}>
         <Logo />
       </div>
       <div>
@@ -25,24 +30,24 @@ const Footer: React.FC = () => {
               <Image
                 src={twitterIcon}
                 alt="twitter-icon.svg"
-                width={32}
-                height={32}
+                width={13.71}
+                height={11.15}
               />
             </a>
             <a href="https://www.facebook.com" target="_blank">
               <Image
                 src={facebokIcon}
                 alt="facebook-icon.svg"
-                width={32}
-                height={32}
+                width={6.86}
+                height={13.71}
               />
             </a>
             <a href="https://www.youtube.com" target="_blank">
               <Image
                 src={youtubeIcon}
                 alt="youtube-icon.svg"
-                width={32}
-                height={32}
+                width={15.44}
+                height={10.86}
               />
             </a>
           </div>

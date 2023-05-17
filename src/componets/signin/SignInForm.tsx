@@ -14,7 +14,7 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import { APP_ROUTES } from "@/constants/common";
 
 const SignInForm: React.FC = () => {
-  const { setEmail } = userSlice.actions;
+  const { signin } = userSlice.actions;
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -74,7 +74,18 @@ const SignInForm: React.FC = () => {
         console.log("response write type! signin", response, response.status);
         if (response.status === 201) {
           console.log("status 201", response.data.message.email);
-          dispatch(setEmail({ email: response.data.message.email }));
+          dispatch(
+            signin({
+              id: response.data.message.id,
+              email: response.data.message.email,
+              name: response.data.message.name,
+              phone: response.data.message.phone,
+              readAbout: response.data.message.readabout,
+              nextPayment: response.data.message.nextpayment,
+              questionsAmount: response.data.message.questionsamount,
+              shareLink: response.data.message.sharelink,
+            })
+          );
           localStorageHandler.signin({
             id: response.data.message.id,
             email: response.data.message.email,
@@ -85,9 +96,11 @@ const SignInForm: React.FC = () => {
             questionsamount: response.data.message.questionsamount,
             accessToken: response.data.message.accesstoken,
             refreshToken: response.data.message.refreshtoken,
+            shareLink: response.data.message.sharelink,
           });
-          //queryAmount =0 - paywall : chat
-          if (response.data.message.questionsamount === 0) {
+          if (!response.data.message.readabout) {
+            router.push(APP_ROUTES.About);
+          } else if (response.data.message.questionsamount === 0) {
             router.push(APP_ROUTES.Paywall);
           } else {
             router.push(APP_ROUTES.Home);
@@ -118,7 +131,7 @@ const SignInForm: React.FC = () => {
       <Input
         type={"password"}
         label={"Password"}
-        placeholder={"password"}
+        placeholder={"•••••••••••••••••••"}
         inputValue={password}
         isRequired={false}
         onChangeHandler={passwordChangeHandler}
@@ -156,7 +169,7 @@ const StyledLink = styled.div`
   @media (max-width: 870px) {
     margin-top: 21px;
     margin-bottom: 24px;
-    a {
+    button {
       font-size: 14px;
       line-height: 21px;
     }

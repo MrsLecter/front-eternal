@@ -1,4 +1,6 @@
 import { APP_ROUTES } from "@/constants/common";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { internalSlice } from "@/store/reducers/internalSlice";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -18,6 +20,10 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
   image,
   background,
 }) => {
+  const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
+  const { questionsAmount } = useAppSelector((store) => store.userReducer);
+  const dispatch = useAppDispatch();
+
   let largeWidth = 0;
   let largeHeight = 0;
   let smallWidth = 0;
@@ -28,8 +34,21 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
     smallWidth = (document.documentElement.clientWidth * 31.07) / 100;
     smallHeight = (document.documentElement.clientHeight * 2.71) / 100;
   }
+
+  const handleIndividualsClick = () => {
+    dispatch(setUserMessageFirst({ isUserMessageFirst: false }));
+    dispatch(setFirstMessage({ message: "Tell me about yourself" }));
+  };
+
   return (
-    <Link href={APP_ROUTES.Chat + id}>
+    <Link
+      href={
+        questionsAmount === "Infinity" || +questionsAmount > 0
+          ? APP_ROUTES.Chat + id
+          : APP_ROUTES.Paywall
+      }
+      onClick={handleIndividualsClick}
+    >
       <StyledIndividualsCard>
         <StyledImageWrapper>
           {document.documentElement.clientWidth > 860 ? (
@@ -43,9 +62,9 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   // priority={true}
                   style={{
                     zIndex: 4,
-                    minHeight: "100%",
+                    minHeight: "102%",
                     width: "100%",
-                    height: "100%",
+                    height: "102%",
                     objectFit: "fill",
                     borderRadius: "16px",
                     filter: "blur(50px)",
@@ -63,7 +82,8 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   top: 0,
                   zIndex: 3,
                   width: "100%",
-                  height: "100%",
+                  height: "102%",
+                  minHeight: "102%",
                   objectFit: "fill",
                   borderRadius: "16px",
                   backgroundColor: "transparent",
@@ -83,7 +103,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   style={{
                     zIndex: 4,
                     minHeight: "100%",
-                    maxHeight: "227.72px",
+                    maxHeight: "228.72px",
                     width: "100%",
                     height: "100%",
                     objectFit: "fill",
@@ -104,7 +124,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   zIndex: 3,
                   width: "100%",
                   height: "100%",
-                  maxHeight: "227.72px",
+                  maxHeight: "228.72px",
                   objectFit: "cover",
                   borderRadius: "16px",
                   backgroundColor: "transparent",
@@ -137,6 +157,7 @@ const StyledIndividualsCard = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   overflow: hidden;
+  background-color: #101015;
   cursor: pointer;
 
   &:hover {
@@ -147,22 +168,16 @@ const StyledIndividualsCard = styled.div`
     }
   }
 
-  /* @media (max-width: 1075px) {
-    width: 162px;
-  } */
-
   @media (max-width: 860px) {
     width: 162px;
     height: 281.72px;
-
-    /* height: 100%; */
 
     div:last-child {
       height: auto;
     }
 
     img {
-      height: 227.72px;
+      height: 228.72px;
     }
 
     &:hover {
@@ -183,8 +198,8 @@ const StyledImageWrapper = styled.div`
   overflow: hidden;
 
   img {
-    width: 100%;
-    height: 297.72px;
+    width: 102%;
+    height: 298.72px;
   }
 
   & > div {
@@ -207,7 +222,7 @@ const StyledImageWrapper = styled.div`
 
     img {
       width: 110%;
-      min-height: 227.72px;
+      min-height: 228.72px;
     }
   }
 `;
@@ -241,7 +256,8 @@ const StyledIndividualsAbout = styled.div`
   }
 
   div:first-child {
-    margin-top: 8px;
+    margin-top: 20px;
+    margin-bottom: 4px;
   }
 
   div:last-child {

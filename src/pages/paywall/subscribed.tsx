@@ -12,8 +12,35 @@ import StaticIndividuals from "@/componets/paywall/elements/StaticIndividuals";
 import WrapperBackground from "@/componets/common/wrappers/WrapperBakground";
 import HeaderModal from "@/componets/common/headerModal/HeaderModal";
 import TitleMedium from "@/componets/common/title/TitleMedium";
+import SoulsIntro from "@/componets/common/soulsIntro/SoulsIntro";
+import { userSlice } from "@/store/reducers/userSlice";
+import { StorageCellEnum } from "@/constants/common";
+import { useAppDispatch } from "@/hooks/reducers.hook";
+import { useEffect } from "react";
+import { ILocalStorageData } from "../../../types/common.types";
 
 const Paywall: React.FC = () => {
+  const { signin } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let localData = localStorage.getItem(StorageCellEnum.USER);
+    if (localData) {
+      const parsedData: ILocalStorageData = JSON.parse(localData);
+      dispatch(
+        signin({
+          id: parsedData.id,
+          email: parsedData.email,
+          name: parsedData.name!,
+          phone: parsedData.phone!,
+          nextPayment: parsedData.nextpayment as string,
+          questionsAmount: parsedData.questionsamount,
+          readAbout: parsedData.readabout,
+          shareLink: !!parsedData.shareLink,
+        })
+      );
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -25,12 +52,19 @@ const Paywall: React.FC = () => {
       <WrapperCentring>
         <HeaderModal />
         <WrapperContent>
-          <WrapperModal width={"625"}>
+          <WrapperModal
+            width={"625"}
+            isPayment={true}
+            isPaddingSmall={true}
+            minHeight={243}
+            maxHeight={355}
+          >
             <SubscribedBlock />
           </WrapperModal>
         </WrapperContent>
 
         <StaticIndividuals />
+        <SoulsIntro />
         <WrapperBackground />
       </WrapperCentring>
     </>

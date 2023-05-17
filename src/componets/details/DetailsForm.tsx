@@ -13,6 +13,7 @@ import {
 import { useInput } from "@/hooks/use-input";
 import { FormEvent } from "react";
 import userService from "@/api/user-service";
+import { APP_ROUTES } from "@/constants/common";
 
 const DetailsForm: React.FC = () => {
   const { setEmail } = userSlice.actions;
@@ -79,6 +80,11 @@ const DetailsForm: React.FC = () => {
           email: emailInput,
           phone: phoneInput,
         });
+        console.log("response write type", response);
+        if (response.status === 200) {
+          console.log("details changed ok");
+          router.push(APP_ROUTES.Paywall);
+        }
       } catch (err) {
         console.log("Error: ", err);
       }
@@ -126,6 +132,7 @@ const DetailsForm: React.FC = () => {
 
 const StyledForm = styled.form`
   margin-top: 34px;
+  margin-bottom: -34px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -140,7 +147,6 @@ const StyledForm = styled.form`
     margin-top: 24px;
     margin-bottom: -24px;
     & > div:last-child {
-      /* margin-bottom: 16px; */
       width: 100%;
     }
   }

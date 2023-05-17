@@ -28,7 +28,8 @@
   margin: 0;
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);
-
+  scroll-behavior: smooth;
+  /* background-color: black; */
 }
 
 html,

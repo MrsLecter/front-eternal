@@ -2,11 +2,22 @@ import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
 import QuestionItem from "../questionItem/QuestionItem";
 import styled from "styled-components";
 
-const Questions: React.FC = () => {
+interface IQuestionsProps {
+  setQuestionHandler: (id: number) => void;
+}
+
+const Questions: React.FC<IQuestionsProps> = ({ setQuestionHandler }) => {
   return (
     <StyledQuestionContainer>
-      {GREETING_USER_QUESTIONS.map((item, index) => {
-        return <QuestionItem key={item} label={item} />;
+      {GREETING_USER_QUESTIONS.map((item) => {
+        return (
+          <QuestionItem
+            key={item.id}
+            label={item.text}
+            id={item.id}
+            clickHandler={() => setQuestionHandler(item.id)}
+          />
+        );
       })}
     </StyledQuestionContainer>
   );

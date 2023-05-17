@@ -17,13 +17,14 @@ const StyledBackground = styled.div<{ background: string }>`
   /* position: relative; */
   width: 100%;
   height: 100%;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
   background-color: ${(props) => props.background};
-  z-index: -3;
+  z-index: -12;
   /* background-image: linear-gradient(
     115deg,
     rgba(88, 51, 239, 0.2) 0.5%,

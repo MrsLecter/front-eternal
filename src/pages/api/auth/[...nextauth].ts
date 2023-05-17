@@ -1,5 +1,10 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+import {
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+  NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+  JWT_SECRET,
+} from "@const/api-keys";
 
 const GOOGLE_AUTHORIZATION_URL =
   "https://accounts.google.com/o/oauth2/v2/auth?" +
@@ -12,11 +17,12 @@ const GOOGLE_AUTHORIZATION_URL =
 export default NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+      clientId: NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      clientSecret: NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
       authorization: GOOGLE_AUTHORIZATION_URL,
     }),
   ],
+  secret: JWT_SECRET,
   theme: {
     colorScheme: "dark", // "auto" | "dark" | "light"
     brandColor: "#004821", // Hex color code
@@ -26,18 +32,21 @@ export default NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    // async jwt({ token, account }) {
-    //   // Persist the OAuth access_token to the token right after signin
-    //   if (account) {
-    //     token.userRole = "admin";
-    //     token.accessToken = account.access_token;
-    //   }
-    //   return token;
-    // },
-    // async session({ session, token, user }) {
-    //   // Send properties to the client, like an access_token from a provider.
-    //   session.accessToken = token.accessToken;
-    //   return session;
-    // },
+    async jwt({ token, account }) {
+      if (account) {
+        token.tokenid = account.id_token;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session) {
+        session = Object.assign({}, session, {
+          token_id: token.tokenid,
+        });
+        console.log(session);
+      }
+      return session;
+    },
   },
 });

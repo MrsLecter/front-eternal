@@ -1,11 +1,16 @@
-import { IUserData } from "@/types/common.types";
+import { setNextPayment } from "@/utils/functions";
+import { IUserData } from "../../../types/common.types";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 const userSetting: IUserData = {
+  id: 0,
   email: "",
-  questionsAmount: 0,
-  smsAvailable: false,
+  name: "",
+  phone: "",
+  nextPayment: "",
+  questionsAmount: 1,
   readAbout: false,
+  shareLink: true,
 };
 
 export const userSlice = createSlice({
@@ -16,8 +21,57 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
     },
 
+    signin(
+      state,
+      action: PayloadAction<{
+        id: number;
+        email: string;
+        name: string;
+        phone: string;
+        nextPayment: string | Date;
+        questionsAmount: number | string;
+        readAbout: boolean;
+        shareLink: boolean;
+      }>
+    ) {
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.phone = action.payload.phone;
+      state.nextPayment = action.payload.nextPayment as Date;
+      state.questionsAmount = action.payload.questionsAmount;
+      state.readAbout = action.payload.readAbout;
+      state.shareLink = action.payload.shareLink;
+    },
+
+    signout(state) {
+      (state.id = 0), (state.email = "");
+      state.name = "";
+      state.phone = "";
+      state.nextPayment = "";
+      state.questionsAmount = 1;
+      state.readAbout = false;
+      state.shareLink = true;
+    },
+
     setReadAbout(state) {
       state.readAbout = true;
+    },
+
+    setFreePlan(state) {
+      if (!state.shareLink) {
+        state.questionsAmount = 3;
+        state.shareLink = true;
+      }
+    },
+
+    setProPlan(state) {
+      state.questionsAmount = "Infinity";
+      state.nextPayment = setNextPayment();
+    },
+
+    cancelSubscription(state) {
+      state.nextPayment = "";
     },
 
     setNamePhone(
@@ -46,8 +100,10 @@ export const userSlice = createSlice({
       state.questionsAmount = action.payload.questionsAmount;
     },
 
-    setSms(state, action: PayloadAction<{ smsAvailable: boolean }>) {
-      state.smsAvailable = action.payload.smsAvailable;
+    removeOneQuestion(state) {
+      if (state.questionsAmount !== "Infinity") {
+        state.questionsAmount = +state.questionsAmount - 1;
+      }
     },
   },
 });

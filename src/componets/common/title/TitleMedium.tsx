@@ -37,7 +37,7 @@ export const StyledTileMedium = styled.div`
     line-height: 27px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 870px) {
     width: 343px;
     margin-bottom: 16px;
 

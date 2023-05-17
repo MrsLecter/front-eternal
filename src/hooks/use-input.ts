@@ -1,5 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import { useInputProps } from "./use-input.types";
+import { getMaskedUserInput } from "@/utils/inputMask";
+import { isValidInput } from "@/utils/validators";
 
 export const useInput = (props: useInputProps) => {
   const { regexp, allowEmpty, mask, maskType, initialValue = "" } = props;
@@ -23,7 +25,12 @@ export const useInput = (props: useInputProps) => {
     ) {
       setInputIsValid(true);
     }
-    setInput(event.target.value);
+    if (mask) {
+      setInput(getMaskedUserInput(event.target.value, mask, maskType));
+      setInputIsValid(isValidInput(event.target.value, maskType));
+    } else {
+      setInput(event.target.value);
+    }
   };
 
   return {

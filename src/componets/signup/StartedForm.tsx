@@ -1,10 +1,13 @@
+"use client";
+
 import styled from "styled-components";
 import GoogleSignUp from "./GoogleSignUpBtn";
 import AdditionalFormInfo from "../common/additionalFormInfo/AdditionalFormInfo";
 import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
 import Input from "../common/input/Input";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { userSlice } from "@/store/reducers/userSlice";
@@ -12,12 +15,10 @@ import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
 import axios from "axios";
-import {
-  APP_ROUTES,
-  GOOGLE_AUTH_API,
-  REGISTRATION_URL,
-} from "@/constants/common";
+import { APP_ROUTES } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
+import Google from "next-auth/providers/google";
+import { Session } from "next-auth";
 
 interface IStartedFormProps {}
 
@@ -25,6 +26,36 @@ const StartedForm: React.FC<IStartedFormProps> = ({}) => {
   const { setEmail } = userSlice.actions;
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const session = useSession();
+  console.log(">>>", session);
+
+  useEffect(() => {
+    console.log("use effect session data", session.data);
+    const sendGoogleToken = async (token: string) => {
+      try {
+        const response = await userService.googleAuth(token);
+        console.log("response google write type", response);
+        if (response.status === 201) {
+          dispatch(setEmail({ email: response.data.message.email }));
+          localStorageHandler.signup({
+            id: response.data.message.id,
+            email: response.data.message.email,
+            accessToken: response.data.message.accesstoken,
+            refreshToken: response.data.message.refreshtoken,
+          });
+
+          router.push(APP_ROUTES.About);
+        }
+      } catch (err) {
+        console.error("Error: ", err);
+      }
+    };
+    if (session.data) {
+      console.log("use effect session data", session.data);
+      sendGoogleToken(session.data.token_id);
+    }
+  }, [session.data]);
 
   const {
     value: email,
@@ -40,7 +71,8 @@ const StartedForm: React.FC<IStartedFormProps> = ({}) => {
 
   const googleAuthHandler = () => {
     console.log("click google auth");
-    return router.push(GOOGLE_AUTH_API);
+    signIn();
+    // return router.push(GOOGLE_AUTH_API);
   };
 
   const formSignupSubmit = async (event: FormEvent) => {
@@ -81,45 +113,36 @@ const StartedForm: React.FC<IStartedFormProps> = ({}) => {
         email,
         password,
       });
-      // const response = await axios.post(
-      //   REGISTRATION_URL,
-      //   {
-      //     email,
-      //     password,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-      console.log("response1", response, response.response.status);
+      console.log("response1", response, response.status);
       if (response.status === 201) {
         console.log("status 201");
-        dispatch(setEmail({ email: response.message.email }));
+        alert(
+          "Success: user is successfully registered. Signin to use service"
+        );
+        dispatch(setEmail({ email: response.data.message.email }));
         localStorageHandler.signup({
-          id: response.message.id,
-          email: response.message.email,
-          accessToken: response.message.accesstoken,
-          refreshToken: response.message.refreshtoken,
+          id: response.data.message.id,
+          email: response.data.message.email,
+          accessToken: response.data.message.accesstoken,
+          refreshToken: response.data.message.refreshtoken,
         });
 
-        router.push(APP_ROUTES.About);
+        router.push(APP_ROUTES.Signin);
       }
       if (response.response.status === 406) {
         alert("Error: user already exist! Please, login");
         router.push(APP_ROUTES.Signin);
       }
     } catch (err: any) {
-      console.log("Error:", err.response.status);
-      if (err.response.status === 406) {
-        alert(
-          "The user is already registered. You will be redirected to the login page"
-        );
-        router.push(APP_ROUTES.Signin);
-      } else {
-        router.reload();
-      }
+      console.log("Error:", err);
+      // if (err.response.status === 406) {
+      //   alert(
+      //     "The user is already registered. You will be redirected to the login page"
+      //   );
+      //   router.push(APP_ROUTES.Signin);
+      // } else {
+      // router.reload();
+      // }
       // navigate("../" + AppUrlsEnum.INFO + "/Error during request. Try again");
     }
   };
@@ -136,7 +159,7 @@ const StartedForm: React.FC<IStartedFormProps> = ({}) => {
       <Input
         type={"password"}
         label={"Password"}
-        placeholder={"password"}
+        placeholder={"•••••••••••••••••••"}
         inputValue={password}
         onChangeHandler={passwordChangeHandler}
       />
@@ -166,7 +189,7 @@ const StyledFormRow = styled.div`
   align-items: center;
 
   & > div {
-    margin-top: 4px;
+    margin-top: 0px;
     width: 48.72%;
   }
 

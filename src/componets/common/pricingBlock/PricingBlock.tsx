@@ -4,7 +4,7 @@ import ProBtn from "../buttons/ProBtn";
 
 interface IPricingBlockProps {
   paymentMonthly: number;
-  nextPayment?: string;
+  nextPayment?: string | Date;
 }
 
 const PricingBlock: React.FC<IPricingBlockProps> = ({
@@ -16,7 +16,7 @@ const PricingBlock: React.FC<IPricingBlockProps> = ({
       <ProBtn />
       <Avenir.H4>${paymentMonthly}&nbsp;/&nbsp;month</Avenir.H4>
       <Avenir.BodyMedium>
-        {nextPayment
+        {!!nextPayment
           ? `Next payment will be processed on ${nextPayment}`
           : "Subscribe to have opportunity to asking unlimited questions"}
       </Avenir.BodyMedium>

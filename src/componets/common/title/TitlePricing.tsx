@@ -14,7 +14,7 @@ const TitlePricing: React.FC<ITitlePricingProps> = ({
 }) => {
   return (
     <StyledTitlePricing>
-      <p>${paymentMonthly}/month</p>
+      <p>${paymentMonthly}&nbsp;/&nbsp;month</p>
       {!oneRow && <p>Next payment will be processed on {nextPayment}</p>}
     </StyledTitlePricing>
   );
@@ -22,7 +22,7 @@ const TitlePricing: React.FC<ITitlePricingProps> = ({
 
 const StyledTitlePricing = styled.div`
   margin-top: 12px;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   width: 100%;
 
   p {
@@ -47,11 +47,14 @@ const StyledTitlePricing = styled.div`
     opacity: 0.7;
   }
 
-  @media (max-width: 375px) {
-    margin-bottom: 16px;
+  @media (max-width: 870px) {
+    width: 184px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+
     p:first-child {
-      font-size: 20px;
-      line-height: 30px;
+      font-size: 18px;
+      line-height: 27px;
       margin-bottom: 8px;
     }
 

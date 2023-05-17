@@ -1,12 +1,21 @@
 export const GREETING_USER_QUESTIONS = [
-  "What did you want to be when you grew up?",
-  "What is the meaning of life?",
-  "What is your greatest accomplishment?",
+  {
+    id: 1,
+    text: "What did you want to be when you grew up?",
+  },
+  {
+    id: 2,
+    text: "What is the meaning of life?",
+  },
+  {
+    id: 3,
+    text: "What is your greatest accomplishment?",
+  },
 ];
 
 export const INDIVIDUALS_DATA = [
   {
-    id: 1,
+    id: 2,
     name: "dr. martin luther king jr.",
     about: "political activist",
     image: "/images/individuals/2_martin_luther_king.png",
@@ -14,7 +23,7 @@ export const INDIVIDUALS_DATA = [
   },
 
   {
-    id: 2,
+    id: 1,
     name: "Steve Jobs",
     about: "Apple Computer Founder",
     image: "/images/individuals/1_steve_jobs.png",

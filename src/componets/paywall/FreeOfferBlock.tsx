@@ -1,9 +1,37 @@
 import styled from "styled-components";
 import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { userSlice } from "@/store/reducers/userSlice";
+import { SHARE_LINK_MESSAGE } from "@/constants/common";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import userService from "@/api/user-service";
 
 const FreeOfferBlock: React.FC = () => {
+  const { shareLink } = useAppSelector((store) => store.userReducer);
+  const { setFreePlan } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  const orderFreePlan = async () => {
+    if (shareLink) {
+      navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+      alert("Link copied! Notice: you can get free questions only once");
+      const response = await userService.setFreePlan();
+      console.log("response set free plan write type", response);
+    }
+    if (!shareLink) {
+      dispatch(setFreePlan());
+      localStorageHandler.setFreePaln();
+      navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+      alert(
+        "Link copied. You now have the opportunity to ask 3 questions! Notice: you can get free questions only once"
+      );
+      const response = await userService.setFreePlan();
+      console.log("response set free plan write type", response);
+    }
+    console.log("share click");
+  };
   return (
-    <StyledOfferBlock>
+    <StyledFreeOfferBlock>
       <StyledLabel>Free</StyledLabel>
       <StyledOffer>
         <p>Share with a friend</p>
@@ -13,22 +41,30 @@ const FreeOfferBlock: React.FC = () => {
         </p>
       </StyledOffer>
       <StyledBtnWrapper>
-        <SecondaryWhiteBtn label={"Share"} />
+        <SecondaryWhiteBtn label={"Share"} clickHandler={orderFreePlan} />
       </StyledBtnWrapper>
-    </StyledOfferBlock>
+    </StyledFreeOfferBlock>
   );
 };
 
-export const StyledOfferBlock = styled.div`
+const StyledFreeOfferBlock = styled.div`
+  height: 325px;
+  min-height: 325px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 0;
+
+  @media (max-width: 530px) {
+    height: 186px;
+    min-height: 186px;
+  }
 `;
 
 const StyledLabel = styled.div`
-  margin-bottom: 24px;
+  margin-top: 52px;
+  margin-bottom: 32px;
   width: 68px;
   height: 43px;
   background-color: white;
@@ -43,6 +79,7 @@ const StyledLabel = styled.div`
   letter-spacing: -0.01em;
 
   @media (max-width: 530px) {
+    margin-top: -2px;
     margin-bottom: 18px;
     width: 60px;
     height: 37px;
@@ -61,7 +98,7 @@ const StyledOffer = styled.div`
     font-family: "Avenir Extra-bold";
     font-weight: 800;
     font-size: 24px;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
 
   p:last-child {
@@ -70,6 +107,7 @@ const StyledOffer = styled.div`
     font-weight: 400;
     font-size: 18px;
     color: rgba(255, 255, 255, 0.7);
+    letter-spacing: -0.01em;
 
     span {
       color: ${({ theme }) => theme.color.pink};
@@ -89,11 +127,13 @@ const StyledOffer = styled.div`
 `;
 
 const StyledBtnWrapper = styled.div`
+  margin-top: 0px;
   width: 220px;
+  margin-bottom: 0px;
 
   @media (max-width: 530px) {
     width: 100%;
-    margin-top: 16px;
+    margin-top: 10px;
   }
 `;
 

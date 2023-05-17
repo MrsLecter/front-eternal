@@ -1,13 +1,9 @@
 import Image from "next/image";
 import { StyledIndividual, StyledIndividualLabel } from "./Individual.styles";
-import mar from "@images/individuals/2_martin_luther_king.png";
-import { IIndividualsData } from "@/types/common.types";
-import loaderImg from "@images/loader.png";
+import { IIndividualsData } from "../../../../types/common.types";
 import * as Arquitecta from "@typography/Arquitecta";
-import { StyledWrapperLoader } from "./Individual.styles";
-import dynamic from "next/dynamic";
-import { useEffect } from "react";
-import SmsBtn from "./elements/SmsBtn";
+import React from "react";
+import LoaderImage from "@/componets/common/loader/LoaderImage";
 
 interface IIndividualProps {
   individualData: IIndividualsData | undefined;
@@ -19,7 +15,7 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
   let smallWidth = 0;
   let smallHeight = 0;
 
-  useEffect(() => {}, [document.documentElement.clientWidth]);
+  console.log("*****refresh individuals********");
 
   if (typeof window !== "undefined") {
     largeWidth = (document.documentElement.clientWidth * 53) / 100;
@@ -72,22 +68,13 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
           />
         </div>
       )}
+      <LoaderImage />
       <StyledIndividualLabel>
         <Arquitecta.H2>{individualData.name}</Arquitecta.H2>
         <Arquitecta.H4>{individualData.about}</Arquitecta.H4>
       </StyledIndividualLabel>
-      {document.documentElement.clientWidth < 1250 && <SmsBtn />}
-      {/* <StyledWrapperLoader>
-        <Image
-          alt="travel"
-          src={loaderImg}
-          fill={true}
-          style={{ objectFit: "cover" }}
-          quality={100}
-        />
-      </StyledWrapperLoader> */}
     </StyledIndividual>
   );
 };
 
-export default Individual;
+export default React.memo(Individual);

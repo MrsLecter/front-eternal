@@ -1,18 +1,41 @@
 import Head from "next/head";
-import Image from "next/image";
 import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
 import WrapperModal from "@/componets/common/wrappers/WrapperModal";
-import FreeOfferBlock from "@/componets/paywall/FreeOfferBlock";
-import ProOfferBlock from "@/componets/paywall/ProOfferBlock";
 import styled from "styled-components";
-import individualsImage from "@images/individuals.png";
 import CardpayBlock from "@/componets/paywall/CardpayBlock";
 import StaticIndividuals from "@/componets/paywall/elements/StaticIndividuals";
 import WrapperBackground from "@/componets/common/wrappers/WrapperBakground";
 import HeaderModal from "@/componets/common/headerModal/HeaderModal";
 import TitleMedium from "@/componets/common/title/TitleMedium";
+import SoulsIntro from "@/componets/common/soulsIntro/SoulsIntro";
+import { userSlice } from "@/store/reducers/userSlice";
+import { StorageCellEnum } from "@/constants/common";
+import { useAppDispatch } from "@/hooks/reducers.hook";
+import { useEffect } from "react";
+import { ILocalStorageData } from "../../../types/common.types";
 
 const Paywall: React.FC = () => {
+  const { signin } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let localData = localStorage.getItem(StorageCellEnum.USER);
+    if (localData) {
+      const parsedData: ILocalStorageData = JSON.parse(localData);
+      dispatch(
+        signin({
+          id: parsedData.id,
+          email: parsedData.email,
+          name: parsedData.name!,
+          phone: parsedData.phone!,
+          nextPayment: parsedData.nextpayment as string,
+          questionsAmount: parsedData.questionsamount,
+          readAbout: parsedData.readabout,
+          shareLink: !!parsedData.shareLink,
+        })
+      );
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -31,12 +54,18 @@ const Paywall: React.FC = () => {
             }
           />
 
-          <WrapperModal width={"625"}>
+          <WrapperModal
+            width={"625"}
+            isPaddingSmall={true}
+            maxHeight={364}
+            minHeight={328}
+          >
             <CardpayBlock />
           </WrapperModal>
         </WrapperContent>
 
         <StaticIndividuals />
+        <SoulsIntro />
         <WrapperBackground />
       </WrapperCentring>
     </>

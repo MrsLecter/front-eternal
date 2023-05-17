@@ -4,16 +4,40 @@ import UpdatePaymentBlock from "@/componets/details/UpdatePaymentBlock";
 import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
 import WrapperModal from "@/componets/common/wrappers/WrapperModal";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "@/componets/common/header/Header";
 import Footer from "@/componets/common/footer/Footer";
 import { StyledContent } from "../index";
-import { useAppSelector } from "@/hooks/reducers.hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import { userSlice } from "@/store/reducers/userSlice";
+import { StorageCellEnum } from "@/constants/common";
+import { ILocalStorageData } from "../../../types/common.types";
 
 const Details: React.FC = () => {
+  const { signin } = userSlice.actions;
+  const dispatch = useAppDispatch();
 
-  
+  useEffect(() => {
+    let localData = localStorage.getItem(StorageCellEnum.USER);
+    if (localData) {
+      const parsedData: ILocalStorageData = JSON.parse(localData);
+      dispatch(
+        signin({
+          id: parsedData.id,
+          email: parsedData.email,
+          name: parsedData.name!,
+          phone: parsedData.phone!,
+          nextPayment: parsedData.nextpayment as string,
+          questionsAmount: parsedData.questionsamount,
+          readAbout: parsedData.readabout,
+          shareLink: !!parsedData.shareLink,
+        })
+      );
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -29,13 +53,23 @@ const Details: React.FC = () => {
             <Header />
           </StyledHeaderContainer>
           <StyledModalWrapper>
-            <WrapperModal width={"760"} paddingSmall={true}>
+            <WrapperModal
+              width={"760"}
+              isPaddingSmall={true}
+              minHeight={594}
+              maxHeight={742}
+            >
               <WrapperDetailsForm>
                 <p>Account Details</p>
                 <DetailsForm />
               </WrapperDetailsForm>
             </WrapperModal>
-            <WrapperModal width={"760"} paddingSmall={true}>
+            <WrapperModal
+              width={"760"}
+              isPaddingSmall={true}
+              minHeight={328}
+              maxHeight={365}
+            >
               <UpdatePaymentBlock />
             </WrapperModal>
           </StyledModalWrapper>
@@ -69,6 +103,11 @@ const WrapperDetailsCentring = styled.div`
   background: transparent;
   overflow-x: hidden;
   overflow-y: auto;
+
+  @media (max-width: 870px) {
+    height: 800px;
+    min-height: 800px;
+  }
 `;
 
 const StyledHeaderContainer = styled.div`
@@ -118,7 +157,5 @@ const WrapperDetailsForm = styled.div`
     margin-top: 0px;
   }
 `;
-
-
 
 export default Details;

@@ -1,6 +1,7 @@
 import localStorageHandler from "@/utils/local-storage-hendler";
 import axios, { AxiosResponse } from "axios";
 import userService from "./user-service";
+import { APP_ROUTES } from "@/constants/common";
 
 const axiosInstance = () => {
   const axiosInstance = axios.create();
@@ -18,7 +19,7 @@ const axiosInstance = () => {
     }
     if (error.response.status === 401) {
       localStorageHandler.deleteUsersData();
-      window.location.replace("../auth/login");
+      window.location.replace(APP_ROUTES.Signin);
     }
     if (error.response.status === 403) {
       const newTokens = await userService.makeRefreshRequest();
@@ -30,8 +31,10 @@ const axiosInstance = () => {
         return axiosInstance(error.config);
       } else {
         localStorageHandler.deleteUsersData();
-        window.location.replace("../");
+        window.location.replace(APP_ROUTES.Home);
       }
+    } else {
+      return error.response;
     }
   };
   axiosInstance.interceptors.response.use(onSuccess, onError);

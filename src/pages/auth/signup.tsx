@@ -24,6 +24,8 @@ const SignUp: React.FC = () => {
           width={"721"}
           header={"Get started"}
           text={"To continue please create an account"}
+          minHeight={570}
+          maxHeight={612}
         >
           <StartedForm />
         </WrapperModal>

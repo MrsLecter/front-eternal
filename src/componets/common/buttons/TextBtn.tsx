@@ -2,14 +2,20 @@ import styled from "styled-components";
 
 interface ITextBtnProps {
   label: string;
+  clickHandler?: () => void;
 }
 
-const TextBtn: React.FC<ITextBtnProps> = ({ label }) => {
-  return <StyledTextBtn type="button">{label}</StyledTextBtn>;
+const TextBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
+  return (
+    <StyledTextBtn onClick={clickHandler} type="button">
+      {label}
+    </StyledTextBtn>
+  );
 };
 
 const StyledTextBtn = styled.button`
   width: 100%;
+  min-width: 103px;
   height: 48px;
   display: grid;
   place-content: center;

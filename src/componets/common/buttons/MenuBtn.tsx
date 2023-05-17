@@ -37,11 +37,6 @@ const StyledMenuSign = styled.div`
     margin-right: 6px;
   }
 
-  &:hover > div {
-    background: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%),
-      #d9d9d9;
-  }
-
   @media (max-width: 870px) {
     div {
       background: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%),
@@ -60,6 +55,13 @@ const StyledMenuBtn = styled.button`
   border: none;
   z-index: 2;
   cursor: pointer;
+
+  &:hover > div {
+    div {
+      background: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%),
+        #d9d9d9;
+    }
+  }
 `;
 
 export default MenuBtn;

@@ -2,17 +2,14 @@ import styled from "styled-components";
 
 export const StyledBackgroundImageWrapper = styled.div`
   position: absolute;
-  /* top: 110px; */
   top: 0px;
   width: 100%;
   height: 1262px;
   min-height: 1262px;
   overflow: hidden;
-  max-width: 1660px;
+  max-width: 1642px;
   min-width: 700px;
   z-index: 1;
-
-  /* background-color: red; */
 
   & > div:nth-child(1) {
     position: absolute;
@@ -140,7 +137,7 @@ export const StyledBackgroundImageWrapper = styled.div`
   @media (max-width: 670px) {
     top: 0px;
     height: 716px;
-    min-height: 716px;
+    min-height: 616px;
     max-height: 716px;
   }
 
@@ -181,15 +178,16 @@ export const StyledBackgroundImageWrapper = styled.div`
 export const StyledSection = styled.section`
   position: relative;
   width: 100%;
-  max-width: 1640px;
-  height: 1262px;
-  min-height: 1262px;
-  max-height: 1262px;
+  max-width: 1642px;
+  height: 1182px;
+  min-height: 1182px;
+  max-height: 1182px;
   /* min-height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  /* background-color: blue; */
   /* overflow: hidden; */
 
   @media (max-width: 1130px) {
@@ -205,8 +203,8 @@ export const StyledSection = styled.section`
   }
 
   @media (max-width: 670px) {
-    height: 716px;
-    min-height: 716px;
+    height: 645px;
+    min-height: 645px;
     max-height: 716px;
   }
 `;
@@ -218,7 +216,7 @@ export const StyledTitleWrapper = styled.div`
 
   @media (max-width: 670px) {
     width: 100%;
-    margin-top: 72px;
+    margin-top: 58px;
   }
 `;
 

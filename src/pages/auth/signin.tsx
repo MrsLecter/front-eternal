@@ -3,13 +3,15 @@ import WrapperBackground from "@/componets/common/wrappers/WrapperBakground";
 import WrapperCentring from "@/componets/common/wrappers/WrapperCentring";
 import WrapperModal from "@/componets/common/wrappers/WrapperModal";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import AdditionalFormInfo from "@/componets/common/additionalFormInfo/AdditionalFormInfo";
 import HeaderModal from "@/componets/common/headerModal/HeaderModal";
-import { APP_ROUTES } from "@/constants/common";
+import { APP_ROUTES, StorageCellEnum } from "@/constants/common";
+import { userSlice } from "@/store/reducers/userSlice";
+import { useAppDispatch } from "@/hooks/reducers.hook";
+import { ILocalStorageData } from "../../../types/common.types";
 
 const SignIn: React.FC = () => {
-
   return (
     <>
       <Head>
@@ -21,7 +23,12 @@ const SignIn: React.FC = () => {
 
       <WrapperCentring>
         <HeaderModal />
-        <WrapperModal width={"721"} header={"Login"}>
+        <WrapperModal
+          width={"721"}
+          header={"Login"}
+          minHeight={512}
+          maxHeight={640}
+        >
           <SignInForm />
 
           <AdditionalFormInfo

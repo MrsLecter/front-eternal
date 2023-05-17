@@ -6,17 +6,19 @@ import { APP_ROUTES } from "@/constants/common";
 
 const CloseBtn: React.FC = () => {
   return (
-    <StyledCloseBtn>
-      <Link href={APP_ROUTES.Home}>
+    <Link href={APP_ROUTES.Home}>
+      <StyledCloseBtn>
         <Image src={closeIcon} width={10} height={10} alt="close-btn.svg" />
-      </Link>
-    </StyledCloseBtn>
+      </StyledCloseBtn>
+    </Link>
   );
 };
 
 export const StyledCloseBtn = styled.div`
   width: 56px;
   height: 56px;
+  margin-left: 14px;
+  margin-right: 0px;
   display: flex;
   justify-content: center;
   align-items: center;

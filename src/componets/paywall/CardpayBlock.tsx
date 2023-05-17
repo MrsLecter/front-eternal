@@ -1,4 +1,3 @@
-import { StyledOfferBlock } from "./FreeOfferBlock";
 import styled from "styled-components";
 import paypalIcon from "@icons/paypal.svg";
 import ProBtn from "../common/buttons/ProBtn";
@@ -6,41 +5,189 @@ import TitlePricing from "../common/title/TitlePricing";
 import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
 import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
 import CardNumberInput from "../common/input/CardNumberInput";
+import { useInput } from "@/hooks/use-input";
+import { CODE_REGEXP } from "@/utils/regexp";
+import { encrypt } from "@/utils/functions";
+import { APP_ROUTES, CARD_NUMBER } from "@/constants/common";
+import { userSlice } from "@/store/reducers/userSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { useRouter } from "next/router";
+import userService from "@/api/user-service";
+import { useRef } from "react";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import { StyledProOfferBlock } from "./ProOfferBlock";
 
-const CardpayBlock: React.FC = () => {
+interface ICardpayBlockProps {
+  isNeedSubmitBtn?: boolean;
+}
+
+const CardpayBlock: React.FC<ICardpayBlockProps> = ({
+  isNeedSubmitBtn = true,
+}) => {
+  const { setProPlan } = userSlice.actions;
+  const { nextPayment } = useAppSelector((store) => store.userReducer);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const {
+    value: cardNumber,
+    error: cardNumberIsValid,
+    changeHandler: cardNumberChangeHandler,
+  } = useInput({
+    regexp: CODE_REGEXP,
+    allowEmpty: false,
+    mask: "1234 1234 1234 1234",
+    maskType: "cardnumber",
+  });
+
+  const {
+    value: monthYear,
+    error: monthYearIsValid,
+    changeHandler: monthYearChangeHandler,
+  } = useInput({
+    regexp: "none",
+    allowEmpty: false,
+    mask: "mm/yy",
+    maskType: "mmyy",
+  });
+
+  const {
+    value: CVV,
+    error: CVVIsValid,
+    changeHandler: CVVChangeHandler,
+  } = useInput({
+    regexp: "none",
+    allowEmpty: false,
+    mask: "123",
+    maskType: "cvc",
+  });
+
+  const orderProPlanHandler = async () => {
+    console.log(
+      "variables",
+      cardNumber,
+      cardNumberIsValid,
+      monthYear,
+      monthYearIsValid,
+      CVV,
+      CVVIsValid
+    );
+
+    if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
+      const [month, year] = monthYear.split("/");
+      const cardObject = {
+        card: CARD_NUMBER,
+        exp_year: 20 + year,
+        exp_month: month,
+        cvc: CVV,
+      };
+      const encrypted = encrypt(JSON.stringify(cardObject));
+      console.log(encrypted);
+      try {
+        const response = await userService.setProPlan(encrypted);
+        console.log("response write type", response);
+        if (response.status === 201) {
+          dispatch(setProPlan());
+          localStorageHandler.setProPlan();
+          router.push(APP_ROUTES.Subscribed);
+        }
+        if (response.status === 406) {
+          const date = new Date(localStorageHandler.getNextPayment());
+          const dateArr = date.toUTCString().split(" ");
+          alert(
+            `Error: you already subscribed! Next payment: ${dateArr[3]},  ${dateArr[1]}  ${dateArr[2]}`
+          );
+        }
+      } catch (err) {
+        //
+        console.error("Error: ", err);
+      }
+    }
+  };
+
   return (
-    <StyledOfferBlock>
-      <ProBtn />
-      <TitlePricing paymentMonthly={10} oneRow={true} />
-      <StyledCardNumberWrapper>
-        <CardNumberInput />
-      </StyledCardNumberWrapper>
-      <StyledSubmitBtnWrapper>
-        <PrimarySubmitBtn label={"submit payment"} />
-        <PrimarySubmitBtn label={"subscribe"} />
-      </StyledSubmitBtnWrapper>
+    <StyledProOfferBlock>
+      <ProBtnWrapper>
+        <ProBtn />
+      </ProBtnWrapper>
 
-      <SecondaryWhiteBtn
-        image={{ src: paypalIcon, width: 20, height: 24 }}
-        label="pay with paypal"
-      />
-    </StyledOfferBlock>
+      <TitleWrapper>
+        <TitlePricing paymentMonthly={10} oneRow={true} />
+      </TitleWrapper>
+
+      <StyledCardNumberWrapper>
+        <CardNumberInput
+          isHeigh={false}
+          cardNumberValue={cardNumber}
+          cardNumberChangeHandler={cardNumberChangeHandler}
+          mmyyValue={monthYear}
+          mmyyChangeHandler={monthYearChangeHandler}
+          cvvValue={CVV}
+          cvvChangeHandler={CVVChangeHandler}
+        />
+      </StyledCardNumberWrapper>
+      <StyledSubmitBtnWrapper isNeedSubmitBtn={isNeedSubmitBtn}>
+        {document.documentElement.clientWidth > 870 ? (
+          <PrimarySubmitBtn
+            label={"submit payment"}
+            clickHandler={orderProPlanHandler}
+            isHigh={false}
+          />
+        ) : (
+          <PrimarySubmitBtn
+            label={"subscribe"}
+            clickHandler={orderProPlanHandler}
+            isHigh={false}
+          />
+        )}
+      </StyledSubmitBtnWrapper>
+      <PaypalWrapper>
+        <SecondaryWhiteBtn
+          image={{ src: paypalIcon, width: 20, height: 24 }}
+          label="pay with paypal"
+        />
+      </PaypalWrapper>
+    </StyledProOfferBlock>
   );
 };
 
+const ProBtnWrapper = styled.div`
+  @media (max-width: 870px) {
+    margin-bottom: 10px;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  margin-top: 12px;
+
+  @media (max-width: 870px) {
+    margin-top: 0px;
+  }
+`;
+
+const PaypalWrapper = styled.div`
+  display: none;
+
+  @media (max-width: 870px) {
+    display: block;
+    width: 100%;
+    margin-bottom: -26px;
+  }
+`;
+
 const StyledCardNumberWrapper = styled.div`
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: 12px;
+  margin-bottom: 22px;
 
   @media (max-width: 375px) {
-    margin-top: 16px;
+    margin-top: 12px;
     margin-bottom: 16px;
   }
 `;
 
-const StyledSubmitBtnWrapper = styled.div`
+const StyledSubmitBtnWrapper = styled.div<{ isNeedSubmitBtn: boolean }>`
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: -30px;
 
   button:nth-child(1) {
     display: block;
@@ -50,11 +197,16 @@ const StyledSubmitBtnWrapper = styled.div`
     display: none;
   }
 
+  @media (max-width: 870px) {
+    margin-top: -2px;
+    margin-bottom: 24px;
+  }
+
   @media (max-width: 375px) {
     margin-bottom: 16px;
 
     button:nth-child(1) {
-      display: none;
+      display: ${(props) => (props.isNeedSubmitBtn ? "block" : "none")};
     }
 
     button:nth-child(2) {

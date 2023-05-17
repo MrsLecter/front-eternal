@@ -1,20 +1,31 @@
-import { StyledOfferBlock } from "./FreeOfferBlock";
 import styled from "styled-components";
-import paypalIcon from "@icons/paypal.svg";
 
-import CheckmarkBtn from "./elements/CheckmarkBtn";
+import CheckmarkCircle from "./elements/CheckmarkCircle";
 import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
+import { StyledProOfferBlock } from "./ProOfferBlock";
+import { useRouter } from "next/router";
+import { APP_ROUTES } from "@/constants/common";
 
 const SubscribedBlock: React.FC = () => {
+  const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push(APP_ROUTES.Home);
+  };
   return (
-    <StyledOfferBlock>
-      <CheckmarkBtn />
+    <StyledProOfferBlock>
+      <CheckmarkCircle />
       <StyledMessage>
         <p>You have successfully subscribed!</p>
         <p>A receipt was sent to your email</p>
       </StyledMessage>
-      <PrimarySubmitBtn label={"start chatting"} />
-    </StyledOfferBlock>
+
+      <PrimarySubmitBtn
+        label={"start chatting"}
+        isHigh={false}
+        clickHandler={goToHomePage}
+      />
+    </StyledProOfferBlock>
   );
 };
 
@@ -22,7 +33,7 @@ const StyledMessage = styled.div`
   margin-top: 24px;
   margin-bottom: 24px;
   p {
-    letter-spacing: -1%;
+    letter-spacing: -0.01em;
     text-align: center;
     color: white;
   }
@@ -40,11 +51,13 @@ const StyledMessage = styled.div`
     font-weight: 400;
     font-size: 18px;
     line-height: 27px;
+    opacity: 0.7;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 870px) {
     margin-top: 16px;
     margin-bottom: 16px;
+
     p:first-child {
       font-size: 18px;
       line-height: 27px;

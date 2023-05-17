@@ -1,20 +1,30 @@
 import styled from "styled-components";
 
-const WrapperCentring: React.FC<{ children: React.ReactNode }> = ({
+interface IWrapperCentringProps {
+  minHeight?: number;
+  children: React.ReactNode;
+}
+
+const WrapperCentring: React.FC<IWrapperCentringProps> = ({
   children,
+  minHeight,
 }) => {
-  return <StyledWrapperCentring>{children}</StyledWrapperCentring>;
+  return (
+    <StyledWrapperCentring minHeight={minHeight}>
+      {children}
+    </StyledWrapperCentring>
+  );
 };
 
-const StyledWrapperCentring = styled.div`
+const StyledWrapperCentring = styled.div<{ minHeight?: number }>`
   width: 100%;
   height: 100%;
-  min-height: 100%;
+  min-height: ${(props) => (props.minHeight ? props.minHeight + "px" : "100%")};
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 export default WrapperCentring;

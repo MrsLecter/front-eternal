@@ -1,15 +1,44 @@
 import { APP_ROUTES } from "@/constants/common";
+import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { internalSlice } from "@/store/reducers/internalSlice";
+import { userSlice } from "@/store/reducers/userSlice";
 import { getRandomIndividualId } from "@/utils/functions";
+import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
 import styled from "styled-components";
 
 interface IQuestionItemProps {
+  id: number;
   label: string;
+  clickHandler: () => void;
 }
 
-const QuestionItem: React.FC<IQuestionItemProps> = ({ label }) => {
+const QuestionItem: React.FC<IQuestionItemProps> = ({ id, label }) => {
+  const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
+  const { removeOneQuestion } = userSlice.actions;
+  const { questionsAmount } = useAppSelector((store) => store.userReducer);
+  const dispatch = useAppDispatch();
+
+  const clickHandler = () => {
+    const currentMessage = GREETING_USER_QUESTIONS.filter(
+      (item) => item.id === id
+    )[0].text;
+    console.log("****set first message to redux in question item");
+    dispatch(setFirstMessage({ message: currentMessage }));
+    dispatch(removeOneQuestion());
+    localStorageHandler.deleteOneQuestion();
+    dispatch(setUserMessageFirst({ isUserMessageFirst: true }));
+  };
   return (
-    <Link href={APP_ROUTES.Chat + getRandomIndividualId()}>
+    <Link
+      href={
+        questionsAmount === "Infinity" || +questionsAmount > 0
+          ? APP_ROUTES.Chat + getRandomIndividualId()
+          : APP_ROUTES.Paywall
+      }
+      onClick={clickHandler}
+    >
       <StyledQuestionItem>
         <StyledLabelBox>{label}</StyledLabelBox>
       </StyledQuestionItem>
@@ -22,13 +51,8 @@ const StyledQuestionItem = styled.div`
   width: 534px;
   height: 78px;
   padding: 1px;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center; */
   border-radius: 120px;
   cursor: pointer;
-  /* background-image: ${({ theme }) => theme.backgroundDarkGradient}; */
   background: linear-gradient(
     90deg,
     rgba(88, 51, 239, 0.3) 30%,
@@ -37,11 +61,6 @@ const StyledQuestionItem = styled.div`
 
   &:hover {
     background-image: ${({ theme }) => theme.backgroundColorGradientHovered};
-    /* background-image: linear-gradient(
-      90deg,
-      rgba(88, 51, 239, 1) 30%,
-      rgba(248, 45, 152, 1)
-    ); */
   }
 
   @media (max-width: 670px) {

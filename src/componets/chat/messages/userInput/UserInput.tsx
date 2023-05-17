@@ -1,10 +1,70 @@
+import { APP_SETTING } from "@/constants/common";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { internalSlice } from "@/store/reducers/internalSlice";
+import { userSlice } from "@/store/reducers/userSlice";
+import { isSubscriptionExpired, sendMessageToDialog } from "@/utils/functions";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import React from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
-const UserInput: React.FC = () => {
+interface IUserInputProps {
+  soulId: string;
+}
+
+const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
+  console.log("*********refresh user INPUT ***********");
+  const { questionsAmount, nextPayment } = useAppSelector(
+    (store) => store.userReducer
+  );
+  const { removeOneQuestion } = userSlice.actions;
+  const { addToDialog } = internalSlice.actions;
+  const dispatch = useAppDispatch();
+  const [userInput, setUserInput] = useState<string>("");
+
+  const submitQuestionHandler = (event: FormEvent) => {
+    event.preventDefault();
+    console.log("submit question. questions amount:", questionsAmount);
+    if (!!!questionsAmount) {
+      alert(
+        "Error: the limit of questions is exhausted! Go to the payment page "
+      );
+    } else if (nextPayment && isSubscriptionExpired(nextPayment as Date)) {
+      alert("Error: Your subscription is expirerd! Go to the payment page ");
+    } else if (
+      nextPayment &&
+      (parseInt(questionsAmount as string) > 0 ||
+        questionsAmount === "Infinity")
+    ) {
+      dispatch(removeOneQuestion());
+      localStorageHandler.deleteOneQuestion();
+      console.log("submit question");
+      dispatch(addToDialog({ message: userInput }));
+      dispatch(addToDialog({ message: "Thinking..." }));
+      sendMessageToDialog({ questionText: userInput, soulId: soulId });
+      setUserInput("");
+    }
+  };
+
+  const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(">>user input:", e.target.value);
+    setUserInput(e.target.value);
+  };
   return (
     <StyledUserInput>
-      <form action="/action_page.php">
-        <SubmitMessageInput />
+      <form action="/action_page.php" onSubmit={submitQuestionHandler}>
+        <StyledMessageInputWrapper>
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => changeInputHandler(e)}
+            placeholder="Enter your message..."
+            name="message"
+          />
+          {document.documentElement.clientWidth > APP_SETTING.TabResolution && (
+            <SubmitMessageBtn />
+          )}
+        </StyledMessageInputWrapper>
       </form>
     </StyledUserInput>
   );
@@ -33,15 +93,6 @@ const StyledUserInput = styled.div`
     right: 16px;
   }
 `;
-
-const SubmitMessageInput: React.FC = () => {
-  return (
-    <StyledMessageInputWrapper>
-      <input type="text" placeholder="Enter your message..." name="message" />
-      {document.documentElement.clientWidth > 800 && <SubmitMessageBtn />}
-    </StyledMessageInputWrapper>
-  );
-};
 
 const StyledMessageInputWrapper = styled.div`
   position: relative;
@@ -75,6 +126,10 @@ const StyledMessageInputWrapper = styled.div`
   @media (max-width: 800px) {
     button {
       display: none;
+    }
+
+    & > input {
+      padding: 25.5px 48px 25.5px 48px;
     }
   }
 `;

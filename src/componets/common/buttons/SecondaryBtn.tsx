@@ -2,9 +2,13 @@ import shareIcon from "@icons/share-btn.svg";
 import Image from "next/image";
 import styled from "styled-components";
 
-const BorderedBtn: React.FC = () => {
+interface IBorderedBtnProps {
+  clickHandler?: () => void;
+}
+
+const BorderedBtn: React.FC<IBorderedBtnProps> = ({ clickHandler }) => {
   return (
-    <StyledShareBorderBtn>
+    <StyledShareBorderBtn onClick={clickHandler}>
       <StyledShareBtn>
         <Image width={16} height={16} alt="share-btn.svg" src={shareIcon} />
         &nbsp;share

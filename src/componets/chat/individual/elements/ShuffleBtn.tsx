@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import shuffleIcon from "@icons/shuffle-btn.svg";
-import { StyledBorderedBtn, StyledSecondary } from "@/componets/common/buttons/SecondaryBtn";
-
+import {
+  StyledBorderedBtn,
+  StyledSecondary,
+} from "@/componets/common/buttons/SecondaryBtn";
 
 const ShuffleBtn: React.FC = () => {
   return (
@@ -41,7 +43,7 @@ const StyledShuffleBtn = styled(StyledBorderedBtn)`
   height: 74px;
   font-size: 13px;
   line-height: 14.3px;
-  background-color: #0a0806;
+  background-color: black;
 
   @media (max-width: 375px) {
     width: 97px;

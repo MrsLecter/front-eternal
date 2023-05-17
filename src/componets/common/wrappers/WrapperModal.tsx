@@ -7,7 +7,10 @@ interface IWrapperModal {
   textSecond?: string;
   width: string;
   noBorder?: boolean;
-  paddingSmall?: boolean;
+  isPaddingSmall?: boolean;
+  isPayment?: boolean;
+  minHeight?: number;
+  maxHeight?: number;
 }
 
 const WrapperModal: React.FC<IWrapperModal> = ({
@@ -17,11 +20,24 @@ const WrapperModal: React.FC<IWrapperModal> = ({
   textSecond,
   width,
   noBorder = false,
-  paddingSmall = false,
+  isPaddingSmall = false,
+  isPayment = false,
+  maxHeight,
+  minHeight,
 }) => {
   return (
-    <StyledWrapperModalContainer width={width} noBorder={noBorder}>
-      <StyledWrapperModal noBorder={noBorder} paddingSmall={paddingSmall}>
+    <StyledWrapperModalContainer
+      width={width}
+      noBorder={noBorder}
+      isPayment={isPayment}
+      maxHeight={maxHeight}
+      minHeight={minHeight}
+    >
+      <StyledWrapperModal
+        noBorder={noBorder}
+        paddingSmall={isPaddingSmall}
+        isPayment={isPayment}
+      >
         {header || text ? (
           <div>
             {header ? <p>{header}</p> : <></>}
@@ -41,9 +57,14 @@ const WrapperModal: React.FC<IWrapperModal> = ({
 const StyledWrapperModalContainer = styled.div<{
   width: string;
   noBorder: boolean;
+  isPayment: boolean;
+  maxHeight: number;
+  minHeight: number;
 }>`
   position: relative;
   width: ${(props) => props.width + "px"};
+  min-height: ${(props) => (props.minHeight ? props.minHeight + "px" : "auto")};
+  max-height: ${(props) => (props.maxHeight ? props.maxHeight + "px" : "auto")};
   height: auto;
   padding: 1px;
   display: flex;
@@ -64,7 +85,7 @@ const StyledWrapperModalContainer = styled.div<{
       props.noBorder && " 1px solid rgba(255, 255, 255, 0.4)"};
   }
 
-  @media (max-width: 545px) {
+  @media (max-width: 870px) {
     width: 343px;
   }
 `;
@@ -72,10 +93,11 @@ const StyledWrapperModalContainer = styled.div<{
 const StyledWrapperModal = styled.div<{
   noBorder: boolean;
   paddingSmall?: boolean;
+  isPayment: boolean;
 }>`
   width: 100%;
-  height: auto;
-  max-height: calc(100vh - 300px);
+  height: 100%;
+  /* max-height: calc(100vh - 250px); */
   padding: 48px;
   border-radius: 32px;
   background-image: ${(props) =>
@@ -83,7 +105,7 @@ const StyledWrapperModal = styled.div<{
       ? "linear-gradient(90.83deg, rgba(4, 4, 16, 0.6) 11.84%, rgba(15, 3, 6, 0.6) 111.32%);"
       : "linear-gradient(90.83deg, #040410 11.84%, #0f0306 111.32%)"};
   color: ${({ theme }) => theme.color.white};
-  overflow-y: auto;
+  overflow-y: hidden;
 
   & > div:first-child > p:first-child {
     font-family: "Avenir Extra-bold";
@@ -109,14 +131,14 @@ const StyledWrapperModal = styled.div<{
   & > div:first-child {
     width: 100%;
     height: auto;
-    margin-bottom: 32px;
+    margin-bottom: ${(props) => (props.isPayment ? "0px" : "32px")};
   }
 
   @media (max-width: 870px) {
     padding: ${(props) => (props.paddingSmall ? "24px" : "32px")};
     /* width: 339px; */
     & > div:first-child {
-      margin-bottom: 24px;
+      margin-bottom: ${(props) => (props.isPayment ? "-2px" : "24px")};
     }
 
     & > div:first-child > p:first-child {

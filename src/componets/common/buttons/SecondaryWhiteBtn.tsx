@@ -5,14 +5,16 @@ import { StyledSecondary, StyledBorderedBtn } from "./SecondaryBtn";
 interface ISecondaryWhiteBtnProps {
   label: string;
   image?: { src: any; width: number; height: number };
+  clickHandler?: () => void;
 }
 
 const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = ({
   label,
   image,
+  clickHandler,
 }) => {
   return (
-    <StyledSecondaryWhite>
+    <StyledSecondaryWhite onClick={() => clickHandler()}>
       <StyledSecondaryBtn>
         {image && image.src && (
           <>
@@ -43,6 +45,10 @@ const StyledSecondaryWhite = styled(StyledSecondary)`
       #f82d98 -2.34%,
       #5833ef 114.41%
     );
+  }
+
+  @media (max-width: 870px) {
+    height: 46px;
   }
 `;
 

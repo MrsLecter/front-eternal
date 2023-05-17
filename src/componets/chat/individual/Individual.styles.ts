@@ -2,46 +2,66 @@ import styled from "styled-components";
 
 export const StyledIndividual = styled.div`
   position: relative;
-  padding-top: 50px;
+  padding-top: 70px;
   width: 51.31vw;
   height: 66.9vh;
   max-width: 940px;
   max-height: 940px;
+  min-height: 90%;
   margin: 0 auto;
-  /* min-width: 100%; */
-  /* height: 90%; */
-  /* min-height: 1405px; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   overflow: visible;
+  background-color: #0a0907;
   z-index: 7;
 
-  @media (min-width: 1600px) {
-    /* min-height: 1405px; */
-    button {
-      display: none;
-    }
+  & > div {
+    display: flex;
+    overflow: hidden;
+  }
+
+  & > div:nth-child(2) {
+    width: 100%;
+    margin-left: 30px;
+    background: transparent;
+  }
+  & > div:nth-child(3) {
+    width: 100%;
+    background: black;
+  }
+
+  button {
+    display: none;
   }
 
   @media (max-width: 1600px) {
     min-height: 90%;
     overflow-y: auto;
-    button {
-      display: none;
-    }
   }
 
   @media (max-width: 1250px) {
     /* justify-content: cen  ter; */
+    width: 90vw;
     background-color: #0a0907;
     max-height: 505px;
     min-height: 100%;
+    justify-content: center;
     align-items: center;
-    box-shadow: 0px 24px 34px #000000;
-    button {
-      display: none;
+    box-shadow: 0px 24px 34px #0a0907;
+
+    & > div:nth-child(2) {
+      margin-left: 0px;
+    }
+
+    & > div:nth-child(1) {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -65,7 +85,8 @@ export const StyledIndividual = styled.div`
 `;
 
 export const StyledIndividualLabel = styled.div`
-  margin-top: 19px;
+  margin-top: 0px;
+  padding: 30px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -75,6 +96,7 @@ export const StyledIndividualLabel = styled.div`
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: white;
+  margin-left: 30px;
 
   & > h2 {
     margin-top: 0px;
@@ -86,6 +108,8 @@ export const StyledIndividualLabel = styled.div`
   }
 
   @media (max-width: 1250px) {
+    margin-left: 0px;
+
     h2 {
       font-size: 14px;
       line-height: 15.4px;
@@ -98,14 +122,4 @@ export const StyledIndividualLabel = styled.div`
       letter-spacing: 0.2em;
     }
   }
-`;
-
-export const StyledWrapperLoader = styled.div`
-  position: absolute;
-  top: 10vh;
-  width: 50vw;
-  height: 50vh;
-
-  overflow: visible;
-  z-index: -1;
 `;

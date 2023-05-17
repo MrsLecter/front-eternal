@@ -2,16 +2,30 @@ import styled from "styled-components";
 import Image from "next/image";
 import cardIcon from "@icons/card.svg";
 import { StyledInput } from "./Input";
+import { ChangeEvent } from "react";
 
-const CardNumberInput: React.FC = () => {
+interface ICardNumberInputProps {
+  cardNumberValue: string;
+  cardNumberChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  mmyyValue: string;
+  mmyyChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  cvvValue: string;
+  cvvChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  isHeigh: boolean;
+}
+
+const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
+  const inputHeight = props.isHeigh ? "62px" : "56px";
   return (
-    <StyledCardNumberInput>
+    <StyledCardNumberInput inputHeight={inputHeight}>
       <StyledCardInput
         type="text"
         placeholder={"Card Number"}
         name={"cardNumber"}
         required
-        maxLength={12}
+        maxLength={19}
+        value={props.cardNumberValue}
+        onChange={(event) => props.cardNumberChangeHandler(event)}
       />
       <StyledImageWrapper>
         <Image width={24} height={16} alt="shuffle.svg" src={cardIcon} />
@@ -22,6 +36,8 @@ const CardNumberInput: React.FC = () => {
         name={"cardDate"}
         required
         maxLength={5}
+        value={props.mmyyValue}
+        onChange={(event) => props.mmyyChangeHandler(event)}
       />
       <StyledCodeInput
         type="text"
@@ -29,6 +45,8 @@ const CardNumberInput: React.FC = () => {
         name={"cardCode"}
         required
         maxLength={3}
+        value={props.cvvValue}
+        onChange={(event) => props.cvvChangeHandler(event)}
       />
     </StyledCardNumberInput>
   );
@@ -135,11 +153,11 @@ const StyledImageWrapper = styled.div`
   }
 `;
 
-const StyledCardNumberInput = styled.div`
+const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
   position: relative;
   width: 100%;
   max-width: 529px;
-  height: 62px;
+  height: ${(props) => props.inputHeight};
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
