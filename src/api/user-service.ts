@@ -15,6 +15,7 @@ import {
   CANCEL_SUBSCRIPTION_URL,
   UPDATE_SUBSCRIPTION_URL,
   SET_FREE_SUBSCRIPTION,
+  CHANGE_PASSWORD,
 } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import axiosInstance from "./custom-axios-instance";
@@ -29,19 +30,19 @@ import {
   ICancellSubscriptionResponse,
   ISetProPlanResponse,
   ISetFreePlanResponse,
+  IChangePasswordResponse,
+  IUpdateSubscriptionResponse,
+  IRefreshRequestResponse,
 } from "./user-service-types";
 
 class UserService {
   public async makeRefreshRequest() {
     try {
-      const response = await axios({
-        method: "post",
-        url: REFRESH_URL,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorageHandler.getRefreshToken()}`,
-        },
+      const response = await axios.post<IRefreshRequestResponse>(REFRESH_URL, {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorageHandler.getRefreshToken()}`,
       });
+      alert("response::"+response.status);
       return response;
     } catch (err: any) {
       console.error("An error occured in post photos request: ", err);
@@ -66,11 +67,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -88,11 +87,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -117,11 +114,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -139,11 +134,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -151,7 +144,7 @@ class UserService {
     }
   }
 
-  public async setNewPassword({
+  public async restoreForgottenPassword({
     code,
     newpassword,
   }: {
@@ -168,11 +161,37 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
+      return response;
+    } catch (err: any) {
+      console.error("An error occured in registration request: ", err);
+      return err;
+    }
+  }
+
+  public async changePassword({
+    passwordOld,
+    passwordNew,
+  }: {
+    passwordOld: string;
+    passwordNew: string;
+  }) {
+    try {
+      const response = await axiosInstance().post<IChangePasswordResponse>(
+        CHANGE_PASSWORD,
+        {
+          password: passwordOld,
+          newpassword: passwordNew,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
+      );
+      console.log("change password response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -187,11 +206,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -219,11 +236,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -241,11 +256,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
@@ -291,7 +304,9 @@ class UserService {
 
   public async updateSubscription(cardEncrypted: string) {
     try {
-      const response = await axiosInstance().post(
+      const response = (
+        await axiosInstance().post
+      )<IUpdateSubscriptionResponse>(
         UPDATE_SUBSCRIPTION_URL,
         {
           codedCard: cardEncrypted,
@@ -299,11 +314,9 @@ class UserService {
         {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
-            // ...REQUEST_HEADERS_POST,
           },
         }
       );
-      // console.log("signup response", response);
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);

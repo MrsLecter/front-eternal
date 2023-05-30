@@ -1,17 +1,6 @@
 import styled from "styled-components";
-import Answers from "./answers/Answers";
 import UserInput from "./userInput/UserInput";
 import ChatBox from "./chatBox/ChatBox";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
-import { userSlice } from "@/store/reducers/userSlice";
-import { getSoulsDataForId, isSubscriptionExpired } from "@/utils/functions";
-import localStorageHandler from "@/utils/local-storage-hendler";
-import soulsService from "@/api/souls-service";
-import Pusher from "pusher-js";
-import { PUSHER_DATA } from "@/constants/common";
 
 interface IMessagesProps {
   avatarImg: string | undefined;
@@ -37,9 +26,10 @@ const StyledMessages = styled.div`
   position: relative;
   min-width: calc(100% - 60px);
   height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: space-between;
   background-color: transparent;
   z-index: 10;
@@ -51,10 +41,18 @@ const StyledMessages = styled.div`
   }
 
   @media (max-width: 1250px) {
-    margin-top: 0px;
-    min-height: 307px;
-    min-width: calc(100% - 32px);
+    justify-content: flex-end;
+    align-items: start;
+    padding-bottom: 0px;
+    min-width: calc(100% - 505px);
     padding-left: 16px;
+  }
+
+  @media (max-width: 870px) {
+    margin-top: 0px;
+    padding-top:0px;
+    height:100%;
+    min-height: 500px;
   }
 `;
 

@@ -31,9 +31,12 @@ export const StyledTitle = styled.div<{ center: boolean }>`
   z-index: 10;
 
   h1 {
-    margin-bottom: 8px;
     margin-top: 0px;
     text-transform: uppercase;
+  }
+
+  p {
+    margin-top: 8px;
   }
 
   @media (max-width: 860px) {

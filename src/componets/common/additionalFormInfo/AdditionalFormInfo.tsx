@@ -3,19 +3,19 @@ import styled from "styled-components";
 
 interface IAddtionalFormInfoProps {
   label: string;
-  wayLink: string;
   labelLink: string;
+  clickHandler?: () => void;
 }
 
 const AdditionalFormInfo: React.FC<IAddtionalFormInfoProps> = ({
   label,
-  wayLink,
   labelLink,
+  clickHandler,
 }) => {
   return (
     <StyledAdditional>
       <p>{label}</p>&nbsp;
-      <Link href={wayLink}>{labelLink}</Link>
+      <button onClick={() => clickHandler()}>{labelLink}</button>
     </StyledAdditional>
   );
 };
@@ -35,16 +35,18 @@ const StyledAdditional = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > p {
-    color: white;
-  }
-
-  & > a {
+  & > button {
+    border: none;
+    background-color: transparent;
     color: ${({ theme }) => theme.color.pink};
   }
 
-  & > a:hover {
+  & > button:hover {
     text-decoration: underline;
+  }
+
+  & > p {
+    color: white;
   }
 
   @media (max-width: 870px) {

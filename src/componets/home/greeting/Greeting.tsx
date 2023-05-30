@@ -3,11 +3,7 @@ import Questions from "./questions/Questions";
 import Title from "@/componets/common/title/Title";
 import SoulsIntro from "@/componets/common/soulsIntro/SoulsIntro";
 
-interface IGreetingProps {
-  setQuestionHandler: (id: number) => void;
-}
-
-const Greeting: React.FC<IGreetingProps> = ({ setQuestionHandler }) => {
+const Greeting: React.FC = () => {
   return (
     <StyledSection>
       <StyledTitleWrapper>
@@ -17,7 +13,7 @@ const Greeting: React.FC<IGreetingProps> = ({ setQuestionHandler }) => {
           description={"Choose a question to quickly get a realistic response"}
         />
       </StyledTitleWrapper>
-      <Questions setQuestionHandler={setQuestionHandler} />
+      <Questions />
       <SoulsIntro isBlured={false} />
     </StyledSection>
   );

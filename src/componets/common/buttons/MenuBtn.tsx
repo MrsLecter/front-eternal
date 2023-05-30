@@ -1,19 +1,25 @@
 // import Image from "next/image";
-import { APP_ROUTES } from "@/constants/common";
-import Link from "next/link";
 import styled from "styled-components";
 
-const MenuBtn: React.FC = () => {
+interface IMenuProps {
+  clickHandler?: () => void;
+}
+
+const MenuBtn: React.FC<IMenuProps> = ({ clickHandler }) => {
+  const menuBtnClickHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
   return (
-    <Link href={APP_ROUTES.Menu}>
-      <StyledMenuBtn>
-        <StyledMenuSign>
-          <div />
-          <div />
-          <div />
-        </StyledMenuSign>
-      </StyledMenuBtn>
-    </Link>
+    <StyledMenuBtn onClick={(e) => menuBtnClickHandler(e)}>
+      <StyledMenuSign>
+        <div />
+        <div />
+        <div />
+      </StyledMenuSign>
+    </StyledMenuBtn>
   );
 };
 
@@ -39,16 +45,15 @@ const StyledMenuSign = styled.div`
 
   @media (max-width: 870px) {
     div {
-      background: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%),
-        #d9d9d9;
+      background: ${({ theme }) => theme.backgroundColorGradient};
     }
   }
 `;
 
 const StyledMenuBtn = styled.button`
-  padding: 15px;
+  padding: 19px 15px;
   width: 66px;
-  height: 48px;
+  height: 56px;
   display: grid;
   place-content: center;
   background-color: transparent;
@@ -56,10 +61,10 @@ const StyledMenuBtn = styled.button`
   z-index: 2;
   cursor: pointer;
 
-  &:hover > div {
+  &:hover > div,
+  &:focus > div {
     div {
-      background: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%),
-        #d9d9d9;
+      background: ${({ theme }) => theme.backgroundColorGradient};
     }
   }
 `;

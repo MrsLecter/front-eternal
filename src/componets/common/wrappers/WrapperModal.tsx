@@ -11,6 +11,7 @@ interface IWrapperModal {
   isPayment?: boolean;
   minHeight?: number;
   maxHeight?: number;
+  marginTop?: number;
 }
 
 const WrapperModal: React.FC<IWrapperModal> = ({
@@ -22,8 +23,9 @@ const WrapperModal: React.FC<IWrapperModal> = ({
   noBorder = false,
   isPaddingSmall = false,
   isPayment = false,
-  maxHeight,
-  minHeight,
+  maxHeight = 0,
+  minHeight = 0,
+  marginTop = 0,
 }) => {
   return (
     <StyledWrapperModalContainer
@@ -32,11 +34,13 @@ const WrapperModal: React.FC<IWrapperModal> = ({
       isPayment={isPayment}
       maxHeight={maxHeight}
       minHeight={minHeight}
+      marginTop={marginTop}
     >
       <StyledWrapperModal
         noBorder={noBorder}
         paddingSmall={isPaddingSmall}
         isPayment={isPayment}
+        id="modalActive"
       >
         {header || text ? (
           <div>
@@ -60,13 +64,15 @@ const StyledWrapperModalContainer = styled.div<{
   isPayment: boolean;
   maxHeight: number;
   minHeight: number;
+  marginTop: number;
 }>`
   position: relative;
+  margin-top: ${(props) => (props.marginTop ? props.marginTop + "px" : "0px")};
   width: ${(props) => props.width + "px"};
   min-height: ${(props) => (props.minHeight ? props.minHeight + "px" : "auto")};
   max-height: ${(props) => (props.maxHeight ? props.maxHeight + "px" : "auto")};
   height: auto;
-  padding: 1px;
+  padding: 1.2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -80,6 +86,8 @@ const StyledWrapperModalContainer = styled.div<{
   z-index: 4;
 
   @media (max-width: 870px) {
+    margin-top: ${(props) =>
+      props.marginTop ? props.marginTop + "px" : "0px"};
     width: 500px;
     border: ${(props) =>
       props.noBorder && " 1px solid rgba(255, 255, 255, 0.4)"};
@@ -96,7 +104,8 @@ const StyledWrapperModal = styled.div<{
   isPayment: boolean;
 }>`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  /* min-height: 100%; */
   /* max-height: calc(100vh - 250px); */
   padding: 48px;
   border-radius: 32px;
@@ -105,7 +114,7 @@ const StyledWrapperModal = styled.div<{
       ? "linear-gradient(90.83deg, rgba(4, 4, 16, 0.6) 11.84%, rgba(15, 3, 6, 0.6) 111.32%);"
       : "linear-gradient(90.83deg, #040410 11.84%, #0f0306 111.32%)"};
   color: ${({ theme }) => theme.color.white};
-  overflow-y: hidden;
+  overflow: hidden;
 
   & > div:first-child > p:first-child {
     font-family: "Avenir Extra-bold";

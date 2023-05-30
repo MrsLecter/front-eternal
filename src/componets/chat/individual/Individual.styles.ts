@@ -15,14 +15,36 @@ export const StyledIndividual = styled.div`
   align-items: flex-start;
   overflow: visible;
   background-color: #0a0907;
+  box-shadow: 0px 24px 34px #0a0907;
   z-index: 7;
 
   & > div {
+    width: 101%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
+    background: transparent;
+
+    div:first-child {
+      margin-bottom: -24px;
+      z-index: 10;
+      animation: appearance 0.5s ease-in-out;
+
+      @keyframes appearance {
+        from {
+          filter: blur(77px);
+        }
+        to {
+          filter: blur(0px);
+        }
+      }
+    }
   }
 
-  & > div:nth-child(2) {
+  /* & > div:nth-child(2) {
     width: 100%;
     margin-left: 30px;
     background: transparent;
@@ -30,7 +52,7 @@ export const StyledIndividual = styled.div`
   & > div:nth-child(3) {
     width: 100%;
     background: black;
-  }
+  } */
 
   button {
     display: none;
@@ -49,6 +71,7 @@ export const StyledIndividual = styled.div`
     min-height: 100%;
     justify-content: center;
     align-items: center;
+    z-index: 11;
     box-shadow: 0px 24px 34px #0a0907;
 
     & > div:nth-child(2) {
@@ -65,38 +88,46 @@ export const StyledIndividual = styled.div`
     }
   }
 
-  @media (max-width: 800px) {
-    button {
-      display: block;
-      position: absolute;
-      top: 475px;
-      right: 50px;
-    }
-  }
+  @media (max-width: 870px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 421px;
+    height: 100%;
+    min-height: 100%;
+    /* background-color: red; */
+    z-index: 11;
 
-  @media (max-width: 400px) {
-    button {
-      display: block;
-      position: absolute;
-      top: 475px;
-      right: 38%;
+    box-shadow: 0px 24px 34px #0a0907;
+
+    & > div:first-child {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      max-height: 421px;
     }
   }
 `;
 
 export const StyledIndividualLabel = styled.div`
   margin-top: 0px;
-  padding: 30px;
+  padding: 10px;
   width: 100%;
+  height: 100%;
+  /* min-height: 331px; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: white;
-  margin-left: 30px;
+  /* margin-left: 30px; */
+  background-color: #0a0907;
+  z-index: 11;
 
   & > h2 {
     margin-top: 0px;
@@ -108,6 +139,7 @@ export const StyledIndividualLabel = styled.div`
   }
 
   @media (max-width: 1250px) {
+    padding: 0px;
     margin-left: 0px;
 
     h2 {
@@ -120,6 +152,32 @@ export const StyledIndividualLabel = styled.div`
       font-size: 11px;
       line-height: 12.1px;
       letter-spacing: 0.2em;
+    }
+  }
+
+  @media (max-width: 870px) {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 20px;
+    margin-top: 0px;
+    padding-top: 0px;
+    /* box-shadow: 0px 24px 34px #0a0907; */
+
+    /* top: 310px; */
+
+    z-index: 12;
+    background-color: transparent;
+    h2 {
+      margin-bottom: 2px;
+      z-index: 12;
+    }
+    h4 {
+      z-index: 12;
     }
   }
 `;

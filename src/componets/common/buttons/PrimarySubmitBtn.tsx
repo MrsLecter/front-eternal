@@ -13,10 +13,20 @@ const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = ({
   clickHandler,
   isHigh = true,
 }) => {
+  const submitClickHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
+
   return (
     <StyledPrimarySubmitBtn
       type="submit"
-      onClick={clickHandler}
+      onClick={(e) => submitClickHandler(e)}
       isHigh={isHigh}
     >
       {label}

@@ -16,17 +16,38 @@ const Individuals: React.FC = () => {
       />
       <IndividualsContainer>
         {INDIVIDUALS_DATA &&
-          INDIVIDUALS_DATA.map((item) => {
-            return (
-              <IndividualsCard
-                id={item.id}
-                key={item.id}
-                name={item.name}
-                about={item.about}
-                image={item.image}
-                background={item.background}
-              />
-            );
+          INDIVIDUALS_DATA.map((item, index) => {
+            if (
+              item.id === 0 ||
+              item.id === 2 ||
+              item.id === 3 ||
+              item.id === 5
+            ) {
+              return (
+                <IndividualsCard
+                  id={item.id}
+                  key={item.id}
+                  name={item.name}
+                  about={item.about}
+                  image={item.image}
+                  background={item.background}
+                  enlargedImage={true}
+                  isReflected={item.id === 5}
+                />
+              );
+            } else {
+              return (
+                <IndividualsCard
+                  id={item.id}
+                  key={item.id}
+                  name={item.name}
+                  about={item.about}
+                  image={item.image}
+                  background={item.background}
+                  isReflected={false}
+                />
+              );
+            }
           })}
       </IndividualsContainer>
     </StyledSectionLeft>

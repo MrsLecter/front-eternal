@@ -6,15 +6,25 @@ interface ISecondaryWhiteBtnProps {
   label: string;
   image?: { src: any; width: number; height: number };
   clickHandler?: () => void;
+  constHeight?: boolean;
 }
 
 const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = ({
   label,
   image,
   clickHandler,
+  constHeight = false,
 }) => {
+  const secondaryBtnClichHandler = () => {
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
   return (
-    <StyledSecondaryWhite onClick={() => clickHandler()}>
+    <StyledSecondaryWhite
+      onClick={secondaryBtnClichHandler}
+      constHeight={constHeight}
+    >
       <StyledSecondaryBtn>
         {image && image.src && (
           <>
@@ -33,22 +43,23 @@ const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = ({
   );
 };
 
-const StyledSecondaryWhite = styled(StyledSecondary)`
+const StyledSecondaryWhite = styled(StyledSecondary)<{ constHeight: boolean }>`
   width: 100%;
   height: 62px;
   padding: 1px;
   background-image: linear-gradient(0deg, white 100%);
 
   &:hover {
-    background-image: linear-gradient(
-      281.4deg,
-      #f82d98 -2.34%,
-      #5833ef 114.41%
-    );
+    background-image: ${({ theme }) => theme.backgroundColorGradient};
+  }
+
+  &:focus {
+    color: ${({ theme }) => theme.color.pink};
+    background-image: ${({ theme }) => theme.backgroundColorGradient};
   }
 
   @media (max-width: 870px) {
-    height: 46px;
+    height: ${(props) => (props.constHeight ? "62px" : "46px")};
   }
 `;
 

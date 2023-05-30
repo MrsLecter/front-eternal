@@ -15,6 +15,7 @@ const StyledIndividualsContainer = styled.div`
   max-width: 1400px;
   margin-top: 32px;
   margin-bottom: 0px;
+  padding: 2px;
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

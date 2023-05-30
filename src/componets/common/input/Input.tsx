@@ -7,6 +7,7 @@ interface IInputProps {
   placeholder: string;
   inputValue: string;
   isRequired?: boolean;
+  autofocus?: boolean;
   onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,6 +17,7 @@ export const Input: React.FC<IInputProps> = ({
   placeholder,
   inputValue,
   isRequired = true,
+  autofocus = false,
   onChangeHandler,
 }) => {
   return (
@@ -29,6 +31,7 @@ export const Input: React.FC<IInputProps> = ({
         name={type}
         required={isRequired}
         maxLength={300}
+        autoFocus={autofocus}
       />
     </StyledInputWrapper>
   );

@@ -1,26 +1,7 @@
-import { gql } from "@apollo/client";
-import client from "./apollo-client";
-import { ApolloQueryResult } from "@apollo/client";
-import { ISoulsResponse } from "./souls-service-types";
-import axiosInstance from "./custom-axios-instance";
 import { ASK_QUESTION } from "@/constants/common";
-
-// const getAllSoulsQuery = gql`
-//   query getAllSouls {
-//     souls {
-//       id
-//       name
-//       about
-//       photo
-//     }
-//   }
-// `;
-
-// const soulsQuery = {
-//   getAllSouls: getAllSoulsQuery,
-// };
-
-// export default soulsQuery;
+import { ISoulsResponse } from "./souls-service-types";
+import axios from "axios";
+import axiosInstance from "./custom-axios-instance";
 
 class SoulsService {
   public async sendQuestion({

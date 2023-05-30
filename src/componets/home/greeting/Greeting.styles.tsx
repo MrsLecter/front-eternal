@@ -4,12 +4,13 @@ export const StyledBackgroundImageWrapper = styled.div`
   position: absolute;
   top: 0px;
   width: 100%;
+  min-width: 100%;
   height: 1262px;
   min-height: 1262px;
   overflow: hidden;
   max-width: 1642px;
   min-width: 700px;
-  z-index: 1;
+  /* z-index: 1; */
 
   & > div:nth-child(1) {
     position: absolute;
@@ -83,7 +84,7 @@ export const StyledBackgroundImageWrapper = styled.div`
     width: 100%;
     animation-name: rightToLeft;
     animation-duration: 4s;
-    z-index: 5;
+    /* z-index: 5; */
 
     img {
       width: 100%;
@@ -187,6 +188,7 @@ export const StyledSection = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  z-index: 3;
   /* background-color: blue; */
   /* overflow: hidden; */
 

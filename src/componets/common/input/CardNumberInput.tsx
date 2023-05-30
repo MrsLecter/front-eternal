@@ -12,6 +12,7 @@ interface ICardNumberInputProps {
   cvvValue: string;
   cvvChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
   isHeigh: boolean;
+  haveFocus: boolean;
 }
 
 const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
@@ -26,6 +27,7 @@ const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
         maxLength={19}
         value={props.cardNumberValue}
         onChange={(event) => props.cardNumberChangeHandler(event)}
+        autoFocus={props.haveFocus}
       />
       <StyledImageWrapper>
         <Image width={24} height={16} alt="shuffle.svg" src={cardIcon} />

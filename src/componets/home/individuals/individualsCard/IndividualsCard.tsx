@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import Image from "next/image";
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface IIndividualsCard {
   id: number;
@@ -11,6 +11,8 @@ interface IIndividualsCard {
   about: string;
   image: string;
   background: string;
+  enlargedImage?: boolean;
+  isReflected?: boolean;
 }
 
 const IndividualsCard: React.FC<IIndividualsCard> = ({
@@ -19,6 +21,8 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
   about,
   image,
   background,
+  enlargedImage = false,
+  isReflected = false,
 }) => {
   const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
   const { questionsAmount } = useAppSelector((store) => store.userReducer);
@@ -37,20 +41,22 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
 
   const handleIndividualsClick = () => {
     dispatch(setUserMessageFirst({ isUserMessageFirst: false }));
-    dispatch(setFirstMessage({ message: "Tell me about yourself" }));
+    dispatch(
+      setFirstMessage({ message: "Tell me about yourself", type: "intro" })
+    );
   };
 
   return (
     <Link
-      href={
-        questionsAmount === "Infinity" || +questionsAmount > 0
-          ? APP_ROUTES.Chat + id
-          : APP_ROUTES.Paywall
-      }
+      tabIndex={-1}
+      href={APP_ROUTES.Chat + id}
       onClick={handleIndividualsClick}
     >
-      <StyledIndividualsCard>
-        <StyledImageWrapper>
+      <StyledIndividualsCard tabIndex={0}>
+        <StyledImageWrapper
+          enlargedImage={enlargedImage}
+          isReflected={isReflected}
+        >
           {document.documentElement.clientWidth > 860 ? (
             <>
               <div>
@@ -80,8 +86,9 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                 style={{
                   position: "absolute",
                   top: 0,
+                  marginLeft: enlargedImage ? "-20px" : "0px",
                   zIndex: 3,
-                  width: "100%",
+                  width: enlargedImage ? "110%" : "100%",
                   height: "102%",
                   minHeight: "102%",
                   objectFit: "fill",
@@ -124,6 +131,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   zIndex: 3,
                   width: "100%",
                   height: "100%",
+
                   maxHeight: "228.72px",
                   objectFit: "cover",
                   borderRadius: "16px",
@@ -146,12 +154,9 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
 
 const StyledIndividualsCard = styled.div`
   position: relative;
-  /* width: 100%; */
-  /* min-height: 266.72px; */
-  /* height: 300px; */
-  /* min-height: 100%; */
   height: 297.72px;
   width: 260px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -160,35 +165,37 @@ const StyledIndividualsCard = styled.div`
   background-color: #101015;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     div:last-child {
-      height: 77px;
-      user-select: text;
-      color: ${({ theme }) => theme.color.white};
+      opacity: 1;
     }
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 870px) {
     width: 162px;
     height: 281.72px;
-
-    div:last-child {
-      height: auto;
-    }
 
     img {
       height: 228.72px;
     }
 
+    div:last-child {
+      opacity: 1;
+    }
+
     &:hover {
       div:last-child {
-        height: auto;
+        opacity: 1;
       }
     }
   }
 `;
 
-const StyledImageWrapper = styled.div`
+const StyledImageWrapper = styled.div<{
+  enlargedImage: boolean;
+  isReflected: boolean;
+}>`
   position: relative;
   width: 100%;
   min-width: 163.5px;
@@ -198,8 +205,13 @@ const StyledImageWrapper = styled.div`
   overflow: hidden;
 
   img {
-    width: 102%;
+    width: ${(props) => (props.enlargedImage ? "110%" : "102%")};
     height: 298.72px;
+    ${(props) =>
+      props.isReflected &&
+      css`
+        transform: rotateY(180deg);
+      `}
   }
 
   & > div {
@@ -230,20 +242,23 @@ const StyledImageWrapper = styled.div`
 const StyledIndividualsAbout = styled.div`
   position: absolute;
   height: 0px;
-  bottom: 0px;
+  bottom: -1px;
   padding: 0px;
   user-select: none;
   width: inherit;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.15em;
+  height: 77px;
+  user-select: text;
+  color: ${({ theme }) => theme.color.white};
   text-transform: uppercase;
-  color: transparent;
   background-color: rgba(88, 48, 102, 0.2);
   backdrop-filter: blur(22px);
   border-radius: 16px;
+  opacity: 0;
   z-index: 4;
-  transition: 1s;
+  transition: 0.5s;
   cursor: pointer;
 
   div {

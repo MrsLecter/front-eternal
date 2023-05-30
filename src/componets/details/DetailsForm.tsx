@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import {
   EMAIL_REGEXP,
-  FULLNAME_REGEXP,
   PASSWORD_REGEXP,
   PHONE_REGEXP,
 } from "@/utils/regexp";
@@ -21,15 +20,12 @@ const DetailsForm: React.FC = () => {
   const router = useRouter();
   const { email, name, phone } = useAppSelector((store) => store.userReducer);
 
-  //test
-  // dispatch(setEmail({ email: "someemail@gmail.com" }));
-
   const {
     value: fullname,
     error: fullnameIsValid,
     changeHandler: fullnameChangeHandler,
   } = useInput({
-    regexp: FULLNAME_REGEXP,
+    regexp: "none",
     allowEmpty: true,
     initialValue: name,
   });
@@ -60,9 +56,6 @@ const DetailsForm: React.FC = () => {
     event.preventDefault();
     console.log("storage: ", email, name, phone);
     console.log("input values: ", fullname, emailInput, phoneInput, password);
-    if (fullname && !fullnameIsValid) {
-      alert("Error: name is not valid!");
-    }
     if (emailInput && !emailInputIsValid) {
       alert("Error: Email is not valid!");
     }
@@ -72,18 +65,20 @@ const DetailsForm: React.FC = () => {
     if (!passwordIsValid) {
       alert("Error: password in not valid!");
     }
-    if (emailInput && emailInputIsValid && passwordIsValid) {
-      console.log("everything is ok");
+    if (
+      (emailInput || email) &&
+      (emailInputIsValid || email) &&
+      passwordIsValid
+    ) {
       try {
         const response = await userService.addProfileDetails({
           name: fullname,
-          email: emailInput,
-          phone: phoneInput,
+          email: emailInput || email,
+          phone: phoneInput || phone!,
         });
         console.log("response write type", response);
         if (response.status === 200) {
-          console.log("details changed ok");
-          router.push(APP_ROUTES.Paywall);
+          alert("Success: Detailes changes");
         }
       } catch (err) {
         console.log("Error: ", err);
@@ -115,13 +110,6 @@ const DetailsForm: React.FC = () => {
         inputValue={phoneInput}
         isRequired={false}
         onChangeHandler={phoneInputChangeHandler}
-      />
-      <Input
-        type={"password"}
-        label={"Password"}
-        placeholder={"password"}
-        inputValue={password}
-        onChangeHandler={passwordChangeHandler}
       />
       <div>
         <PrimarySubmitBtn label="save" />

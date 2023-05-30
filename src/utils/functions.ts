@@ -7,7 +7,7 @@ export const getSoulsDataForId = (id: string): IIndividualsData | undefined => {
   return INDIVIDUALS_DATA.find((individual) => individual.id === parseInt(id));
 };
 
-export const getRandomIndividualId = () => {
+export const getRandomIndividualId = (): number => {
   const maxId = INDIVIDUALS_DATA.length;
   const minId = INDIVIDUALS_DATA[0].id;
 
@@ -35,24 +35,6 @@ export const isSubscriptionExpired = (nextPaymentDate: Date): boolean => {
   return currentDate.getTime() > nextDate.getTime();
 };
 
-export const sendMessageToDialog = async ({
-  questionText,
-  soulId,
-}: {
-  questionText: string;
-  soulId: string;
-}) => {
-  try {
-    const response = await soulsService.sendQuestion({
-      question: questionText,
-      soulid: soulId,
-    });
-    console.log("---send message to dialog response", response);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
-
 export const getCapitalizeName = (name: string): string => {
   let capitalized: string[] = [];
   for (let word of name.split(" ")) {
@@ -65,4 +47,22 @@ export const getPrettyDate = (date: Date | string): string => {
   if (!date) return "";
   const arrDate = new Date(date).toDateString().split(" ");
   return `${arrDate[1]} ${arrDate[2]}, ${arrDate[3]}`;
+};
+
+export const sendMessageToDialog = async ({
+  questionText,
+  soulId,
+}: {
+  questionText: string;
+  soulId: string;
+}): Promise<void> => {
+  try {
+    const response = await soulsService.sendQuestion({
+      question: questionText,
+      soulid: soulId,
+    });
+    console.log("---send message to dialog response", response);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };

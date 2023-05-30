@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import eternalImage from "@images/eternal-logo.svg";
+import eternalImage from "@icons/eternal-logo.svg";
 import styled from "styled-components";
 
 const Logo: React.FC = () => {

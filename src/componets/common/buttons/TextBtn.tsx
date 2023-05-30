@@ -6,8 +6,14 @@ interface ITextBtnProps {
 }
 
 const TextBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
+  const textBtnClickHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
   return (
-    <StyledTextBtn onClick={clickHandler} type="button">
+    <StyledTextBtn onClick={(e) => textBtnClickHandler(e)} type="button">
       {label}
     </StyledTextBtn>
   );
@@ -29,7 +35,8 @@ const StyledTextBtn = styled.button`
   background-color: transparent;
   color: ${({ theme }) => theme.color.white};
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${({ theme }) => theme.color.pink};
   }
 `;

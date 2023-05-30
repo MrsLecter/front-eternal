@@ -3,22 +3,27 @@ import Image from "next/image";
 import closeIcon from "@icons/close-btn.svg";
 import Link from "next/link";
 import { APP_ROUTES } from "@/constants/common";
+import { useRouter } from "next/router";
 
-const CloseBtn: React.FC = () => {
+interface ICloseBtnProps {
+  clickHandler?: () => void;
+}
+
+const CloseBtn: React.FC<ICloseBtnProps> = ({ clickHandler }) => {
+  const router = useRouter();
   return (
-    <Link href={APP_ROUTES.Home}>
-      <StyledCloseBtn>
-        <Image src={closeIcon} width={10} height={10} alt="close-btn.svg" />
-      </StyledCloseBtn>
-    </Link>
+    <StyledCloseBtn onClick={clickHandler}>
+      <Image src={closeIcon} width={10} height={10} alt="close-btn.svg" />
+    </StyledCloseBtn>
   );
 };
 
-export const StyledCloseBtn = styled.div`
+export const StyledCloseBtn = styled.button`
   width: 56px;
   height: 56px;
   margin-left: 14px;
   margin-right: 0px;
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +31,16 @@ export const StyledCloseBtn = styled.div`
   border-radius: 8px;
   background: #000000;
   cursor: pointer;
+  animation: appearing 0.5s ease-in-out;
+
+  @keyframes appearing {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   & > div:first-child {
     position: absolute;
@@ -47,7 +62,8 @@ export const StyledCloseBtn = styled.div`
     transform: rotate(45deg);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     border: 1px solid rgba(255, 255, 255, 0.5);
   }
 

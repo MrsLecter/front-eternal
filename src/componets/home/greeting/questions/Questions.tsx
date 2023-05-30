@@ -1,12 +1,9 @@
 import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
 import QuestionItem from "../questionItem/QuestionItem";
 import styled from "styled-components";
+import { TUserQuestion } from "../../../../../types/common.types";
 
-interface IQuestionsProps {
-  setQuestionHandler: (id: number) => void;
-}
-
-const Questions: React.FC<IQuestionsProps> = ({ setQuestionHandler }) => {
+const Questions: React.FC = () => {
   return (
     <StyledQuestionContainer>
       {GREETING_USER_QUESTIONS.map((item) => {
@@ -15,7 +12,7 @@ const Questions: React.FC<IQuestionsProps> = ({ setQuestionHandler }) => {
             key={item.id}
             label={item.text}
             id={item.id}
-            clickHandler={() => setQuestionHandler(item.id)}
+            questionType={(item.questionType as TUserQuestion) || "intro"}
           />
         );
       })}
@@ -29,7 +26,7 @@ const StyledQuestionContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  z-index: 10;
+  /* z-index: 10; */
 
   @media (max-width: 670px) {
     margin-top: 24px;

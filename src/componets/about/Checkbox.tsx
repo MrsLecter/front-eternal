@@ -6,16 +6,23 @@ import { useState } from "react";
 interface ICheckboxProps {
   label: string;
   checked: boolean;
-  setChecked: (isChecked:boolean) => void;
+  setChecked: (isChecked: boolean) => void;
 }
 
 const Checkbox: React.FC<ICheckboxProps> = ({ label, checked, setChecked }) => {
+  const setCheckedOnEnter = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      setChecked(!checked);
+    }
+  };    
+
   return (
     <StyledCheckbox>
       <input
         type="checkbox"
         onChange={() => setChecked(!checked)}
         checked={checked}
+        onKeyDown={(e) => setCheckedOnEnter(e)}
       />
       <span>
         <Image
@@ -95,6 +102,10 @@ const StyledCheckbox = styled.label`
     top: 0px;
     width: 30px;
     height: 30px;
+  }
+
+  input:focus ~ span {
+    border: 1px solid #f82d98;
   }
 
   @media (max-width: 870px) {

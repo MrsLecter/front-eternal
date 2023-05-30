@@ -4,14 +4,18 @@ import Logo from "../logo/Logo";
 import styled from "styled-components";
 import CloseBtn from "../buttons/CloseBtn";
 
-const HeaderModal: React.FC = () => {
+interface IHeaderModalProps {
+  closeBtnHandler: () => void;
+}
+
+const HeaderModal: React.FC<IHeaderModalProps> = ({ closeBtnHandler }) => {
   return (
     <StyledHeaderModal>
       <div>
         <Logo />
       </div>
       <div>
-        <CloseBtn />
+        <CloseBtn clickHandler={closeBtnHandler} />
       </div>
     </StyledHeaderModal>
   );
@@ -22,13 +26,13 @@ const StyledHeaderModal = styled.div`
   top: 0px;
   width: 100%;
   max-width: 1640px;
-  height: 80px;
-  padding: 24px 24px 24px 0px;
+  height: 84px;
+  padding: 32px 32px 0px 18px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  z-index: 3;
+  z-index: 102;
 
   & > div:first-child {
     position: absolute;

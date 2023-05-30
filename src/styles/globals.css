@@ -45,6 +45,7 @@ html,
       div#__next,
       div#__next > div {
         height: 100%;
+        /* min-height: 100%;; */
       }
 
 a {
@@ -69,6 +70,8 @@ input:focus {
   outline: 1px solid #F82D98;
   border-radius: 16px;
 }
+
+
 
 /*delete arrows in input[type=number]*/
 input::-webkit-outer-spin-button,

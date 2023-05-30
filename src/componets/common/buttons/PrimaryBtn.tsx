@@ -2,10 +2,24 @@ import styled from "styled-components";
 
 interface PrimaryBtnProps {
   label: string;
+  clickHandler?: () => void;
 }
 
-const PrimaryBtn: React.FC<PrimaryBtnProps> = ({ label }) => {
-  return <StyledPrimaryBtnFixed type="button">{label}</StyledPrimaryBtnFixed>;
+const PrimaryBtn: React.FC<PrimaryBtnProps> = ({ label, clickHandler }) => {
+  const primaryBtnClickHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
+  return (
+    <StyledPrimaryBtnFixed
+      type="button"
+      onClick={(e) => primaryBtnClickHandler(e)}
+    >
+      {label}
+    </StyledPrimaryBtnFixed>
+  );
 };
 
 export const StyledPrimaryBtn = styled.button`
@@ -15,7 +29,8 @@ export const StyledPrimaryBtn = styled.button`
   border-radius: 120px;
   background: ${({ theme }) => theme.backgroundColorGradient};
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: ${({ theme }) => theme.backgroundColorGradientHovered};
   }
 `;

@@ -10,8 +10,13 @@ const BorderedBtn: React.FC<IBorderedBtnProps> = ({ clickHandler }) => {
   return (
     <StyledShareBorderBtn onClick={clickHandler}>
       <StyledShareBtn>
-        <Image width={16} height={16} alt="share-btn.svg" src={shareIcon} />
-        &nbsp;share
+        {document.documentElement.clientWidth > 870 && (
+          <>
+            <Image width={16} height={16} alt="share-btn.svg" src={shareIcon} />
+            &nbsp;
+          </>
+        )}
+        share
       </StyledShareBtn>
     </StyledShareBorderBtn>
   );
@@ -24,11 +29,16 @@ export const StyledSecondary = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
+
+  &:focus {
+    color: ${({ theme }) => theme.color.pink};
+  }
 `;
 
 export const StyledBorderedBtn = styled.div`
   border: none;
   border-radius: 66px;
+  padding: 1.4px;
   background: transparent;
   display: flex;
   flex-direction: row;
@@ -44,17 +54,19 @@ export const StyledBorderedBtn = styled.div`
 const StyledShareBorderBtn = styled(StyledSecondary)`
   width: 157px;
   height: 48px;
-  background-image: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%);
+  padding: 1.4px;
+  background-image: ${({ theme }) => theme.backgroundColorGradient};
 `;
 
 const StyledShareBtn = styled(StyledBorderedBtn)`
   background-color: #0a0806;
-  width: 153px;
-  height: 44px;
+  width: 100%;
+  height: 100%;
   font-size: 13px;
   line-height: 14.3px;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-image: linear-gradient(
       281.4deg,
       #f82d98 -2.34%,

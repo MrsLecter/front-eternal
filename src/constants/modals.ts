@@ -3,11 +3,11 @@ import { APP_ROUTES } from "./common";
 export const MENU_LINKS = [
   {
     label: "About us",
-    link: APP_ROUTES.About,
+    link: "/",
   },
   {
     label: "Pricing",
-    link: APP_ROUTES.Paywall,
+    link: "/",
   },
   {
     label: "How it works",

@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { Suspense, useEffect, useState } from "react";
 import theme from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
-import Loader from "./loading";
+import Loader from "../componets/common/loader/loader";
 import apolloClient from "@/api/apollo-client";
 import { ApolloProvider } from "@apollo/client";
 import ProvidersWrapper from "@/app/ProvidersWrapper";
@@ -11,6 +11,8 @@ import { Provider } from "react-redux";
 import { setupStore } from "@/store";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import React from "react";
+import ClientOnly from "../utils/ClientOnly";
 
 const store = setupStore();
 
@@ -31,7 +33,9 @@ AppProps<{
         <Provider store={store}>
           <ApolloProvider client={apolloClient}>
             <ThemeProvider theme={theme}>
-              {render ? <Component {...pageProps} /> : <Loader />}
+              <ClientOnly>
+                {render ? <Component {...pageProps} /> : <Loader />}
+              </ClientOnly>
             </ThemeProvider>
           </ApolloProvider>
         </Provider>

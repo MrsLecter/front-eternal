@@ -12,16 +12,8 @@ export enum APP_SETTING {
 
 export enum APP_ROUTES {
   Home = "/",
-  Menu = "/menu",
   Chat = "/chat/",
-  Signin = "/auth/signin",
-  Signup = "/auth/signup",
-  About = "/auth/about",
   Details = "/auth/details",
-  NewPassword = "/auth/new-password",
-  Paywall = "/paywall",
-  Cardpay = "/paywall/cardpay",
-  Subscribed = "/paywall/subscribed",
 }
 
 export enum StorageCellEnum {
@@ -37,6 +29,7 @@ export const GOOGLE_AUTH_URL = `${BASE_API_URL}/us-google-auth`;
 export const PROFILE_DETAILS_URL = `${BASE_API_URL}/us-change-info`;
 export const RESET_PASSWORD_URL = `${BASE_API_URL}/us-forgotpassword`;
 export const SET_NEW_PASSWORD = `${BASE_API_URL}/us-changeForgottenPassword`;
+export const CHANGE_PASSWORD = `${BASE_API_URL}/us-changepassword`;
 export const SET_READABOUT_URL = `${BASE_API_URL}/us-change-readabout`;
 export const SET_PRO_SUBSCRIPTION = `${BASE_API_URL}/subscription`;
 export const SET_FREE_SUBSCRIPTION = `${BASE_API_URL}/add-free-quest`;

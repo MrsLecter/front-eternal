@@ -35,6 +35,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                   height: "auto",
                   zIndex: -7,
                 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -46,6 +47,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                 src={secondL}
                 alt="zero"
                 style={{ width: "100%", height: "auto", zIndex: -6 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -65,6 +67,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                   right: "0",
                   zIndex: -5,
                 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -76,6 +79,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                 src={first}
                 alt="zero"
                 style={{ width: "100%", height: "auto", zIndex: -4 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -86,6 +90,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                 src={secondR}
                 alt="zero"
                 style={{ width: "100%", height: "auto", zIndex: 6 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -101,6 +106,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
                   height: "auto",
                   zIndex: -7,
                 }}
+                priority={true}
               />
               <figcaption></figcaption>
             </figure>
@@ -123,6 +129,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
               src={conversation}
               alt="zero"
               style={{ width: "100%", height: "auto" }}
+              priority={true}
             />
             <figcaption></figcaption>
           </figure>

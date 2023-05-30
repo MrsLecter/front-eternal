@@ -21,7 +21,7 @@ export const Intro = styled.div`
   /* position: absolute; */
   width: 100%;
   height: 70%;
-  max-width: 1642px;
+  max-width: 1640px;
   aspect-ratio: 1580 / 908;
   display: flex;
   flex-direction: row;
@@ -35,11 +35,19 @@ export const Intro = styled.div`
       width: 28vw;
       max-width: 332px;
       /* min-width: 396px; */
+
+      img {
+        animation-delay: 0.4s;
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-name: goRight;
+      }
     }
     aspect-ratio: 664/638;
     transform: translateX(240px);
-    animation-duration: 3s;
-    animation-name: goRight;
+    /* margin-left: 80px; */
+    /* animation-duration: 3s;
+    animation-name: goRight; */
   }
 
   div:nth-child(2) {
@@ -47,12 +55,19 @@ export const Intro = styled.div`
       width: 23vw;
       max-width: 379px;
       min-width: 191.25px;
+
+      img {
+        animation-duration: 3s;
+        animation-name: goRight;
+        animation-timing-function: ease-out;
+      }
     }
     /* aspect-ratio: 758/812; */
     aspect-ratio: 664/638;
     transform: translateX(150px);
-    animation-duration: 3s;
-    animation-name: goRight;
+    /* margin-left: -120px; */
+    /* animation-duration: 3s;
+    animation-name: goRight; */
   }
 
   div:nth-child(3) {
@@ -61,12 +76,15 @@ export const Intro = styled.div`
   }
 
   div:nth-child(4) {
+    position: relative;
+    margin: 0 auto;
     figure {
       width: 35vw;
       max-width: 567px;
       min-width: 251.6px;
     }
     aspect-ratio: 1/1;
+    /* background-color: red; */
     margin: 0 auto;
   }
 
@@ -75,12 +93,17 @@ export const Intro = styled.div`
       width: 23vw;
       max-width: 379px;
       min-width: 168.18px;
+
+      img {
+        animation-duration: 3s;
+        animation-name: goLeft;
+        animation-timing-function: ease-out;
+      }
     }
     /* aspect-ratio: 758/812; */
     aspect-ratio: 664/638;
     transform: translateX(-150px);
-    animation-duration: 3s;
-    animation-name: goLeft;
+    /* margin-right: 0px; */
   }
 
   div:nth-child(6) {
@@ -88,34 +111,36 @@ export const Intro = styled.div`
       width: 28vw;
       max-width: 332px;
       /* min-width: 332px; */
+      img {
+        animation-delay: 0.4s;
+        animation-duration: 3s;
+        animation-name: goLeft;
+        animation-timing-function: ease-out;
+      }
     }
     aspect-ratio: 664/638;
     transform: translateX(-250px);
-    animation-duration: 3s;
-    animation-name: goLeft;
+    /* margin-right: 0px; */
   }
 
   @keyframes goRight {
     from {
-      position: absolute;
-      left: -100px;
+      margin-left: -150px;
     }
 
     to {
-      position: relative;
-      left: 0px;
+      margin-left: 0px;
     }
   }
 
   @keyframes goLeft {
     from {
-      position: absolute;
-      right: -100px;
+      margin-left: 150px;
     }
 
     to {
-      position: relative;
-      right: 0px;
+      /* position: relative; */
+      margin-left: 0px;
     }
   }
 
@@ -154,10 +179,12 @@ export const Intro = styled.div`
   }
 
   @media (max-width: 869px) {
+    height: 40%;
     div:nth-child(1) {
       display: none;
       width: 0vw;
     }
+
     div:nth-child(6) {
       display: none;
       width: 0vw;
@@ -165,16 +192,24 @@ export const Intro = styled.div`
 
     div:nth-child(4) {
       /* background-color: yellow; */
+      transform: translateX(-5vw);
     }
 
     div:nth-child(2) {
-      transform: translateX(25vw);
+      transform: translateX(15vw);
 
       /* background-color: lightblue; */
     }
     div:nth-child(5) {
       transform: translateX(-15vw);
       /* background-color: lightcoral; */
+    }
+  }
+
+  @media (max-width: 650px) {
+    div:nth-child(4) {
+      /* background-color: yellow; */
+      transform: translateX(0vw);
     }
   }
 
@@ -193,6 +228,7 @@ export const Intro = styled.div`
       figure {
         min-width: 251.6px;
       }
+
       /* background-color: yellow; */
     }
 
@@ -230,16 +266,17 @@ export const Background = styled.div`
   position: absolute;
   width: 100%;
   min-width: 572px;
-  z-index: -8;
+  z-index: 1;
 `;
 
 export const Conversation = styled.div`
   position: absolute;
   width: 100%;
   min-width: 572px;
-  z-index: -7;
+  z-index: 1;
   animation-duration: 3s;
   animation-name: goUp;
+  animation-timing-function: ease-out;
 
   @keyframes goUp {
     from {
@@ -251,13 +288,13 @@ export const Conversation = styled.div`
     }
   }
 
-  @media (max-width: 870px) {
-    /* figure {
+  /* @media (max-width: 870px) {
+    figure {
       width: 130vw;
-    } */
+    } 
 
-    /* height: 100%; */
-  }
+
+  } */
 `;
 
 export const SoulsWrapper = styled.div<{

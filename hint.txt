@@ -1,9 +1,17 @@
 login: someuser@gmail.com
 password: 5MMM%#*mtur
 
+login: someuser2@gmail.com
+password: 5MMM%#*mtur
+
+login: someuser3@gmail.com
+password: 5MMM%#*mtur
+
+login: testreg@gmail.com
+password: 5MMM%#*mtur
 
 login: yper75@gmail.com
-password RRR4%#*mtur
+password TNT4%#*mtur
 
 1)apollo client SS4Ir6zgzOv9https://www.apollographql.com/blog/apollo-client/next-js/next-js-getting-started/
 
@@ -44,3 +52,6 @@ toastify вместо alert
 
 NEXT:
 toastify
+похоже не обновляет токен
+нет прокрутки сообщений
+толщина шаре кнопки

@@ -31,3 +31,5 @@ export interface ILocalStorageData {
   refreshToken: string;
   shareLink: string;
 }
+
+export type TUserQuestion = "qone" | "qtwo" | "qthree" | "intro";

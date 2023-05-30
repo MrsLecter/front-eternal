@@ -20,11 +20,15 @@ const UpdatePaymentBlock: React.FC = () => {
   const { setProPlan, cancelSubscription } = userSlice.actions;
   const { nextPayment } = useAppSelector((store) => store.userReducer);
   const [isActiveCardBlock, setCardBlockActive] = useState<boolean>(
-    !!nextPayment ? false : true
+    nextPayment ? false : true
   );
 
   const dispatch = useAppDispatch();
   console.log("nextPayment", nextPayment);
+
+  const changeCardBlock = () => {
+    setCardBlockActive(false);
+  };
 
   const {
     value: cardNumber,
@@ -110,11 +114,12 @@ const UpdatePaymentBlock: React.FC = () => {
         paymentMonthly={10}
         nextPayment={getPrettyDate(nextPayment!)}
       />
-      {!isActiveCardBlock ? (
+      {isActiveCardBlock ? (
         <>
           <SecondaryWhiteBtn
+            constHeight={true}
             label={"update payment"}
-            clickHandler={() => setCardBlockActive(true)}
+            clickHandler={changeCardBlock}
           />
           <StyledTextWrapper>
             <TextBtn
@@ -134,6 +139,7 @@ const UpdatePaymentBlock: React.FC = () => {
               mmyyChangeHandler={monthYearChangeHandler}
               cvvValue={CVV}
               cvvChangeHandler={CVVChangeHandler}
+              haveFocus={false}
             />
             <div>
               <PrimarySubmitBtn label={"save"} />
@@ -151,10 +157,11 @@ const StyledCardWrapper = styled.form`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: -32px;
+  margin-bottom: -22px;
 
   & > div:nth-child(2) {
     margin-left: 16px;
+    margin-bottom: -4px;
     width: 119px;
   }
 
@@ -180,8 +187,10 @@ const StyledUpadatePaymentBlock = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
+  width: 100%;
   margin-top: 14px;
-  margin-bottom: -48px;
+  margin-bottom: -50px;
+  border-radius: 50%;
 
   @media (max-width: 870px) {
     margin-bottom: -46px;

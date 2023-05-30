@@ -90,3 +90,24 @@ export interface ICancellSubscriptionResponse {
   };
   status: number;
 }
+
+export interface IChangePasswordResponse {
+  status: number;
+  message: string;
+}
+
+export interface IUpdateSubscriptionResponse {
+  status: number;
+  message: {
+    subscription: string;
+    userid: number;
+  };
+}
+
+export interface IRefreshRequestResponse {
+  status: number;
+  message: {
+    accesstoken: string;
+    refreshtoken: string;
+  };
+}

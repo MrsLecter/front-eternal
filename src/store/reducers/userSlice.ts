@@ -8,7 +8,7 @@ const userSetting: IUserData = {
   name: "",
   phone: "",
   nextPayment: "",
-  questionsAmount: 1,
+  questionsAmount: "Infinity",
   readAbout: false,
   shareLink: true,
 };
@@ -89,12 +89,6 @@ export const userSlice = createSlice({
       };
     },
 
-    changePassword(state, action: PayloadAction<{ password: string }>) {
-      return {
-        ...state,
-        password: action.payload.password,
-      };
-    },
 
     setQestion(state, action: PayloadAction<{ questionsAmount: number }>) {
       state.questionsAmount = action.payload.questionsAmount;

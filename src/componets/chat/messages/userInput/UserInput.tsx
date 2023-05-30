@@ -17,14 +17,42 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   const { questionsAmount, nextPayment } = useAppSelector(
     (store) => store.userReducer
   );
+  const isAuth = localStorageHandler.getAccessToken();
   const { removeOneQuestion } = userSlice.actions;
-  const { addToDialog } = internalSlice.actions;
+  const {
+    disallowTyping,
+    allowTyping,
+    addToDialog,
+    toggleToSignup,
+    toggleToPayment,
+    toggleToCardpay,
+  } = internalSlice.actions;
+  const { isTypingAllowed } = useAppSelector((store) => store.internalReducer);
   const dispatch = useAppDispatch();
+
   const [userInput, setUserInput] = useState<string>("");
+
+  const { shareLink } = useAppSelector((store) => store.userReducer);
 
   const submitQuestionHandler = (event: FormEvent) => {
     event.preventDefault();
     console.log("submit question. questions amount:", questionsAmount);
+    if (!isAuth) {
+      dispatch(toggleToSignup());
+    }
+    if (!questionsAmount && !shareLink) {
+      alert(
+        "Error: the limit of questions is exhausted! Go to the payment page "
+      );
+      dispatch(toggleToPayment());
+    }
+    if (!questionsAmount && shareLink) {
+      alert(
+        "Error: the limit of questions is exhausted! Go to the payment page "
+      );
+      dispatch(toggleToCardpay());
+    }
+
     if (!!!questionsAmount) {
       alert(
         "Error: the limit of questions is exhausted! Go to the payment page "
@@ -36,13 +64,22 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
       (parseInt(questionsAmount as string) > 0 ||
         questionsAmount === "Infinity")
     ) {
-      dispatch(removeOneQuestion());
-      localStorageHandler.deleteOneQuestion();
-      console.log("submit question");
-      dispatch(addToDialog({ message: userInput }));
-      dispatch(addToDialog({ message: "Thinking..." }));
-      sendMessageToDialog({ questionText: userInput, soulId: soulId });
-      setUserInput("");
+      if (isTypingAllowed && userInput.trim()) {
+        dispatch(disallowTyping());
+        dispatch(removeOneQuestion());
+        localStorageHandler.deleteOneQuestion();
+        console.log("submit question");
+        sendMessageToDialog({ questionText: userInput, soulId: soulId });
+        const userMessageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: userInput }));
+          clearTimeout(userMessageDelay);
+        }, 600);
+        const soulMessageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          setUserInput("");
+          clearTimeout(soulMessageDelay);
+        }, 1200);
+      }
     }
   };
 
@@ -60,6 +97,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
             onChange={(e) => changeInputHandler(e)}
             placeholder="Enter your message..."
             name="message"
+            autoFocus={true}
           />
           {document.documentElement.clientWidth > APP_SETTING.TabResolution && (
             <SubmitMessageBtn />
@@ -92,6 +130,10 @@ const StyledUserInput = styled.div`
     bottom: 0px;
     right: 16px;
   }
+
+  @media (max-width: 870px) {
+    bottom: 0px;
+  }
 `;
 
 const StyledMessageInputWrapper = styled.div`
@@ -123,13 +165,15 @@ const StyledMessageInputWrapper = styled.div`
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 870px) {
+    height: 56px;
     button {
       display: none;
     }
 
     & > input {
-      padding: 25.5px 48px 25.5px 48px;
+      height: 54px;
+      padding: 17.5px 32px 17.5px 32px;
     }
   }
 `;
@@ -151,7 +195,7 @@ const StyledSubmitMessageButton = styled.button`
   color: ${({ theme }) => theme.color.white};
   border-radius: 120px;
   border: none;
-  background-image: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%);
+  background-image: ${({ theme }) => theme.backgroundColorGradient};
   z-index: 2;
 
   &:hover {

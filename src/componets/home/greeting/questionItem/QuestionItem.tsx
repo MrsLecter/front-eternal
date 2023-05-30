@@ -7,14 +7,19 @@ import { getRandomIndividualId } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
 import styled from "styled-components";
+import { TUserQuestion } from "../../../../../types/common.types";
 
 interface IQuestionItemProps {
   id: number;
   label: string;
-  clickHandler: () => void;
+  questionType: TUserQuestion;
 }
 
-const QuestionItem: React.FC<IQuestionItemProps> = ({ id, label }) => {
+const QuestionItem: React.FC<IQuestionItemProps> = ({
+  id,
+  label,
+  questionType,
+}) => {
   const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
   const { removeOneQuestion } = userSlice.actions;
   const { questionsAmount } = useAppSelector((store) => store.userReducer);
@@ -25,24 +30,20 @@ const QuestionItem: React.FC<IQuestionItemProps> = ({ id, label }) => {
       (item) => item.id === id
     )[0].text;
     console.log("****set first message to redux in question item");
-    dispatch(setFirstMessage({ message: currentMessage }));
+    dispatch(setFirstMessage({ message: currentMessage, type: questionType }));
     dispatch(removeOneQuestion());
     localStorageHandler.deleteOneQuestion();
     dispatch(setUserMessageFirst({ isUserMessageFirst: true }));
   };
   return (
-    <Link
-      href={
-        questionsAmount === "Infinity" || +questionsAmount > 0
-          ? APP_ROUTES.Chat + getRandomIndividualId()
-          : APP_ROUTES.Paywall
-      }
-      onClick={clickHandler}
-    >
-      <StyledQuestionItem>
+    <StyledQuestionItem tabIndex={-1}>
+      <Link
+        href={APP_ROUTES.Chat + getRandomIndividualId()}
+        onClick={clickHandler}
+      >
         <StyledLabelBox>{label}</StyledLabelBox>
-      </StyledQuestionItem>
-    </Link>
+      </Link>
+    </StyledQuestionItem>
   );
 };
 
@@ -53,6 +54,11 @@ const StyledQuestionItem = styled.div`
   padding: 1px;
   border-radius: 120px;
   cursor: pointer;
+
+  a {
+    border-radius: 120px;
+  }
+
   background: linear-gradient(
     90deg,
     rgba(88, 51, 239, 0.3) 30%,
@@ -89,7 +95,7 @@ const StyledLabelBox = styled.div`
   /* background: linear-gradient(90.83deg, #08081e 11.84%, #21050c 111.32%); */
 
   @media (max-width: 670px) {
-    padding: 21.5px 24px;
+    /* margin: 0px 0px; */
     width: 341px;
     height: 62px;
     font-size: 14px;

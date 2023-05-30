@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Image from "next/image";
-import voiceToolIcon from "@icons/message-tool-voice.svg";
-import shareToolIcon from "@icons/message-tool-share.svg";
 import * as Avenir from "@typography/Avenir";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { RefObject, useEffect, useRef, useState } from "react";
@@ -12,10 +10,11 @@ import {
   sendMessageToDialog,
 } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import soulsService from "@/api/souls-service";
+import { useLazyQuery } from "@apollo/client";
 
 import Pusher from "pusher-js";
 import { PUSHER_DATA, SITE_URL } from "@/constants/common";
+import { getFreeAnswerQueryString } from "@/utils/graphql-query-string";
 
 interface IChatBoxProps {
   avatarImg: string | undefined;
@@ -23,41 +22,117 @@ interface IChatBoxProps {
 }
 
 const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
-  console.log("********refresh CHAT box*************");
-
-  // const [dialog, expandDialog] = useState<string[]>([]);
+  const { disallowTyping, allowTyping } = internalSlice.actions;
+  const isAuth = localStorageHandler.getAccessToken();
   const dispatch = useAppDispatch();
   const messageRef = useRef<HTMLDivElement>(null);
-
   const {
     deleteFirstMessage,
     addToDialog,
     deleteDialog,
     deleteLastDialogMessage,
   } = internalSlice.actions;
-  const { isUserMessageFirst, firstMessage, dialog } = useAppSelector(
-    (store) => store.internalReducer
-  );
+  const { userQuestionType, isUserMessageFirst, firstMessage, dialog } =
+    useAppSelector((store) => store.internalReducer);
 
+  const [fetchQuery, { loading, data }] = useLazyQuery<{
+    souls: [
+      {
+        qone: string;
+        qtwo: string;
+        qthree: string;
+        intro: string;
+      }
+    ];
+  }>(getFreeAnswerQueryString({ questionType: userQuestionType }));
   const currentSoulsData = getSoulsDataForId(soulId);
   const userId = localStorageHandler.getUserId();
-  console.log(
-    ">>>input data",
-    "soul id:",
-    soulId,
-    "userId: ",
-    userId,
-    "firstMessage:",
-    firstMessage,
-    "isUserMessageFirst",
-    isUserMessageFirst
-  );
+  console.log("data", "useLazyQueryData", data);
 
   useEffect(() => {
     if (messageRef.current) {
       messageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   });
+
+  useEffect(() => {
+    if (!isAuth && firstMessage) {
+      fetchQuery({
+        variables: {
+          input: parseInt(soulId),
+        },
+      });
+    } else if (isAuth && firstMessage) {
+      sendMessageToDialog({ questionText: firstMessage, soulId });
+    }
+  }, [firstMessage]);
+
+  useEffect(() => {
+    if (!isAuth && data && data.souls[0]) {
+      dispatch(disallowTyping());
+
+      if (userQuestionType !== "intro") {
+        const userMessageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: firstMessage }));
+          dispatch(disallowTyping());
+        }, 600);
+      }
+      if (userQuestionType === "intro" && dialog.length > 0) {
+        const userMessageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          dispatch(disallowTyping());
+        }, 600);
+      }
+
+      const soulMessageDelay = setTimeout(() => {
+        dispatch(addToDialog({ message: Object.values(data!.souls[0])[1] }));
+        dispatch(allowTyping());
+      }, 1000);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isAuth) {
+      sendMessageToDialog({ questionText: firstMessage, soulId });
+      dispatch(disallowTyping());
+
+      if (userQuestionType !== "intro") {
+        const userMessageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: firstMessage }));
+          dispatch(deleteFirstMessage());
+        }, 600);
+        const messageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          if (messageRef.current) {
+            messageRef.current.scrollIntoView();
+          }
+        }, 1000);
+      }
+      if (userQuestionType === "intro") {
+        const messageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          dispatch(deleteFirstMessage());
+        }, 600);
+      }
+    }
+  }, []);
+
+  /*
+  useEffect(() => {
+    if (!isAuth && data && data.souls) {
+      if (userQuestionType !== "intro") {
+        // dispatch(deleteLastDialogMessage());
+      }
+      if (userQuestionType === "intro" && dialog.length > 0) {
+        dispatch(deleteLastDialogMessage());
+        dispatch(disallowTyping());
+      }
+      if (data && data.souls[0]) {
+        dispatch(addToDialog({ message: Object.values(data!.souls[0])[1] }));
+        dispatch(allowTyping());
+      }
+    }
+  }, [data]);
 
   useEffect(() => {
     if (firstMessage && dialog.length === 0) {
@@ -72,112 +147,127 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
         );
         // dispatch(deleteFirstMessage());
         dispatch(addToDialog({ message: firstMessage }));
-        dispatch(addToDialog({ message: "Thinking..." }));
-        if (messageRef.current) {
-          messageRef.current.scrollIntoView();
-        }
 
-        // expandDialog((currentDialog) => [...currentDialog, firstMessage]);
-        dispatch(deleteFirstMessage());
+        const messageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          dispatch(disallowTyping());
+          if (messageRef.current) {
+            messageRef.current.scrollIntoView();
+          }
+          dispatch(deleteFirstMessage());
+        }, 600);
       } else {
-        dispatch(addToDialog({ message: "Thinking..." }));
+        const messageDelay = setTimeout(() => {
+          dispatch(addToDialog({ message: "Thinking..." }));
+          dispatch(disallowTyping());
+        }, 600);
       }
     }
   }, [firstMessage]);
-
+*/
   useEffect(() => {
-    Pusher.logToConsole = true;
+    if (isAuth) {
+      Pusher.logToConsole = true;
+      const pusherClient = new Pusher(PUSHER_DATA.Secret, {
+        cluster: "eu",
+      });
+      const pusherChannel = pusherClient.subscribe(PUSHER_DATA.ChatId + userId);
+      pusherChannel.bind(PUSHER_DATA.EventName, (data: any) => {
+        console.log(">>>new messages from pusher", data);
+        dispatch(disallowTyping());
+        dispatch(deleteLastDialogMessage());
+        dispatch(addToDialog({ message: data.answer }));
+        dispatch(allowTyping());
+        if (messageRef.current) {
+          messageRef.current?.scrollIntoView();
+        }
 
-    const pusherClient = new Pusher(PUSHER_DATA.Secret, {
-      cluster: "eu",
-    });
+        // expandDialog((currentDialog) => [...currentDialog, data.answer]);
+      });
+      console.log("channel", pusherChannel);
 
-    const pusherChannel = pusherClient.subscribe(PUSHER_DATA.ChatId + userId);
-    pusherChannel.bind(PUSHER_DATA.EventName, (data: any) => {
-      console.log(">>>new messages from pusher", data);
-      console.log(
-        "****expand dialog where: dialog: ",
-        new Date().getMilliseconds(),
-        dialog,
-        "message from pusher: ",
-        new Date().getMilliseconds(),
-        data.answer
-      );
-      dispatch(deleteLastDialogMessage());
-      dispatch(addToDialog({ message: data.answer }));
-      messageRef.current?.scrollIntoView();
-      // expandDialog((currentDialog) => [...currentDialog, data.answer]);
-    });
-    console.log("channel", pusherChannel);
-
-    return () => {
-      pusherClient.unsubscribe(PUSHER_DATA.ChatId);
-      pusherClient.unbind(PUSHER_DATA.EventName);
-      // expandDialog([]);
-      dispatch(deleteDialog());
-    };
+      return () => {
+        pusherClient.unsubscribe(PUSHER_DATA.ChatId);
+        pusherClient.unbind(PUSHER_DATA.EventName);
+        // expandDialog([]);
+        dispatch(deleteDialog());
+        dispatch(disallowTyping());
+      };
+    } else {
+      fetchQuery({
+        variables: {
+          input: parseInt(soulId),
+        },
+      });
+    }
   }, []);
 
-  console.log("isUserFirst:", isUserMessageFirst, "dialog:", dialog);
+  // console.log("isUserFirst:", isUserMessageFirst, "dialog:", dialog);
   return (
     <StyledChatBox>
-      {isUserMessageFirst &&
-        dialog &&
-        dialog.map((item, index) => {
-          if (dialog.length === 1) {
-            return <UserMessage key={index} text={item} />;
-          } else if (index % 2 === 0) {
-            return <UserMessage key={index} text={item} />;
-          } else {
-            return (
-              <IndividualMessage
-                soulsName={currentSoulsData?.name}
-                key={index}
-                avatarImg={avatarImg}
-                text={item}
-              />
-            );
-          }
-        })}
-      {!isUserMessageFirst &&
-        dialog &&
-        dialog.map((item, index) => {
-          if (dialog.length === 1) {
-            return (
-              <IndividualMessage
-                soulsName={currentSoulsData?.name}
-                key={index}
-                avatarImg={avatarImg}
-                text={item}
-              />
-            );
-          } else if (index % 2 === 0 && index !== dialog.length - 1) {
-            return (
-              <IndividualMessage
-                soulsName={currentSoulsData?.name}
-                key={index}
-                avatarImg={avatarImg}
-                text={item}
-              />
-            );
-          } else if (index % 2 === 0 && index === dialog.length - 1) {
-            return (
-              <IndividualMessage
-                soulsName={currentSoulsData?.name}
-                setVisibleRef={messageRef}
-                key={index}
-                avatarImg={avatarImg}
-                text={item}
-              />
-            );
-          } else if (index === dialog.length - 1) {
-            return (
-              <UserMessage key={index} setVisibleRef={messageRef} text={item} />
-            );
-          } else {
-            return <UserMessage key={index} text={item} />;
-          }
-        })}
+      <div>
+        {isUserMessageFirst &&
+          dialog &&
+          dialog.map((item, index) => {
+            if (dialog.length === 1) {
+              return <UserMessage key={index} text={item} />;
+            } else if (index % 2 === 0) {
+              return <UserMessage key={index} text={item} />;
+            } else {
+              return (
+                <IndividualMessage
+                  soulsName={currentSoulsData?.name}
+                  key={index}
+                  avatarImg={avatarImg}
+                  text={item}
+                />
+              );
+            }
+          })}
+        {!isUserMessageFirst &&
+          dialog &&
+          dialog.map((item, index) => {
+            if (dialog.length === 1) {
+              return (
+                <IndividualMessage
+                  soulsName={currentSoulsData?.name}
+                  key={index}
+                  avatarImg={avatarImg}
+                  text={item}
+                />
+              );
+            } else if (index % 2 === 0 && index !== dialog.length - 1) {
+              return (
+                <IndividualMessage
+                  soulsName={currentSoulsData?.name}
+                  key={index}
+                  avatarImg={avatarImg}
+                  text={item}
+                />
+              );
+            } else if (index % 2 === 0 && index === dialog.length - 1) {
+              return (
+                <IndividualMessage
+                  soulsName={currentSoulsData?.name}
+                  setVisibleRef={messageRef}
+                  key={index}
+                  avatarImg={avatarImg}
+                  text={item}
+                />
+              );
+            } else if (index === dialog.length - 1) {
+              return (
+                <UserMessage
+                  key={index}
+                  setVisibleRef={messageRef}
+                  text={item}
+                />
+              );
+            } else {
+              return <UserMessage key={index} text={item} />;
+            }
+          })}
+      </div>
     </StyledChatBox>
   );
 };
@@ -186,27 +276,49 @@ export default ChatBox;
 
 const StyledChatBox = styled.div`
   position: absolute;
-  top: 0px;
-  width: calc(90% - 5.27%);
+  bottom: 130px;
+  width: calc(94% - 5.27%);
+  min-width: calc(94% - 5.27%);
   margin-top: 54px;
-  max-height: calc(100% - 200px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: transparent;
+  height: calc(100% - 184px);
+  max-height: calc(100% - 184px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: auto;
+
+  & > div {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
 
   @media (min-width: 1640px) {
     margin-right: 40px;
   }
 
-  @media (max-width: 1640px) {
-    margin-right: 40px;
-  }
-
   @media (max-width: 1250px) {
     margin-top: 0px;
-    margin-right: 16px;
-    max-height: calc(100% - 92px);
-    background-color: #0a0907;
+    margin-right: 12px;
+    max-height: 100%;
+
+    /* background-color: #0a0907; */
+    /* background-color: red; */
+  }
+
+  @media (max-width: 870px) {
+    min-width: 343px;
+    height: 100%;
+    max-height: calc(100% - 90px);
+
+    bottom: 90px;
+    margin-right: 0px;
+    width: 88vw;
   }
 `;
 
@@ -229,11 +341,24 @@ const StyledUserMessageContainer = styled.div`
   margin-bottom: 24px;
   margin-left: 20px;
   margin-right: 0px;
+  right: 0;
   /* width: 100%; */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
+  animation: messageAppeating 0.2s ease-in-out;
+
+  @keyframes messageAppeating {
+    from {
+      transform: translateX(-100px) scale(0.2);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateX(0px) scale(1);
+      opacity: 1;
+    }
+  }
 
   h5 {
     margin: 0px;
@@ -293,41 +418,32 @@ const IndividualMessage: React.FC<IIndividualMessageProps> = ({
           <Avenir.H5>{text}</Avenir.H5>
         </div>
         <div>
-          {/* <button>
-            <Image
-              width={24}
-              height={24}
-              alt="message-tools.png"
-              src={voiceToolIcon}
-            />
-          </button> */}
           <button onClick={handleShareMessage}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6.66675 12V17.3333C6.66675 17.687 6.80722 18.0261 7.05727 18.2761C7.30732 18.5262 7.64646 18.6667 8.00008 18.6667H16.0001C16.3537 18.6667 16.6928 18.5262 16.9429 18.2761C17.1929 18.0261 17.3334 17.687 17.3334 17.3333V12"
-                // stroke="#9999A6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M14.6666 7.99992L11.9999 5.33325L9.33325 7.99992"
-                // stroke="#9999A6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M12 5.33325V13.9999"
-                // stroke="#9999A6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <figure>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.66675 12V17.3333C6.66675 17.687 6.80722 18.0261 7.05727 18.2761C7.30732 18.5262 7.64646 18.6667 8.00008 18.6667H16.0001C16.3537 18.6667 16.6928 18.5262 16.9429 18.2761C17.1929 18.0261 17.3334 17.687 17.3334 17.3333V12"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M14.6666 7.99992L11.9999 5.33325L9.33325 7.99992"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 5.33325V13.9999"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </figure>
           </button>
         </div>
       </StyledIndividualMessage>
@@ -340,6 +456,7 @@ const StyledIndividualMessageBox = styled.div`
   width: calc(100% - 55px);
   min-width: calc(100% - 55px);
   margin-right: 40px;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -348,21 +465,34 @@ const StyledIndividualMessageBox = styled.div`
   & > div:first-child {
     width: 60px;
     height: 60px;
+    min-height: 60px;
     border-radius: 50%;
     margin-right: 16px;
+  }
+
+  button {
+    padding: 15px;
+    svg {
+      stroke: white;
+    }
+  }
+
+  button:hover {
+    svg {
+      stroke: ${({ theme }) => theme.color.pink};
+    }
   }
 `;
 
 const StyledIndividualMessage = styled.div`
   margin-bottom: 24px;
-  /* max-height: 900px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   overflow-y: auto;
   position: relative;
-  width: 100%;
+  width: inherit;
   padding: 42px 115px 42px 48px;
   border-radius: 16px;
   font-weight: 500;
@@ -371,27 +501,55 @@ const StyledIndividualMessage = styled.div`
   letter-spacing: -0.01em;
   color: #e4e4e4;
   background: rgba(255, 255, 255, 0.1);
+  animation: messageAppeating 0.2s ease-in-out;
+
+  @keyframes messageAppeating {
+    from {
+      transform: translateX(-100px) scale(0.2);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateX(0px) scale(1);
+      opacity: 1;
+    }
+  }
 
   & > div:last-child {
     position: absolute;
     bottom: 16px;
     right: 16px;
     width: 56px;
-    height: 24px;
+    height: 39px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
     button {
-      width: 24px;
-      height: 24px;
+      width: 39px;
+      height: 39px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: transparent;
       border: none;
       cursor: pointer;
+
+      figure {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    button:focus {
+      svg {
+        stroke: ${({ theme }) => theme.color.pink};
+      }
     }
 
     svg {
+      width: 24px;
+      height: 24px;
       stroke: white;
       cursor: pointer;
     }

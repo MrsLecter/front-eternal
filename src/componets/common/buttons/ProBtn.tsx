@@ -15,7 +15,7 @@ const StyledProWrapper = styled(StyledSecondary)`
   min-height: 42px;
   padding: 1px;
   border-radius: 16px;
-  background-image: linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%);
+  background-image: ${({ theme }) => theme.backgroundColorGradient};
 
   &:focus {
     outline: none;

@@ -17,18 +17,24 @@ const axiosInstance = () => {
     if (error.response.status === 404) {
       alert("Error: there is no such user! Try to register first");
     }
-    if (error.response.status === 401) {
-      localStorageHandler.deleteUsersData();
-      window.location.replace(APP_ROUTES.Signin);
-    }
-    if (error.response.status === 403) {
+    // if (error.response.status === 401) {
+    //   localStorageHandler.deleteUsersData();
+    //   window.location.replace(APP_ROUTES.Home);
+    // }
+    //TODO: delete 500
+    if (error.response.status === 403 || error.response.status === 401) {
       const newTokens = await userService.makeRefreshRequest();
-      if (newTokens.status === 200) {
+      alert("refersh request response: " + newTokens.status);
+      alert("err" + error.response.status);
+      alert("refersh request response: " + newTokens.status);
+      alert(Object.keys(newTokens));
+      alert("refersh request response: " + newTokens.status);
+      if (newTokens.status === 201) {
         localStorageHandler.updateTokens({
-          accessToken: newTokens.data.accesstoken,
-          refreshToken: newTokens.data.refreshtoken,
+          accessToken: newTokens.message.accesstoken,
+          refreshToken: newTokens.message.refreshtoken,
         });
-        return axiosInstance(error.config);
+        // return axiosInstance(error.config);
       } else {
         localStorageHandler.deleteUsersData();
         window.location.replace(APP_ROUTES.Home);
