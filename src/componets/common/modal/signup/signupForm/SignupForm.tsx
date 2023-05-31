@@ -44,8 +44,8 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
             accessToken: response.data.message.accesstoken,
             refreshToken: response.data.message.refreshtoken,
           });
-          alert("Success: signup successfully! Login, please");
-          dispatch(toggleLoginSignup());
+
+          localStorageHandler.signout();
         }
       } catch (err) {
         console.error("Error: ", err);
