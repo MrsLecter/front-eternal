@@ -260,7 +260,8 @@ const StyledChatBox = styled.div`
   @media (max-width: 870px) {
     min-width: 343px;
     height: 100%;
-    max-height: calc(100% - 90px);
+    min-height: 307px;
+    max-height: 100%;
 
     bottom: 90px;
     margin-right: 0px;

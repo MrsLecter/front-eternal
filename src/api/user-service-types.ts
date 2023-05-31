@@ -33,7 +33,7 @@ export interface ISigninResponse {
     email: string;
     nextpayment: Date;
     phone: null | string;
-    questionsamount: number;
+    questionsamount: number | string;
     readabout: boolean;
     sharelink: boolean;
   };
@@ -63,6 +63,12 @@ export interface IGoogleAuthResponse {
     accesstoken: string;
     email: string;
     id: number;
+    name?: string | null;
+    nextpayment?: string | Date;
+    phone?: string | null;
+    questionsamount?: string | number;
+    readabout?: number;
+    sharelink?: boolean;
     refreshtoken: string;
   };
 }

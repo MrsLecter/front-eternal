@@ -27,6 +27,7 @@ const StyledMessages = styled.div`
   justify-content: flex-start;
   align-items: space-between;
   background-color: transparent;
+  /* overflow: hidden; */
   z-index: 10;
 
   @media (max-width: 1600px) {
@@ -44,10 +45,10 @@ const StyledMessages = styled.div`
   }
 
   @media (max-width: 870px) {
-    margin-top: 0px;
+    margin-top: 100px;
     padding-top: 0px;
     height: 100%;
-    min-height: 500px;
+    min-height: 407px;
   }
 `;
 

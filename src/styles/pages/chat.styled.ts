@@ -8,6 +8,7 @@ export const StyledChatContainer = styled.main`
   flex-direction: row;
   justify-content: flex-start;
   background-color: #0a0907;
+  overflow-x: hidden;
 
   & > div {
     width: 50%;
@@ -23,9 +24,29 @@ export const StyledChatContainer = styled.main`
     flex-direction: column;
     & > div {
       width: 100%;
-      height: 421px;
-      min-height: 421px;
+      /* height: 421px; */
+      /* min-height: 421px; */
     }
+  }
+
+  @media (max-width: 870px) {
+    height: 100%;
+    min-height: 900px;
+    & > div {
+      height: 100%;
+      /* height: 505px; */
+      /* min-height: 505px; */
+    }
+
+    & > div:first-child {
+      height: 405px;
+      min-height: 405px;
+    }
+    & > div:last-child {
+      height: 307px;
+      min-height: 307px;
+    }
+    overflow-y: hidden;
   }
 `;
 
@@ -47,5 +68,10 @@ export const StyledSectionChatWrapper = styled.section`
   @media (max-width: 1200px) {
     overflow-y: auto;
     min-height: 812px;
+  }
+
+  @media (max-width: 870px) {
+    overflow-y: auto;
+    min-height: 1000px;
   }
 `;

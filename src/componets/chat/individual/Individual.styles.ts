@@ -16,6 +16,8 @@ export const StyledIndividual = styled.div`
   overflow: visible;
   background-color: #0a0907;
   box-shadow: 0px 24px 34px #0a0907;
+  overflow: hidden;
+  overflow-y: auto;
   z-index: 7;
 
   & > div {
@@ -95,7 +97,7 @@ export const StyledIndividual = styled.div`
     align-items: center;
     padding-top: 0px;
     padding-bottom: 0px;
-    max-height: 421px;
+    /* max-height: 421px; */
     height: 100%;
     min-height: 100%;
     /* background-color: red; */

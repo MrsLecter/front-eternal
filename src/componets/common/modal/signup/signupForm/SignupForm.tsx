@@ -2,59 +2,22 @@
 
 import styled from "styled-components";
 import GoogleSignUp from "./GoogleSignUpBtn";
-import AdditionalFormInfo from "../../../additionalFormInfo/AdditionalFormInfo";
 import PrimarySubmitBtn from "../../../buttons/PrimarySubmitBtn";
 import Input from "../../../input/Input";
-import { FormEvent, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
-
+import { FormEvent } from "react";
+import { signIn } from "next-auth/react";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
-import axios from "axios";
-import { APP_ROUTES } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import Google from "next-auth/providers/google";
-import { Session } from "next-auth";
 import { internalSlice } from "@/store/reducers/internalSlice";
 
-interface ISignupProps {}
-
-const SignupForm: React.FC<ISignupProps> = ({}) => {
+const SignupForm: React.FC = () => {
   const { setEmail } = userSlice.actions;
   const { toggleLoginSignup } = internalSlice.actions;
   const dispatch = useAppDispatch();
-  const router = useRouter();
-
-  const session = useSession();
-
-  useEffect(() => {
-    const sendGoogleToken = async (token: string) => {
-      try {
-        const response = await userService.googleAuth(token);
-
-        if (response.status === 201) {
-          dispatch(setEmail({ email: response.data.message.email }));
-          localStorageHandler.signup({
-            id: response.data.message.id,
-            email: response.data.message.email,
-            accessToken: response.data.message.accesstoken,
-            refreshToken: response.data.message.refreshtoken,
-          });
-
-          localStorageHandler.signout();
-        }
-      } catch (err) {
-        console.error("Error: ", err);
-      }
-    };
-    if (session.data) {
-      sendGoogleToken(session.data.token_id);
-    }
-  }, [session.data]);
 
   const changeToSignin = () => {
     dispatch(toggleLoginSignup());

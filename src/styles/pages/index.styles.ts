@@ -10,7 +10,8 @@ export const WrapperPage = styled.div<{ shouldNotScroll: boolean }>`
   justify-content: flex-start;
   align-items: center;
   background-color: #111115;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   ${(props) =>
     props.shouldNotScroll &&

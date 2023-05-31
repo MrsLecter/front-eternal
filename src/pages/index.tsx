@@ -28,11 +28,16 @@ import {
   StyledMainContent,
   WrapperPage,
 } from "@/styles/pages/index.styles";
+import userService from "@/api/user-service";
+import { useSession } from "next-auth/react";
+import localStorageHandler from "@/utils/local-storage-hendler";
 
 export default function Home() {
+  const session = useSession();
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
   const { signin } = userSlice.actions;
+  const [googleSignup, setGoogleSignup] = useState<boolean>(false);
 
   useEffect(() => {
     setInitialRenderComplete(true);
@@ -41,6 +46,48 @@ export default function Home() {
   const { backdropClick, deleteDialog, deleteFirstMessage } =
     internalSlice.actions;
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const sendGoogleToken = async (token: string) => {
+      try {
+        const response = await userService.googleAuth(token);
+
+        if (response.status === 201) {
+      
+          setGoogleSignup(true);
+          dispatch(
+            signin({
+              id: response.data.message.id,
+              email: response.data.message.email,
+              name: response.data.message.name,
+              phone: response.data.message.phone,
+              nextPayment: response.data.message.nextpayment,
+              questionsAmount: response.data.message.questionsamount,
+              readAbout: response.data.message.readabout,
+              shareLink: response.data.message.sharelink,
+            })
+          );
+          localStorageHandler.signin({
+            id: response.data.message.id,
+            email: response.data.message.email,
+            name: response.data.message.name,
+            phone: response.data.message.phone,
+            readabout: response.data.message.readabout,
+            nextpayment: response.data.message.nextpayment,
+            questionsamount: response.data.message.questionsamount,
+            accessToken: response.data.message.accesstoken,
+            refreshToken: response.data.message.refreshtoken,
+            shareLink: response.data.message.sharelink,
+          });
+        }
+      } catch (err) {
+        console.error("Error: ", err);
+      }
+    };
+    if (session.data) {
+      sendGoogleToken(session.data.token_id);
+    }
+  }, [session.data]);
 
   const {
     showCommonModal,
@@ -109,7 +156,7 @@ export default function Home() {
         <Footer liftToTopHandler={liftToTop} />
       </StyledMainContent>
     );
-  }, [showCommonModal, isSmallHeader, showPaywallModal]);
+  }, [showCommonModal, isSmallHeader, showPaywallModal, googleSignup]);
 
   if (!initialRenderComplete) {
     return <Loader />;
