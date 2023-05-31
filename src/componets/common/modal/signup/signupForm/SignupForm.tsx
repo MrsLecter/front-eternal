@@ -44,9 +44,8 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
             accessToken: response.data.message.accesstoken,
             refreshToken: response.data.message.refreshtoken,
           });
-
-          // router.push(APP_ROUTES.About);
-          changeToAbout();
+          alert("Success: signup successfully! Login, please");
+          dispatch(toggleLoginSignup());
         }
       } catch (err) {
         console.error("Error: ", err);
@@ -56,8 +55,6 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
       sendGoogleToken(session.data.token_id);
     }
   }, [session.data]);
-
-  const changeToAbout = () => {};
 
   const changeToSignin = () => {
     dispatch(toggleLoginSignup());
@@ -96,31 +93,33 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
       );
     }
 
-    try {
-      const response = await userService.signup({
-        email,
-        password: password.trim(),
-      });
-
-      if (response.status === 201) {
-        alert(
-          "Success: user is successfully registered. Signin to use service"
-        );
-        dispatch(setEmail({ email: response.data.message.email }));
-        localStorageHandler.signup({
-          id: response.data.message.id,
-          email: response.data.message.email,
-          accessToken: response.data.message.accesstoken,
-          refreshToken: response.data.message.refreshtoken,
+    if (emailIsValid && passwordIsValid) {
+      try {
+        const response = await userService.signup({
+          email,
+          password: password.trim(),
         });
-        changeToSignin();
+
+        if (response.status === 201) {
+          alert(
+            "Success: user is successfully registered. Signin to use service"
+          );
+          dispatch(setEmail({ email: response.data.message.email }));
+          localStorageHandler.signup({
+            id: response.data.message.id,
+            email: response.data.message.email,
+            accessToken: response.data.message.accesstoken,
+            refreshToken: response.data.message.refreshtoken,
+          });
+          changeToSignin();
+        }
+        if (response.response.status === 406) {
+          alert("Error: user already exist! Please, login");
+          changeToSignin();
+        }
+      } catch (err: any) {
+        console.error("Error:", err);
       }
-      if (response.response.status === 406) {
-        alert("Error: user already exist! Please, login");
-        changeToSignin();
-      }
-    } catch (err: any) {
-      console.error("Error:", err);
     }
   };
 

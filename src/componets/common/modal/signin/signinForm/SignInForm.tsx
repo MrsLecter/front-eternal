@@ -42,21 +42,25 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
       alert("Error: enter the email first");
     }
 
-    try {
-      const response = await userService.resetPassword({ email });
+    if (emailIsValid) {
+      try {
+        const response = await userService.resetPassword({ email });
 
-      if (response.status === 404) {
-        alert(`Error: user with email ${email} isn't registered! Change email`);
-      }
+        if (response.status === 404) {
+          alert(
+            `Error: user with email ${email} isn't registered! Change email`
+          );
+        }
 
-      if (response.status === 200) {
-        alert(
-          "Success: a password reset code was sent to your email. Enter your code to the form"
-        );
-        dispatch(toggleLoginChangePassword());
+        if (response.status === 200) {
+          alert(
+            "Success: a password reset code was sent to your email. Enter your code to the form"
+          );
+          dispatch(toggleLoginChangePassword());
+        }
+      } catch (err) {
+        console.error("error", err);
       }
-    } catch (err) {
-      console.error("error", err);
     }
   };
 

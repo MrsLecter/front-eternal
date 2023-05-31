@@ -22,6 +22,14 @@ const ChangePasswordForm: React.FC = () => {
   const detailsSaveHandler = async (event: FormEvent) => {
     event.preventDefault();
 
+    if (!passwordOldIsValid) {
+      alert("Error: old password in not valid!");
+    }
+
+    if (!passwordNewIsValid) {
+      alert("Error: new password in not valid!");
+    }
+
     if (passwordOldIsValid && passwordNewIsValid) {
       try {
         const response = await userService.changePassword({

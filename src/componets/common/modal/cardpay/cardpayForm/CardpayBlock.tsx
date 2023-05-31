@@ -65,6 +65,15 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
   });
 
   const orderProPlanHandler = async () => {
+    if (!cardNumberIsValid) {
+      alert("Error: card number is not valid!");
+    }
+    if (!monthYearIsValid) {
+      alert("Error: month and year is not valid!");
+    }
+    if (!CVVIsValid) {
+      alert("Error: cvv is not valid!");
+    }
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = monthYear.split("/");
       const cardObject = {

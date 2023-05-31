@@ -68,6 +68,7 @@ const UpdatePaymentBlock: React.FC = () => {
       if (response.status === 200) {
         dispatch(cancelSubscription());
         localStorageHandler.cancelSubscription();
+        setCardBlockActive(false);
         alert("Success: subscription cancelled successfully!");
       } else {
         alert("Error: subscription not cancelled! Try again");
@@ -80,6 +81,17 @@ const UpdatePaymentBlock: React.FC = () => {
   const cardpaySubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    if (!cardNumberIsValid) {
+      alert("Error: card number is not valid!");
+    }
+
+    if (!monthYearIsValid) {
+      alert("Error: month and year not valid!");
+    }
+
+    if (!CVVIsValid) {
+      alert("Error: cvv is not valid!");
+    }
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = monthYear.split("/");
       const cardObject = {
@@ -97,7 +109,8 @@ const UpdatePaymentBlock: React.FC = () => {
         if (response.status === 201) {
           dispatch(setProPlan());
           localStorageHandler.setProPlan();
-          setCardBlockActive(false);
+          setCardBlockActive(true);
+          alert("Success: successfully subscribed!");
         }
       } catch (err) {
         console.error("Error: ", err);
