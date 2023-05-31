@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { StyledPrimaryBtn } from "./PrimaryBtn";
-import { match } from "react-router-dom";
 
 interface IPrimarySubmitBtnProps {
   label: string;
