@@ -1,5 +1,5 @@
 import { setNextPayment } from "@/utils/functions";
-import { IUserData } from "../../../types/common.types";
+import { IUserData } from "../../../types/app-common.types";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 const userSetting: IUserData = {
@@ -88,7 +88,6 @@ export const userSlice = createSlice({
         phone: action.payload.phone,
       };
     },
-
 
     setQestion(state, action: PayloadAction<{ questionsAmount: number }>) {
       state.questionsAmount = action.payload.questionsAmount;

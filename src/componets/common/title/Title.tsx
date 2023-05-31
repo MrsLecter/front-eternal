@@ -19,8 +19,6 @@ const Title: React.FC<ITitleProps> = ({ label, description, center }) => {
 
 export const StyledTitle = styled.div<{ center: boolean }>`
   width: 100%;
-  /* height: 100%; */
-
   font-family: "Arquitecta Bold";
   font-weight: 700;
   font-size: 36px;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NumberLiteralType } from "typescript";
 
 interface ITitlePricingProps {
   paymentMonthly: number;

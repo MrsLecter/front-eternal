@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import FreeOfferBlock from "./paymentlForm/FreeOfferBlock";
 import ProOfferBlock from "./paymentlForm/ProOfferBlock";
 

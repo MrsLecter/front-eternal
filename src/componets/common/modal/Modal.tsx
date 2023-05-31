@@ -40,7 +40,7 @@ const Modal: React.FC<IModalProps> = ({ children, backClickHandler }) => {
     const modal = document.getElementById("modal");
 
     if (!modal || !backdrop || (!backdrop && !modal)) {
-      throw Error("Element 'modal', 'backdrop',  'bottom' not assigned in DOM");
+      throw Error("Element 'modal' or/end 'backdrop' not assigned in DOM");
     }
 
     return (

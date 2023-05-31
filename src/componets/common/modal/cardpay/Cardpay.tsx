@@ -1,4 +1,4 @@
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import CardpayBlock from "./cardpayForm/CardpayBlock";
 
 const Cardpay: React.FC = () => {

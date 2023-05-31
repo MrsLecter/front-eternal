@@ -41,11 +41,10 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
     if (!email || !emailIsValid) {
       alert("Error: enter the email first");
     }
-    console.log("handler reset");
+
     try {
       const response = await userService.resetPassword({ email });
 
-      console.log("write type: reset password", response);
       if (response.status === 404) {
         alert(`Error: user with email ${email} isn't registered! Change email`);
       }
@@ -57,7 +56,7 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
         dispatch(toggleLoginChangePassword());
       }
     } catch (err) {
-      console.log("error", err);
+      console.error("error", err);
     }
   };
 
@@ -71,17 +70,13 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
     }
 
     if (passwordIsValid && emailIsValid) {
-      console.log("signin ok", password, email);
-
       try {
         const response = await userService.signin({
           email,
-          password,
+          password: password.trim(),
         });
 
-        console.log("response write type! signin", response, response.status);
         if (response.status === 201) {
-          console.log("status 201", response.data.message.email);
           dispatch(
             signin({
               id: response.data.message.id,

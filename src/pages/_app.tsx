@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components";
 import Loader from "../componets/common/loader/loader";
 import apolloClient from "@/api/apollo-client";
 import { ApolloProvider } from "@apollo/client";
-import ProvidersWrapper from "@/app/ProvidersWrapper";
 import { Provider } from "react-redux";
 import { setupStore } from "@/store";
 import { Session } from "next-auth";
@@ -19,8 +18,7 @@ const store = setupStore();
 export default function App({
   Component,
   pageProps,
-}: // pageProps: { session, ...pageProps },
-AppProps<{
+}: AppProps<{
   session: Session;
 }>) {
   const [render, setRender] = useState(false);

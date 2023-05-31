@@ -8,11 +8,6 @@ interface IMessagesProps {
 }
 
 const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
-  console.log(
-    "*********refresh messages*********",
-    new Date().getMilliseconds()
-  );
-
   return (
     <StyledMessages>
       <ChatBox avatarImg={avatarImg} soulId={soulId} />
@@ -50,8 +45,8 @@ const StyledMessages = styled.div`
 
   @media (max-width: 870px) {
     margin-top: 0px;
-    padding-top:0px;
-    height:100%;
+    padding-top: 0px;
+    height: 100%;
     min-height: 500px;
   }
 `;

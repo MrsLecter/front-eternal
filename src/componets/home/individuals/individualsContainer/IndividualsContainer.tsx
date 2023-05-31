@@ -21,10 +21,6 @@ const StyledIndividualsContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   overflow-y: auto;
 
-  /* @media (max-width: 1075px) {
-    grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
-  } */
-
   @media (max-width: 860px) {
     margin-top: 26px;
     margin-bottom: 58px;

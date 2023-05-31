@@ -1,18 +1,15 @@
 import styled from "styled-components";
-import Input from "../common/input/Input";
-import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
+import Input from "../../common/input/Input";
+import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
-import {
-  EMAIL_REGEXP,
-  PASSWORD_REGEXP,
-  PHONE_REGEXP,
-} from "@/utils/regexp";
+import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
 import { FormEvent } from "react";
 import userService from "@/api/user-service";
 import { APP_ROUTES } from "@/constants/common";
+import { StyledForm } from "./DetailsForm.styles";
 
 const DetailsForm: React.FC = () => {
   const { setEmail } = userSlice.actions;
@@ -54,8 +51,7 @@ const DetailsForm: React.FC = () => {
 
   const detailsSaveHandler = async (event: FormEvent) => {
     event.preventDefault();
-    console.log("storage: ", email, name, phone);
-    console.log("input values: ", fullname, emailInput, phoneInput, password);
+
     if (emailInput && !emailInputIsValid) {
       alert("Error: Email is not valid!");
     }
@@ -76,12 +72,12 @@ const DetailsForm: React.FC = () => {
           email: emailInput || email,
           phone: phoneInput || phone!,
         });
-        console.log("response write type", response);
+
         if (response.status === 200) {
           alert("Success: Detailes changes");
         }
       } catch (err) {
-        console.log("Error: ", err);
+        console.error("Error: ", err);
       }
     }
   };
@@ -117,27 +113,5 @@ const DetailsForm: React.FC = () => {
     </StyledForm>
   );
 };
-
-const StyledForm = styled.form`
-  margin-top: 34px;
-  margin-bottom: -34px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-
-  & > div:last-child {
-    width: 210px;
-  }
-
-  @media (max-width: 870px) {
-    margin-top: 24px;
-    margin-bottom: -24px;
-    & > div:last-child {
-      width: 100%;
-    }
-  }
-`;
 
 export default DetailsForm;

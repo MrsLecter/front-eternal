@@ -1,4 +1,4 @@
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import AdditionalFormInfo from "@/componets/common/additionalFormInfo/AdditionalFormInfo";
 import { APP_ROUTES } from "@/constants/common";
 import { internalSlice } from "@/store/reducers/internalSlice";

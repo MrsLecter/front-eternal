@@ -12,10 +12,16 @@ const AdditionalFormInfo: React.FC<IAddtionalFormInfoProps> = ({
   labelLink,
   clickHandler,
 }) => {
+  const infoClickHandler = () => {
+    if (clickHandler) {
+      clickHandler();
+    }
+  };
+
   return (
     <StyledAdditional>
       <p>{label}</p>&nbsp;
-      <button onClick={() => clickHandler()}>{labelLink}</button>
+      <button onClick={infoClickHandler}>{labelLink}</button>
     </StyledAdditional>
   );
 };

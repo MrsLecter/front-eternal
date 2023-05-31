@@ -13,7 +13,6 @@ interface IUserInputProps {
 }
 
 const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
-  console.log("*********refresh user INPUT ***********");
   const { questionsAmount, nextPayment } = useAppSelector(
     (store) => store.userReducer
   );
@@ -36,7 +35,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
 
   const submitQuestionHandler = (event: FormEvent) => {
     event.preventDefault();
-    console.log("submit question. questions amount:", questionsAmount);
+
     if (!isAuth) {
       dispatch(toggleToSignup());
     }
@@ -68,7 +67,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
         dispatch(disallowTyping());
         dispatch(removeOneQuestion());
         localStorageHandler.deleteOneQuestion();
-        console.log("submit question");
+
         sendMessageToDialog({ questionText: userInput, soulId: soulId });
         const userMessageDelay = setTimeout(() => {
           dispatch(addToDialog({ message: userInput }));
@@ -84,7 +83,6 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   };
 
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(">>user input:", e.target.value);
     setUserInput(e.target.value);
   };
   return (

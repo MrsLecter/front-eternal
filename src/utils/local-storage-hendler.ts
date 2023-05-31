@@ -1,5 +1,5 @@
 import { StorageCellEnum } from "@/constants/common";
-import { ILocalStorageData, IUserData } from "../../types/common.types";
+import { ILocalStorageData, IUserData } from "../../types/app-common.types";
 
 class LocalStorageHandler {
   public signin({

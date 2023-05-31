@@ -58,14 +58,12 @@ const StyledSectionLeft = styled.div`
   margin-top: 150px;
   width: 100%;
   max-width: 1640px;
-  /* height: 100%; */
   padding: 0px 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  /* z-index: 1; */
-  /* overflow-y: auto; */
+
 
   @media (max-width: 1075px) {
     padding: 0px 16px;
@@ -73,6 +71,7 @@ const StyledSectionLeft = styled.div`
 
   @media (max-width: 860px) {
     margin-top: 64px;
+    padding: 0px 12px;
   }
 `;
 

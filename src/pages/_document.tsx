@@ -24,7 +24,6 @@ class MyDocument extends Document {
           <Main />
           <div id="backdrop"></div>
           <div id="modal"></div>
-          <div id="bottom"></div>
           <NextScript />
         </body>
       </Html>

@@ -47,7 +47,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   }>(getFreeAnswerQueryString({ questionType: userQuestionType }));
   const currentSoulsData = getSoulsDataForId(soulId);
   const userId = localStorageHandler.getUserId();
-  console.log("data", "useLazyQueryData", data);
 
   useEffect(() => {
     if (messageRef.current) {
@@ -117,54 +116,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     }
   }, []);
 
-  /*
-  useEffect(() => {
-    if (!isAuth && data && data.souls) {
-      if (userQuestionType !== "intro") {
-        // dispatch(deleteLastDialogMessage());
-      }
-      if (userQuestionType === "intro" && dialog.length > 0) {
-        dispatch(deleteLastDialogMessage());
-        dispatch(disallowTyping());
-      }
-      if (data && data.souls[0]) {
-        dispatch(addToDialog({ message: Object.values(data!.souls[0])[1] }));
-        dispatch(allowTyping());
-      }
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (firstMessage && dialog.length === 0) {
-      sendMessageToDialog({ questionText: firstMessage, soulId });
-      if (isUserMessageFirst) {
-        console.log(
-          "****useeffect add first message to dialog where: dialog",
-          new Date().getMilliseconds(),
-          dialog,
-          "first message",
-          firstMessage
-        );
-        // dispatch(deleteFirstMessage());
-        dispatch(addToDialog({ message: firstMessage }));
-
-        const messageDelay = setTimeout(() => {
-          dispatch(addToDialog({ message: "Thinking..." }));
-          dispatch(disallowTyping());
-          if (messageRef.current) {
-            messageRef.current.scrollIntoView();
-          }
-          dispatch(deleteFirstMessage());
-        }, 600);
-      } else {
-        const messageDelay = setTimeout(() => {
-          dispatch(addToDialog({ message: "Thinking..." }));
-          dispatch(disallowTyping());
-        }, 600);
-      }
-    }
-  }, [firstMessage]);
-*/
   useEffect(() => {
     if (isAuth) {
       Pusher.logToConsole = true;
@@ -173,7 +124,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
       });
       const pusherChannel = pusherClient.subscribe(PUSHER_DATA.ChatId + userId);
       pusherChannel.bind(PUSHER_DATA.EventName, (data: any) => {
-        console.log(">>>new messages from pusher", data);
         dispatch(disallowTyping());
         dispatch(deleteLastDialogMessage());
         dispatch(addToDialog({ message: data.answer }));
@@ -181,15 +131,12 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
         if (messageRef.current) {
           messageRef.current?.scrollIntoView();
         }
-
-        // expandDialog((currentDialog) => [...currentDialog, data.answer]);
       });
-      console.log("channel", pusherChannel);
 
       return () => {
         pusherClient.unsubscribe(PUSHER_DATA.ChatId);
         pusherClient.unbind(PUSHER_DATA.EventName);
-        // expandDialog([]);
+
         dispatch(deleteDialog());
         dispatch(disallowTyping());
       };
@@ -202,7 +149,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     }
   }, []);
 
-  // console.log("isUserFirst:", isUserMessageFirst, "dialog:", dialog);
   return (
     <StyledChatBox>
       <div>

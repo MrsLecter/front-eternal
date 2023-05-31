@@ -1,4 +1,4 @@
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import SubscribedBlock from "./resultForm/SubscribedBlock";
 
 const Result: React.FC = () => {

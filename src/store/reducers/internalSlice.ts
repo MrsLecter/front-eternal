@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TUserQuestion } from "../../../types/common.types";
+import { TUserQuestion } from "../../../types/app-common.types";
 
 interface IInternalData {
   dialog: string[];
@@ -36,7 +36,7 @@ const internalSetting: IInternalData = {
   showPaywallCardpayModal: false,
   showPaywallResultModal: false,
   isSmallHeader: false,
-  isTypingAllowed: false
+  isTypingAllowed: false,
 };
 
 export const internalSlice = createSlice({
@@ -144,13 +144,13 @@ export const internalSlice = createSlice({
       state.showRestorePasswordModal = !state.showRestorePasswordModal;
     },
 
-    disallowTyping(state){
+    disallowTyping(state) {
       state.isTypingAllowed = false;
     },
 
-    allowTyping(state){
+    allowTyping(state) {
       state.isTypingAllowed = true;
-    }
+    },
   },
 });
 

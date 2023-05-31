@@ -65,16 +65,6 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
   });
 
   const orderProPlanHandler = async () => {
-    console.log(
-      "variables",
-      cardNumber,
-      cardNumberIsValid,
-      monthYear,
-      monthYearIsValid,
-      CVV,
-      CVVIsValid
-    );
-
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = monthYear.split("/");
       const cardObject = {
@@ -84,10 +74,10 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
         cvc: CVV,
       };
       const encrypted = encrypt(JSON.stringify(cardObject));
-      console.log(encrypted);
+
       try {
         const response = await userService.setProPlan(encrypted);
-        console.log("response write type", response);
+
         if (response.status === 201) {
           dispatch(setProPlan());
           localStorageHandler.setProPlan();

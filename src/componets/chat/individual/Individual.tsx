@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { StyledIndividual, StyledIndividualLabel } from "./Individual.styles";
-import { IIndividualsData } from "../../../../types/common.types";
+import { IIndividualsData } from "../../../../types/app-common.types";
 import * as Arquitecta from "@typography/Arquitecta";
 import React from "react";
 import LoaderImage from "@/componets/common/loaderImage/LoaderImage";
@@ -31,25 +31,25 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
     <StyledIndividual>
       <div>
         {document.documentElement.clientWidth > 1249 && (
-            <div>
-              <Image
-                width={largeWidth}
-                height={largeHeight}
-                src={individualData.image}
-                alt="main"
-                style={{
-                  objectFit: "contain",
-                  width: "57.31vw",
-                  height: "66.9vh",
-                  maxWidth: "940px",
-                  maxHeight: "940px",
-                }}
-                placeholder="blur"
-                blurDataURL="data:image/svg+xml"
-                priority={true}
-              />
-            </div>
-          )}
+          <div>
+            <Image
+              width={largeWidth}
+              height={largeHeight}
+              src={individualData.image}
+              alt="main"
+              style={{
+                objectFit: "contain",
+                width: "57.31vw",
+                height: "66.9vh",
+                maxWidth: "940px",
+                maxHeight: "940px",
+              }}
+              placeholder="blur"
+              blurDataURL="data:image/svg+xml"
+              priority={true}
+            />
+          </div>
+        )}
 
         {document.documentElement.clientWidth < 1250 &&
           document.documentElement.clientWidth > 499 && (
@@ -72,7 +72,7 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
             </div>
           )}
 
-        {document.documentElement.clientWidth <500 && (
+        {document.documentElement.clientWidth < 500 && (
           <div>
             <Image
               width={smallWidth}

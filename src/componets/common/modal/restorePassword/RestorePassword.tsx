@@ -1,5 +1,5 @@
 import RestorePasswordForm from "@/componets/restorePasswordForm/RestorePasswordForm";
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 
 interface IRestorePasswordProps {}
 

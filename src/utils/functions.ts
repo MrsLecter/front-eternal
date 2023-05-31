@@ -1,5 +1,5 @@
 import { INDIVIDUALS_DATA } from "@/constants/greeting";
-import { IIndividualsData } from "../../types/common.types";
+import { IIndividualsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";
 
@@ -61,7 +61,6 @@ export const sendMessageToDialog = async ({
       question: questionText,
       soulid: soulId,
     });
-    console.log("---send message to dialog response", response);
   } catch (error) {
     console.error("Error:", error);
   }

@@ -1,64 +1,6 @@
 import styled from "styled-components";
 
-interface IWrapperModal {
-  children: React.ReactNode;
-  header?: string;
-  text?: string;
-  textSecond?: string;
-  width: string;
-  noBorder?: boolean;
-  isPaddingSmall?: boolean;
-  isPayment?: boolean;
-  minHeight?: number;
-  maxHeight?: number;
-  marginTop?: number;
-}
-
-const WrapperModal: React.FC<IWrapperModal> = ({
-  children,
-  header,
-  text,
-  textSecond,
-  width,
-  noBorder = false,
-  isPaddingSmall = false,
-  isPayment = false,
-  maxHeight = 0,
-  minHeight = 0,
-  marginTop = 0,
-}) => {
-  return (
-    <StyledWrapperModalContainer
-      width={width}
-      noBorder={noBorder}
-      isPayment={isPayment}
-      maxHeight={maxHeight}
-      minHeight={minHeight}
-      marginTop={marginTop}
-    >
-      <StyledWrapperModal
-        noBorder={noBorder}
-        paddingSmall={isPaddingSmall}
-        isPayment={isPayment}
-        id="modalActive"
-      >
-        {header || text ? (
-          <div>
-            {header ? <p>{header}</p> : <></>}
-            {text ? <p>{text}</p> : <></>}
-            {textSecond ? <p>{textSecond}</p> : <></>}
-          </div>
-        ) : (
-          <></>
-        )}
-
-        {children}
-      </StyledWrapperModal>
-    </StyledWrapperModalContainer>
-  );
-};
-
-const StyledWrapperModalContainer = styled.div<{
+export const StyledWrapperModalContainer = styled.div<{
   width: string;
   noBorder: boolean;
   isPayment: boolean;
@@ -98,15 +40,12 @@ const StyledWrapperModalContainer = styled.div<{
   }
 `;
 
-const StyledWrapperModal = styled.div<{
+export const StyledWrapperModal = styled.div<{
   noBorder: boolean;
   paddingSmall?: boolean;
   isPayment: boolean;
 }>`
   width: 100%;
-  /* height: 100%; */
-  /* min-height: 100%; */
-  /* max-height: calc(100vh - 250px); */
   padding: 48px;
   border-radius: 32px;
   background-image: ${(props) =>
@@ -145,7 +84,6 @@ const StyledWrapperModal = styled.div<{
 
   @media (max-width: 870px) {
     padding: ${(props) => (props.paddingSmall ? "24px" : "32px")};
-    /* width: 339px; */
     & > div:first-child {
       margin-bottom: ${(props) => (props.isPayment ? "-2px" : "24px")};
     }
@@ -161,5 +99,3 @@ const StyledWrapperModal = styled.div<{
     }
   }
 `;
-
-export default WrapperModal;

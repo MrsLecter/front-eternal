@@ -1,8 +1,7 @@
 import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
 import Individuals from "@/componets/home/individuals/Individuals";
-import { useState, useEffect, useMemo, useRef } from "react";
-import styled, { css } from "styled-components";
+import { useState, useEffect, useMemo } from "react";
 import Loader from "@/componets/common/loader/loader";
 import Modal from "@/componets/common/modal/Modal";
 import Footer from "@/componets/common/footer/Footer";
@@ -19,24 +18,21 @@ import TitleMedium from "@/componets/common/title/TitleMedium";
 import Cardpay from "@/componets/common/modal/cardpay/Cardpay";
 
 import { StorageCellEnum } from "@/constants/common";
-import { ILocalStorageData } from "../../types/common.types";
+import { ILocalStorageData } from "../../types/app-common.types";
 import { userSlice } from "@/store/reducers/userSlice";
 import RestorePassword from "@/componets/common/modal/restorePassword/RestorePassword";
 import { PaywallWrapper } from "@/styles/pages/common";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
-import localStorageHandler from "@/utils/local-storage-hendler";
+import {
+  StyledBackground,
+  StyledMainContent,
+  WrapperPage,
+} from "@/styles/pages/index.styles";
 
 export default function Home() {
-  // const { deleteFirstMessage } = internalSlice.actions;
-  // const { signin } = userSlice.actions;
-  // const dispatch = useAppDispatch();
-
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
   const { signin } = userSlice.actions;
-
-  const refresh = localStorageHandler.getRefreshToken();
-  console.log("***///***", refresh);
 
   useEffect(() => {
     setInitialRenderComplete(true);
@@ -47,7 +43,6 @@ export default function Home() {
   const dispatch = useAppDispatch();
 
   const {
-    dialog,
     showCommonModal,
     showMenuModal,
     isSmallHeader,
@@ -100,7 +95,6 @@ export default function Home() {
     if (headerElem) {
       headerElem.scrollIntoView();
     }
-    // topRef.current.scrollIntoView();
   };
 
   const MainContent = useMemo(() => {
@@ -110,7 +104,6 @@ export default function Home() {
           isHaveClose={showCommonModal}
           isSmall={isSmallHeader || showPaywallModal}
         />
-
         <Greeting />
         <Individuals />
         <Footer liftToTopHandler={liftToTop} />
@@ -171,59 +164,3 @@ export default function Home() {
     );
   }
 }
-
-const WrapperPage = styled.div<{ shouldNotScroll: boolean }>`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #111115;
-  overflow: auto;
-
-  ${(props) =>
-    props.shouldNotScroll &&
-    css`
-      max-height: 100%;
-      overflow: hidden;
-    `};
-`;
-
-const StyledBackground = styled.div`
-  position: relative;
-  width: 100%;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #111115;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    display: block;
-    width: 100%;
-    min-width: 100%;
-    height: 700px;
-    background-image: linear-gradient(
-      115deg,
-      rgba(88, 51, 239, 0.2) 0.5%,
-      rgba(29, 29, 36, 0) 12%
-    );
-  }
-`;
-
-const StyledMainContent = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 1640px;
-  height: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-`;

@@ -1,30 +1,29 @@
-import Image from "next/image";
-import styled from "styled-components";
-import ProBtn from "../common/buttons/ProBtn";
-import CardNumberInput from "../common/input/CardNumberInput";
-import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
-import PricingBlock from "../common/pricingBlock/PricingBlock";
-import TextBtn from "../common/buttons/TextBtn";
-import SecondaryWhiteBtn from "../common/buttons/SecondaryWhiteBtn";
+import CardNumberInput from "../../common/input/CardNumberInput";
+import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
+import PricingBlock from "../../common/pricingBlock/PricingBlock";
+import TextBtn from "../../common/buttons/TextBtn";
+import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { encrypt, getPrettyDate } from "@/utils/functions";
-import { FormEvent, FormEventHandler, useState } from "react";
+import { FormEvent, useState } from "react";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
 import { CARD_NUMBER } from "@/constants/common";
+import {
+  StyledCardWrapper,
+  StyledTextWrapper,
+  StyledUpadatePaymentBlock,
+} from "./UpdatePaymentBlock.styles";
 
 const UpdatePaymentBlock: React.FC = () => {
   const { setProPlan, cancelSubscription } = userSlice.actions;
   const { nextPayment } = useAppSelector((store) => store.userReducer);
-  const [isActiveCardBlock, setCardBlockActive] = useState<boolean>(
-    nextPayment ? false : true
-  );
+  const [isActiveCardBlock, setCardBlockActive] = useState<boolean>(true);
 
   const dispatch = useAppDispatch();
-  console.log("nextPayment", nextPayment);
 
   const changeCardBlock = () => {
     setCardBlockActive(false);
@@ -64,11 +63,9 @@ const UpdatePaymentBlock: React.FC = () => {
   });
 
   const cancelSubscriptionHandler = async () => {
-    console.log("cancel subscription");
     try {
       const response = await userService.cancelSubscription();
       if (response.status === 200) {
-        console.log("write type: ", response);
         dispatch(cancelSubscription());
         localStorageHandler.cancelSubscription();
         alert("Success: subscription cancelled successfully!");
@@ -82,7 +79,7 @@ const UpdatePaymentBlock: React.FC = () => {
 
   const cardpaySubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("submit update cardpay");
+
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = monthYear.split("/");
       const cardObject = {
@@ -91,18 +88,18 @@ const UpdatePaymentBlock: React.FC = () => {
         exp_month: month,
         cvc: CVV,
       };
+
       const encrypted = encrypt(JSON.stringify(cardObject));
-      console.log(encrypted);
+
       try {
         const response = await userService.updateSubscription(encrypted);
-        console.log("response write type", response);
+
         if (response.status === 201) {
           dispatch(setProPlan());
           localStorageHandler.setProPlan();
           setCardBlockActive(false);
         }
       } catch (err) {
-        //
         console.error("Error: ", err);
       }
     }
@@ -150,55 +147,5 @@ const UpdatePaymentBlock: React.FC = () => {
     </StyledUpadatePaymentBlock>
   );
 };
-
-const StyledCardWrapper = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: -22px;
-
-  & > div:nth-child(2) {
-    margin-left: 16px;
-    margin-bottom: -4px;
-    width: 119px;
-  }
-
-  @media (max-width: 870px) {
-    flex-direction: column;
-    justify-content: center;
-
-    & > div:nth-child(2) {
-      width: 100%;
-      margin-left: 0px;
-      margin-top: 16px;
-      margin-bottom: 6px;
-    }
-  }
-`;
-
-const StyledUpadatePaymentBlock = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const StyledTextWrapper = styled.div`
-  width: 100%;
-  margin-top: 14px;
-  margin-bottom: -50px;
-  border-radius: 50%;
-
-  @media (max-width: 870px) {
-    margin-bottom: -46px;
-    margin-top: 8px;
-    button {
-      font-size: 12px;
-    }
-  }
-`;
 
 export default UpdatePaymentBlock;

@@ -18,7 +18,6 @@ export const StyledBorder = styled.div`
 export const Intro = styled.div`
   margin: 0 auto;
   position: relative;
-  /* position: absolute; */
   width: 100%;
   height: 70%;
   max-width: 1640px;
@@ -34,7 +33,6 @@ export const Intro = styled.div`
     figure {
       width: 28vw;
       max-width: 332px;
-      /* min-width: 396px; */
 
       img {
         animation-delay: 0.4s;
@@ -45,9 +43,6 @@ export const Intro = styled.div`
     }
     aspect-ratio: 664/638;
     transform: translateX(240px);
-    /* margin-left: 80px; */
-    /* animation-duration: 3s;
-    animation-name: goRight; */
   }
 
   div:nth-child(2) {
@@ -62,17 +57,12 @@ export const Intro = styled.div`
         animation-timing-function: ease-out;
       }
     }
-    /* aspect-ratio: 758/812; */
     aspect-ratio: 664/638;
     transform: translateX(150px);
-    /* margin-left: -120px; */
-    /* animation-duration: 3s;
-    animation-name: goRight; */
   }
 
   div:nth-child(3) {
     width: 100vw;
-    /* min-width: 408px; */
   }
 
   div:nth-child(4) {
@@ -84,7 +74,6 @@ export const Intro = styled.div`
       min-width: 251.6px;
     }
     aspect-ratio: 1/1;
-    /* background-color: red; */
     margin: 0 auto;
   }
 
@@ -100,17 +89,16 @@ export const Intro = styled.div`
         animation-timing-function: ease-out;
       }
     }
-    /* aspect-ratio: 758/812; */
+
     aspect-ratio: 664/638;
     transform: translateX(-150px);
-    /* margin-right: 0px; */
   }
 
   div:nth-child(6) {
     figure {
       width: 28vw;
       max-width: 332px;
-      /* min-width: 332px; */
+
       img {
         animation-delay: 0.4s;
         animation-duration: 3s;
@@ -120,7 +108,6 @@ export const Intro = styled.div`
     }
     aspect-ratio: 664/638;
     transform: translateX(-250px);
-    /* margin-right: 0px; */
   }
 
   @keyframes goRight {
@@ -139,7 +126,6 @@ export const Intro = styled.div`
     }
 
     to {
-      /* position: relative; */
       margin-left: 0px;
     }
   }
@@ -191,24 +177,19 @@ export const Intro = styled.div`
     }
 
     div:nth-child(4) {
-      /* background-color: yellow; */
       transform: translateX(-5vw);
     }
 
     div:nth-child(2) {
       transform: translateX(15vw);
-
-      /* background-color: lightblue; */
     }
     div:nth-child(5) {
       transform: translateX(-15vw);
-      /* background-color: lightcoral; */
     }
   }
 
   @media (max-width: 650px) {
     div:nth-child(4) {
-      /* background-color: yellow; */
       transform: translateX(0vw);
     }
   }
@@ -228,8 +209,6 @@ export const Intro = styled.div`
       figure {
         min-width: 251.6px;
       }
-
-      /* background-color: yellow; */
     }
 
     div:nth-child(2) {
@@ -237,17 +216,12 @@ export const Intro = styled.div`
         max-height: 205.45px;
       }
       transform: translateX(15vw);
-      /* transform: translateX(0vw); */
-
-      /* background-color: lightblue; */
     }
     div:nth-child(5) {
       figure {
         max-height: 197.02px;
       }
       transform: translateX(-15vw);
-      /* transform: translateX(0vw); */
-      /* background-color: lightcoral; */
     }
   }
 
@@ -287,14 +261,6 @@ export const Conversation = styled.div`
       bottom: 0px;
     }
   }
-
-  /* @media (max-width: 870px) {
-    figure {
-      width: 130vw;
-    } 
-
-
-  } */
 `;
 
 export const SoulsWrapper = styled.div<{
@@ -306,9 +272,6 @@ export const SoulsWrapper = styled.div<{
   bottom: 0;
   margin-left: auto;
   margin-right: auto;
-
-  /* padding-left: 50px;
-  padding-right: 50px; */
   width: 100%;
   max-width: 1642px;
   height: 1062px;
@@ -325,8 +288,4 @@ export const SoulsWrapper = styled.div<{
         filter: blur(45.2417px);
       }
     `}
-
-  @media (max-width: 375px) {
-    /* height: 800px; */
-  }
 `;

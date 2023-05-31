@@ -32,11 +32,10 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
   const session = useSession();
 
   useEffect(() => {
-    console.log("use effect session data", session.data);
     const sendGoogleToken = async (token: string) => {
       try {
         const response = await userService.googleAuth(token);
-        console.log("response google write type", response);
+
         if (response.status === 201) {
           dispatch(setEmail({ email: response.data.message.email }));
           localStorageHandler.signup({
@@ -54,7 +53,6 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
       }
     };
     if (session.data) {
-      console.log("use effect session data", session.data);
       sendGoogleToken(session.data.token_id);
     }
   }, [session.data]);
@@ -78,23 +76,11 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
   } = useInput({ regexp: PASSWORD_REGEXP, allowEmpty: false });
 
   const googleAuthHandler = () => {
-    console.log("click google auth");
     signIn();
   };
 
   const formSignupSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    console.log(
-      "email",
-      email,
-      "emailIsValid",
-      emailIsValid,
-      "password",
-      password,
-      "passwordIsValid",
-      passwordIsValid
-    );
 
     if (!email && !password) {
       alert("Error: the field must not be empty");
@@ -105,24 +91,18 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
     }
 
     if (!passwordIsValid) {
-      console.log(password);
       alert(
         "Error: password not valid! Password must include 1 digit, 1 special character and 1 aplhabetic character. Minimum 8 symbols length"
       );
     }
 
-    if (email && emailIsValid && password && passwordIsValid) {
-      console.log("all valid");
-    }
-
     try {
       const response = await userService.signup({
         email,
-        password,
+        password: password.trim(),
       });
-      console.log("response1", response, response.status);
+
       if (response.status === 201) {
-        console.log("status 201");
         alert(
           "Success: user is successfully registered. Signin to use service"
         );
@@ -140,7 +120,7 @@ const SignupForm: React.FC<ISignupProps> = ({}) => {
         changeToSignin();
       }
     } catch (err: any) {
-      console.log("Error:", err);
+      console.error("Error:", err);
     }
   };
 

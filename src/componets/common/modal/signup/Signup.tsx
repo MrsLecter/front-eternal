@@ -1,4 +1,4 @@
-import WrapperModal from "../../wrappers/WrapperModal";
+import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import AdditionalFormInfo from "../../additionalFormInfo/AdditionalFormInfo";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";

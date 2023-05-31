@@ -36,14 +36,14 @@ import {
 } from "./user-service-types";
 
 class UserService {
-  public async makeRefreshRequest() {
+  public async makeRefreshRequest(): Promise<IRefreshRequestResponse> {
     try {
-      const response = await axios.post<IRefreshRequestResponse>(REFRESH_URL, {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorageHandler.getRefreshToken()}`,
+      const refreshToken = localStorageHandler.getRefreshToken();
+      const instance = axios.create({
+        baseURL: REFRESH_URL,
+        headers: { Authorization: "Bearer " + refreshToken },
       });
-      alert("response::"+response.status);
-      return response;
+      return await instance.post("/");
     } catch (err: any) {
       console.error("An error occured in post photos request: ", err);
       return err;
@@ -191,7 +191,7 @@ class UserService {
           },
         }
       );
-      console.log("change password response", response);
+
       return response;
     } catch (err: any) {
       console.error("An error occured in registration request: ", err);
