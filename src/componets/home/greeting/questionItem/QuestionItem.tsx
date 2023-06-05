@@ -3,7 +3,10 @@ import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { userSlice } from "@/store/reducers/userSlice";
-import { getRandomIndividualId } from "@/utils/functions";
+import {
+  getConstructedMessage,
+  getRandomIndividualId,
+} from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
 import { StyledLabelBox, StyledQuestionItem } from "./QuestionItem.styles";
@@ -14,7 +17,7 @@ const QuestionItem: React.FC<IQuestionItemProps> = ({
   label,
   questionType,
 }) => {
-  const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
+  const { setFirstMessage } = internalSlice.actions;
   const { removeOneQuestion } = userSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -23,10 +26,17 @@ const QuestionItem: React.FC<IQuestionItemProps> = ({
       (item) => item.id === id
     )[0].text;
 
-    dispatch(setFirstMessage({ message: currentMessage, type: questionType }));
+    dispatch(
+      setFirstMessage({
+        message: getConstructedMessage({
+          sender: "user",
+          message: currentMessage,
+        }),
+        type: questionType,
+      })
+    );
     dispatch(removeOneQuestion());
     localStorageHandler.deleteOneQuestion();
-    dispatch(setUserMessageFirst({ isUserMessageFirst: true }));
   };
   return (
     <StyledQuestionItem tabIndex={-1}>

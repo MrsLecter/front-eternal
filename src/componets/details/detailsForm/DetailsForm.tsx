@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Input from "../../common/input/Input";
+import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
@@ -24,7 +24,7 @@ const DetailsForm: React.FC = () => {
   } = useInput({
     regexp: "none",
     allowEmpty: true,
-    initialValue: name,
+    initialValue: name as string,
   });
 
   const {
@@ -41,7 +41,11 @@ const DetailsForm: React.FC = () => {
     value: phoneInput,
     error: phoneInputIsValid,
     changeHandler: phoneInputChangeHandler,
-  } = useInput({ regexp: PHONE_REGEXP, allowEmpty: true, initialValue: phone });
+  } = useInput({
+    regexp: PHONE_REGEXP,
+    allowEmpty: true,
+    initialValue: phone as string,
+  });
 
   const {
     value: password,

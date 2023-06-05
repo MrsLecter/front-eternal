@@ -44,6 +44,7 @@ export const StyledTextWrapper = styled.div`
   @media (max-width: 870px) {
     margin-bottom: -46px;
     margin-top: 8px;
+
     button {
       font-size: 12px;
     }

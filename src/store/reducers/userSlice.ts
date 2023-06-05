@@ -26,8 +26,8 @@ export const userSlice = createSlice({
       action: PayloadAction<{
         id: number;
         email: string;
-        name: string;
-        phone: string;
+        name: string | null;
+        phone: string | null;
         nextPayment: string | Date;
         questionsAmount: number | string;
         readAbout: boolean;

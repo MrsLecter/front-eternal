@@ -13,14 +13,20 @@ const LoaderImage: React.FC<ILoaderImageProps> = ({ type = "background" }) => {
   const basis = 1640;
   let aspectRatio: number;
   if (type === "loader") {
-    aspectRatio = 0.5;
+    aspectRatio = 0.7;
+  } else if (type === "background") {
+    if (document.documentElement.clientWidth < 1600) {
+      aspectRatio = 0.6;
+    } else {
+      aspectRatio = 1.2;
+    }
   } else if (type === "mobile") {
     aspectRatio = 375 / basis;
   } else {
     aspectRatio = document.documentElement.clientWidth / basis;
   }
   return (
-    <LoaderImageWrapper type={"loader"}>
+    <LoaderImageWrapper type={type}>
       <LoaderImageContainer>
         <BagelWrapper
           width={Math.max(703 * aspectRatio, 300)}

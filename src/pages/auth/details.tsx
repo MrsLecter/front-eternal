@@ -27,9 +27,9 @@ import {
 } from "@/styles/pages/details.styles";
 import { PaywallWrapper } from "@/styles/pages/common";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
-import Loader from "@/componets/common/loader/loader";
 import DetailsForm from "@/componets/details/detailsForm/DetailsForm";
 import ChangePasswordForm from "@/componets/details/changePasswordForm/ChangePasswordForm";
+import Loader from "@/componets/common/loader/Loader";
 
 const Details: React.FC = () => {
   const { signin } = userSlice.actions;
@@ -53,6 +53,11 @@ const Details: React.FC = () => {
     showPaywallCardpayModal,
     showRestorePasswordModal,
   } = useAppSelector((store) => store.internalReducer);
+
+  useEffect(() => {
+    dispatch(deleteDialog());
+    dispatch(deleteFirstMessage());
+  }, []);
 
   useEffect(() => {
     setInitialRenderComplete(true);

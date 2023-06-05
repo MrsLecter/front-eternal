@@ -9,8 +9,8 @@ export interface IIndividualsData {
 export interface IUserData {
   id: number;
   email: string;
-  name?: string;
-  phone?: string;
+  name: string | null;
+  phone: string | null;
   nextPayment?: Date | string;
   questionsAmount: number | string;
   readAbout: boolean;
@@ -29,7 +29,8 @@ export interface ILocalStorageData {
   readabout: boolean;
   accessToken: string;
   refreshToken: string;
-  shareLink: string;
+  shareLink: boolean;
+  isGoogleAuth: boolean;
 }
 
 export type TUserQuestion = "qone" | "qtwo" | "qthree" | "intro";

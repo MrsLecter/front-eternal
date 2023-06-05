@@ -1,4 +1,4 @@
-import CardNumberInput from "../../common/input/CardNumberInput";
+import CardNumberInput from "../../common/input/cardNumberInput/CardNumberInput";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import PricingBlock from "../../common/pricingBlock/PricingBlock";
 import TextBtn from "../../common/buttons/TextBtn";
@@ -93,7 +93,7 @@ const UpdatePaymentBlock: React.FC = () => {
       alert("Error: cvv is not valid!");
     }
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
-      const [month, year] = monthYear.split("/");
+      const [month, year] = (monthYear as string).split("/");
       const cardObject = {
         card: CARD_NUMBER,
         exp_year: 20 + year,
@@ -143,11 +143,11 @@ const UpdatePaymentBlock: React.FC = () => {
           <StyledCardWrapper onSubmit={cardpaySubmit}>
             <CardNumberInput
               isHeigh={false}
-              cardNumberValue={cardNumber}
+              cardNumberValue={cardNumber as string}
               cardNumberChangeHandler={cardNumberChangeHandler}
-              mmyyValue={monthYear}
+              mmyyValue={monthYear as string}
               mmyyChangeHandler={monthYearChangeHandler}
-              cvvValue={CVV}
+              cvvValue={CVV as string}
               cvvChangeHandler={CVVChangeHandler}
               haveFocus={false}
             />

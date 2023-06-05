@@ -21,6 +21,9 @@ export interface IResetPasswordResponse {
 export interface ISendNewPasswordResponse {
   status: number;
   message: string;
+  response?: {
+    status: number;
+  };
 }
 
 export interface ISigninResponse {
@@ -36,6 +39,13 @@ export interface ISigninResponse {
     questionsamount: number | string;
     readabout: boolean;
     sharelink: boolean;
+  };
+
+}
+
+export interface ISigninErrorResponse {
+  response?: {
+    status: number;
   };
 }
 

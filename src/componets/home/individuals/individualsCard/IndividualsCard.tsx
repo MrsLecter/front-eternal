@@ -19,7 +19,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
   enlargedImage = false,
   isReflected = false,
 }) => {
-  const { setFirstMessage, setUserMessageFirst } = internalSlice.actions;
+  const { setFirstMessage } = internalSlice.actions;
   const dispatch = useAppDispatch();
 
   let largeWidth = 0;
@@ -35,10 +35,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
   }
 
   const handleIndividualsClick = () => {
-    dispatch(setUserMessageFirst({ isUserMessageFirst: false }));
-    dispatch(
-      setFirstMessage({ message: "Tell me about yourself", type: "intro" })
-    );
+    dispatch(setFirstMessage({ type: "intro" }));
   };
 
   return (
@@ -70,6 +67,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                     filter: "blur(50px)",
                   }}
                   quality={100}
+                  priority={true}
                 />
               </div>
               <Image
@@ -90,6 +88,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   backgroundColor: "transparent",
                 }}
                 quality={100}
+                priority={true}
               />
             </>
           ) : (
@@ -111,6 +110,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                     filter: "blur(50px)",
                   }}
                   quality={100}
+                  priority={true}
                 />
               </div>
               <Image
@@ -131,6 +131,7 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
                   backgroundColor: "transparent",
                 }}
                 quality={100}
+                priority={true}
               />
             </>
           )}

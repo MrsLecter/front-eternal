@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
-import Input from "../common/input/Input";
+import Input from "../common/input/input/Input";
 import { FormEvent } from "react";
 import { useInput } from "@/hooks/use-input";
 import userService from "@/api/user-service";
@@ -46,7 +45,7 @@ const RestorePasswordForm: React.FC<IRestorePasswordFormProps> = ({}) => {
           dispatch(toggleLoginChangePassword());
         }
 
-        if (response.response.status === 406) {
+        if (response.response!.status === 406) {
           alert("Error: invalid confirm code! Try again");
         }
       } catch (err: any) {

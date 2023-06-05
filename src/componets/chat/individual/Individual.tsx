@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { StyledIndividual, StyledIndividualLabel } from "./Individual.styles";
+import {
+  ImageGradient,
+  ImageWrapper,
+  StyledIndividual,
+  StyledIndividualLabel,
+} from "./Individual.styles";
 import { IIndividualsData } from "../../../../types/app-common.types";
 import * as Arquitecta from "@typography/Arquitecta";
 import React from "react";
@@ -16,22 +21,22 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
   let smallHeight = 0;
 
   if (typeof window !== "undefined") {
-    largeWidth = (document.documentElement.clientWidth * 53) / 100;
-    largeHeight = (document.documentElement.clientHeight * 48) / 100;
-    smallWidth = (document.documentElement.clientWidth * 88.18) / 100;
-    smallHeight = (document.documentElement.clientHeight * 50.64) / 100;
+    largeWidth = (document.documentElement.clientWidth * 57) / 100;
+    largeHeight = (document.documentElement.clientHeight * 54) / 100;
+    smallWidth = (document.documentElement.clientWidth * 22) / 100;
+    smallHeight = (document.documentElement.clientHeight * 58) / 100;
   }
   if (!individualData)
     return (
       <StyledIndividual>
-        <Arquitecta.H1>Individuals not found!</Arquitecta.H1>
+        <Arquitecta.H1>Loading...</Arquitecta.H1>
       </StyledIndividual>
     );
   return (
     <StyledIndividual>
       <div>
         {document.documentElement.clientWidth > 1249 && (
-          <div>
+          <ImageWrapper>
             <Image
               width={largeWidth}
               height={largeHeight}
@@ -39,8 +44,7 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
               alt="main"
               style={{
                 objectFit: "contain",
-                width: "57.31vw",
-                height: "66.9vh",
+                height: "60vh",
                 maxWidth: "940px",
                 maxHeight: "940px",
               }}
@@ -48,12 +52,14 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
               blurDataURL="data:image/svg+xml"
               priority={true}
             />
-          </div>
+            <ImageGradient />
+            <LoaderImage type="background" />
+          </ImageWrapper>
         )}
 
         {document.documentElement.clientWidth < 1250 &&
           document.documentElement.clientWidth > 499 && (
-            <div>
+            <ImageWrapper>
               <Image
                 width={smallWidth}
                 height={smallHeight}
@@ -61,19 +67,20 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
                 alt="main"
                 style={{
                   objectFit: "contain",
-                  width: "88vw",
-                  height: "40.64vh",
+                  height: "360px",
                   minWidth: "331px",
-                  minHeight: "331px",
+                  minHeight: "360px",
                 }}
                 placeholder="blur"
                 blurDataURL="data:image/svg+xml"
               />
-            </div>
+              <ImageGradient />
+              <LoaderImage type="background" />
+            </ImageWrapper>
           )}
 
         {document.documentElement.clientWidth < 500 && (
-          <div>
+          <ImageWrapper>
             <Image
               width={smallWidth}
               height={smallHeight}
@@ -81,45 +88,23 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
               alt="main"
               style={{
                 objectFit: "contain",
-                width: "90vw",
-                height: "70vh",
-                minWidth: "331px",
-                minHeight: "331px",
+                height: "360px",
+                minWidth: "360px",
+                minHeight: "360px",
               }}
               placeholder="blur"
               blurDataURL="data:image/svg+xml"
               priority={true}
             />
-          </div>
+            <ImageGradient />
+            <LoaderImage type="background" />
+          </ImageWrapper>
         )}
-
-        {/* : (
-          <div>
-            <Image
-              width={smallWidth}
-              height={smallHeight}
-              src={individualData.image}
-              alt="main"
-              style={{
-                objectFit: "contain",
-                width: "88vw",
-                height: "40.64vh",
-                minWidth: "331px",
-                minHeight: "331px",
-              }}
-              placeholder="blur"
-              blurDataURL="data:image/svg+xml"
-              priority={true}
-            />
-          </div>
-        )} */}
-
-        <StyledIndividualLabel>
-          <Arquitecta.H2>{individualData.name}</Arquitecta.H2>
-          <Arquitecta.H4>{individualData.about}</Arquitecta.H4>
-        </StyledIndividualLabel>
-        <LoaderImage />
       </div>
+      <StyledIndividualLabel>
+        <Arquitecta.H2>{individualData.name}</Arquitecta.H2>
+        <Arquitecta.H4>{individualData.about}</Arquitecta.H4>
+      </StyledIndividualLabel>
     </StyledIndividual>
   );
 };

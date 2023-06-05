@@ -16,6 +16,7 @@ export const StyledForm = styled.form`
   @media (max-width: 870px) {
     margin-top: 24px;
     margin-bottom: -24px;
+    
     & > div:last-child {
       width: 100%;
     }

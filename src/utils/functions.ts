@@ -2,6 +2,8 @@ import { INDIVIDUALS_DATA } from "@/constants/greeting";
 import { IIndividualsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";
+import { useRouteMatch } from "react-router-dom";
+import { ISoulsResponse } from "@/api/souls-service-types";
 
 export const getSoulsDataForId = (id: string): IIndividualsData | undefined => {
   return INDIVIDUALS_DATA.find((individual) => individual.id === parseInt(id));
@@ -49,7 +51,7 @@ export const getPrettyDate = (date: Date | string): string => {
   return `${arrDate[1]} ${arrDate[2]}, ${arrDate[3]}`;
 };
 
-export const sendMessageToDialog = async ({
+export const sendMessageToChannel = async ({
   questionText,
   soulId,
 }: {
@@ -64,4 +66,31 @@ export const sendMessageToDialog = async ({
   } catch (error) {
     console.error("Error:", error);
   }
+};
+
+export const getMessageArray = ({
+  messages,
+}: {
+  messages: { [key: string]: string }[];
+}): string[][] => {
+  let arrResult = [];
+  if (messages && messages.length > 0) {
+    for (let message of messages) {
+      arrResult.push(["soul", Object.values(message)[0]]);
+      arrResult.push(["user", Object.keys(message)[0]]);
+    }
+  }
+
+  arrResult.reverse();
+  return arrResult;
+};
+
+export const getConstructedMessage = ({
+  sender,
+  message,
+}: {
+  sender: "soul" | "user" | "soul intro";
+  message: string;
+}): string[] => {
+  return [sender, message];
 };

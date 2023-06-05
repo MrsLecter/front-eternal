@@ -8,3 +8,5 @@ export const PaywallWrapper = styled.div`
   align-items: center;
   overflow: auto;
 `;
+
+

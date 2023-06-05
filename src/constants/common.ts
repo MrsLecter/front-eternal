@@ -36,6 +36,7 @@ export const SET_FREE_SUBSCRIPTION = `${BASE_API_URL}/add-free-quest`;
 export const ASK_QUESTION = `${BASE_API_URL}/one-question`;
 export const UPDATE_SUBSCRIPTION_URL = `${BASE_API_URL}/update-subscription`;
 export const CANCEL_SUBSCRIPTION_URL = `${BASE_API_URL}/cancel-subscription`;
+export const GET_HISTORY_URL = `${BASE_API_URL}/chat-history`;
 
 export const REQUEST_HEADERS_POST = {
   "Access-Control-Allow-Origin": "http://localhost:3000",

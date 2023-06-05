@@ -14,14 +14,18 @@ const axiosInstance = () => {
   const onSuccess = (response: AxiosResponse) => response.data;
 
   const onError = async (error: any) => {
-    if (error.response.status === 404) {
+      if (error.response.status === 404) {
       alert("Error: there is no such user! Try to register first");
     }
     if (error.response.status === 406) {
-      alert("Error: An  error occured! Try again");
+      console.error("Error: An  error occured! Try again");
     }
     if (error.response.status === 403 || error.response.status === 401) {
       const newTokens = await userService.makeRefreshRequest();
+      if (localStorageHandler.isGoogleAuth()) {
+        localStorageHandler.deleteUsersData();
+        window.location.replace(APP_ROUTES.Home);
+      }
 
       if (newTokens.status === 201) {
         localStorageHandler.updateTokens({
@@ -34,6 +38,7 @@ const axiosInstance = () => {
         window.location.replace(APP_ROUTES.Home);
       }
     } else {
+      alert("Error! Try again");
       return error.response;
     }
   };

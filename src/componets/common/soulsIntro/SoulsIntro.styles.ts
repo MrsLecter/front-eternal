@@ -15,6 +15,7 @@ export const StyledBorder = styled.div`
   background: linear-gradient(180deg, rgba(17, 17, 21, 0) 54.58%, #111115 100%);
   z-index: 1;
 `;
+
 export const Intro = styled.div`
   margin: 0 auto;
   position: relative;
@@ -36,7 +37,7 @@ export const Intro = styled.div`
 
       img {
         animation-delay: 0.4s;
-        animation-duration: 3s;
+        animation-duration: 2s;
         animation-timing-function: ease-out;
         animation-name: goRight;
       }
@@ -52,7 +53,7 @@ export const Intro = styled.div`
       min-width: 191.25px;
 
       img {
-        animation-duration: 3s;
+        animation-duration: 2s;
         animation-name: goRight;
         animation-timing-function: ease-out;
       }
@@ -84,7 +85,7 @@ export const Intro = styled.div`
       min-width: 168.18px;
 
       img {
-        animation-duration: 3s;
+        animation-duration: 2s;
         animation-name: goLeft;
         animation-timing-function: ease-out;
       }
@@ -101,7 +102,7 @@ export const Intro = styled.div`
 
       img {
         animation-delay: 0.4s;
-        animation-duration: 3s;
+        animation-duration: 2s;
         animation-name: goLeft;
         animation-timing-function: ease-out;
       }
@@ -248,7 +249,7 @@ export const Conversation = styled.div`
   width: 100%;
   min-width: 572px;
   z-index: 1;
-  animation-duration: 3s;
+  animation-duration: 2s;
   animation-name: goUp;
   animation-timing-function: ease-out;
 

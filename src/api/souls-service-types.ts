@@ -1,5 +1,10 @@
 export interface ISoulsResponse {
-  souls: ISoulInfo[];
+  // souls: ISoulInfo[];
+  status: number;
+  message: {
+    history: boolean;
+    questioinsamount: string | number;
+  };
 }
 
 export interface ISoulInfo {
@@ -12,4 +17,13 @@ export interface ISoulInfo {
 export interface ISendMessageResponse {
   message: { questioinsamount: string };
   status: number;
+}
+
+export interface IChatHistoryResponse {
+  status: number;
+  message: {
+    user: number;
+    soul: number;
+    chathistory: { [key: string]: string }[];
+  };
 }

@@ -36,7 +36,6 @@ export const BagelWrapper = styled.div<{
   width: ${(props) => props.width + "px"};
   height: ${(props) => props.height + "px"};
   margin: 0 auto;
-  /* margin-top: 350px; */
 `;
 
 export const BagelEllipse = styled.div<EllipseProps>`
@@ -74,7 +73,7 @@ export const LoaderImageWrapper = styled.div<{ type: string }>`
   position: absolute;
   width: 100%;
   height: 100%;
-  max-height: 940px;
+  /* max-height: 940px; */
   left: 0;
   top: 0;
   background: transparent;
@@ -88,6 +87,11 @@ export const LoaderImageWrapper = styled.div<{ type: string }>`
       justify-content: center;
       align-items: center;
     `}
+
+  @media(max-width: 870px) {
+    margin-top: 80px;
+    max-height: 330px;
+  }
 `;
 
 export const LoaderImageContainer = styled.div`

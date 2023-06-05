@@ -28,11 +28,6 @@ const StyledLogo = styled.div`
     width: 100%;
     height: 100%;
   }
-  /* @media (max-width: 375px) {
-   margin-top: 8px; 
-    width: 144px;
-    height: 29.97px; 
-  }*/
 `;
 
 export default Logo;

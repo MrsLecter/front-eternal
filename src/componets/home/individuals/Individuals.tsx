@@ -1,8 +1,8 @@
 import IndividualsCard from "./individualsCard/IndividualsCard";
 import IndividualsContainer from "./individualsContainer/IndividualsContainer";
-import styled from "styled-components";
 import { INDIVIDUALS_DATA } from "@/constants/greeting";
 import Title from "@/componets/common/title/Title";
+import { StyledSectionLeft } from "./Individuals.styles";
 
 const Individuals: React.FC = () => {
   return (
@@ -53,26 +53,5 @@ const Individuals: React.FC = () => {
     </StyledSectionLeft>
   );
 };
-
-const StyledSectionLeft = styled.div`
-  margin-top: 150px;
-  width: 100%;
-  max-width: 1640px;
-  padding: 0px 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-
-
-  @media (max-width: 1075px) {
-    padding: 0px 16px;
-  }
-
-  @media (max-width: 860px) {
-    margin-top: 64px;
-    padding: 0px 12px;
-  }
-`;
 
 export default Individuals;

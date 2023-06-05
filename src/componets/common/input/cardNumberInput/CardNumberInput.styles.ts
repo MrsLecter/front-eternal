@@ -1,60 +1,7 @@
 import styled from "styled-components";
-import Image from "next/image";
-import cardIcon from "@icons/card.svg";
-import { StyledInput } from "./Input";
-import { ChangeEvent } from "react";
+import { StyledInput } from "../input/Input.styles";
 
-interface ICardNumberInputProps {
-  cardNumberValue: string;
-  cardNumberChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-  mmyyValue: string;
-  mmyyChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-  cvvValue: string;
-  cvvChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-  isHeigh: boolean;
-  haveFocus: boolean;
-}
-
-const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
-  const inputHeight = props.isHeigh ? "62px" : "56px";
-  return (
-    <StyledCardNumberInput inputHeight={inputHeight}>
-      <StyledCardInput
-        type="text"
-        placeholder={"Card Number"}
-        name={"cardNumber"}
-        required
-        maxLength={19}
-        value={props.cardNumberValue}
-        onChange={(event) => props.cardNumberChangeHandler(event)}
-        autoFocus={props.haveFocus}
-      />
-      <StyledImageWrapper>
-        <Image width={24} height={16} alt="shuffle.svg" src={cardIcon} />
-      </StyledImageWrapper>
-      <StyledDateInput
-        type="text"
-        placeholder={"MM / YY"}
-        name={"cardDate"}
-        required
-        maxLength={5}
-        value={props.mmyyValue}
-        onChange={(event) => props.mmyyChangeHandler(event)}
-      />
-      <StyledCodeInput
-        type="text"
-        placeholder={"CVC"}
-        name={"cardCode"}
-        required
-        maxLength={3}
-        value={props.cvvValue}
-        onChange={(event) => props.cvvChangeHandler(event)}
-      />
-    </StyledCardNumberInput>
-  );
-};
-
-const StyledCardInput = styled(StyledInput)`
+export const StyledCardInput = styled(StyledInput)`
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
   padding: 17.5px 0px 17.5px 48px;
@@ -84,7 +31,7 @@ const StyledCardInput = styled(StyledInput)`
   }
 `;
 
-const StyledDateInput = styled(StyledInput)`
+export const StyledDateInput = styled(StyledInput)`
   margin-right: 16px;
   width: 20%;
   padding: 17.5px 0px 17.5px 0px;
@@ -113,7 +60,7 @@ const StyledDateInput = styled(StyledInput)`
   }
 `;
 
-const StyledCodeInput = styled(StyledInput)`
+export const StyledCodeInput = styled(StyledInput)`
   margin-right: 16px;
   width: 10.2%;
   border-top-right-radius: 16px;
@@ -144,7 +91,7 @@ const StyledCodeInput = styled(StyledInput)`
   }
 `;
 
-const StyledImageWrapper = styled.div`
+export const StyledImageWrapper = styled.div`
   position: absolute;
   top: 23.25px;
   left: 16.25px;
@@ -155,7 +102,7 @@ const StyledImageWrapper = styled.div`
   }
 `;
 
-const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
+export const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
   position: relative;
   width: 100%;
   max-width: 529px;
@@ -165,7 +112,6 @@ const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
   justify-content: flex-start;
   align-items: center;
   background: #060608;
-  /* border: 1px solid #2e2435; */
   outline: 1px solid #2e2435;
   border-radius: 16px;
 
@@ -174,7 +120,6 @@ const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
   }
 
   &:focus-within {
-    /* border: 1px solid ${({ theme }) => theme.color.pink}; */
     outline: 1px solid ${({ theme }) => theme.color.pink};
   }
 
@@ -188,5 +133,3 @@ const StyledCardNumberInput = styled.div<{ inputHeight: string }>`
     font-size: 14px;
   }
 `;
-
-export default CardNumberInput;

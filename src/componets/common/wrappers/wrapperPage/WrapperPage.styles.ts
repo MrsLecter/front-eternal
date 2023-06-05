@@ -9,8 +9,14 @@ export const StyledBackground = styled.div<{ background: string }>`
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+
+  overflow-y: auto;
   background-color: ${(props) => props.background};
   z-index: -12;
+
+  @media (max-width: 870px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const StyledMainContent = styled.div`
@@ -20,4 +26,9 @@ export const StyledMainContent = styled.div`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+
+  @media (max-width: 870px) {
+    height: 100%;
+    justify-content: flex-start;
+  }
 `;

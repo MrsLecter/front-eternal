@@ -34,7 +34,6 @@ const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = ({
 };
 
 const StyledPrimarySubmitBtn = styled(StyledPrimaryBtn)<{ isHigh: boolean }>`
-  /* margin-bottom: 24px; */
   width: 100%;
   min-width: 100%;
   height: 62px;

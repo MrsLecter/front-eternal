@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TUserQuestion } from "../../../types/app-common.types";
 
 interface IInternalData {
-  dialog: string[];
-  firstMessage: string;
-  isUserMessageFirst: boolean;
+  dialog: string[][];
+  firstMessage: boolean;
+  isHaveNewQuestion: string;
   userQuestionType: TUserQuestion;
   showCommonModal: boolean;
   showMenuModal: boolean;
@@ -22,8 +22,8 @@ interface IInternalData {
 
 const internalSetting: IInternalData = {
   dialog: [],
-  firstMessage: "",
-  isUserMessageFirst: false,
+  firstMessage: false,
+  isHaveNewQuestion: "",
   userQuestionType: "intro",
   showCommonModal: false,
   showMenuModal: false,
@@ -47,8 +47,13 @@ export const internalSlice = createSlice({
       state.dialog = [];
     },
 
-    addToDialog(state, action: PayloadAction<{ message: string }>) {
+    addToDialog(state, action: PayloadAction<{ message: string[] }>) {
       state.dialog.push(action.payload.message);
+    },
+
+    addHistory(state, action: PayloadAction<{ message: string[][] }>) {
+      state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
+      state.dialog.unshift(...action.payload.message);
     },
 
     deleteLastDialogMessage(state) {
@@ -56,22 +61,16 @@ export const internalSlice = createSlice({
     },
 
     deleteFirstMessage(state) {
-      state.firstMessage = "";
+      state.firstMessage = false;
     },
 
     setFirstMessage(
       state,
-      action: PayloadAction<{ message: string; type: TUserQuestion }>
+      action: PayloadAction<{ type: TUserQuestion; message?: string[] }>
     ) {
-      state.firstMessage = action.payload.message;
+      state.firstMessage = true;
       state.userQuestionType = action.payload.type;
-    },
-
-    setUserMessageFirst(
-      state,
-      action: PayloadAction<{ isUserMessageFirst: boolean }>
-    ) {
-      state.isUserMessageFirst = action.payload.isUserMessageFirst;
+      if (action.payload.message) state.dialog.push(action.payload.message);
     },
 
     showMenuModal(state) {

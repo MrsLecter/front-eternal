@@ -1,8 +1,6 @@
 @import "./normalize.min.css";
 @import "./fonts.css";
 
-
-
 *::-webkit-scrollbar {
   width: 6px;
 }
@@ -13,6 +11,12 @@
 }
 
 *::-webkit-scrollbar-thumb {
+background:transparent;
+  border-radius: 2px;
+  border: none;
+}
+
+*::-webkit-scrollbar-thumb {
   background: #6c6a6b;
   opacity: 0.4;
   border-radius: 6px;
@@ -20,7 +24,8 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
- background: transparent;
+  background: white;
+  opacity:0.2;
 }
 
 * {

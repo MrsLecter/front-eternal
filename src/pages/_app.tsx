@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { Suspense, useEffect, useState } from "react";
 import theme from "@/styles/theme";
 import { ThemeProvider } from "styled-components";
-import Loader from "../componets/common/loader/loader";
+import Loader from "../componets/common/loader/Loader";
 import apolloClient from "@/api/apollo-client";
 import { ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";

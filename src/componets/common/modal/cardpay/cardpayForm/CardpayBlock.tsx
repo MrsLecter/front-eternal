@@ -3,20 +3,21 @@ import paypalIcon from "@icons/paypal.svg";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
 import { encrypt } from "@/utils/functions";
-import { APP_ROUTES, CARD_NUMBER } from "@/constants/common";
+import { CARD_NUMBER } from "@/constants/common";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import userService from "@/api/user-service";
-import { useRef } from "react";
+
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { StyledProOfferBlock } from "../../payment/paymentlForm/ProOfferBlock";
+
 import { internalSlice } from "@/store/reducers/internalSlice";
 import ProBtn from "@/componets/common/buttons/ProBtn";
 import TitlePricing from "@/componets/common/title/TitlePricing";
-import CardNumberInput from "@/componets/common/input/CardNumberInput";
+import CardNumberInput from "@/componets/common/input/cardNumberInput/CardNumberInput";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
 import SecondaryWhiteBtn from "@/componets/common/buttons/SecondaryWhiteBtn";
+import { StyledProOfferBlock } from "../../payment/paymentlForm/proOfferBlock/ProOfferBlock.styles";
 
 interface ICardpayBlockProps {
   isNeedSubmitBtn?: boolean;

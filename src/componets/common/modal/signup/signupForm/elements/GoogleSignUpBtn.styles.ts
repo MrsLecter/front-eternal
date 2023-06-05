@@ -1,32 +1,10 @@
-"use client";
-import googleIcon from "@icons/google-btn.svg";
+import { StyledBorderedBtn, StyledSecondary } from "@/componets/common/buttons/SecondaryBtn";
 import styled from "styled-components";
-import Image from "next/image";
-import {
-  StyledSecondary,
-  StyledBorderedBtn,
-} from "../../../buttons/SecondaryBtn";
 
-interface IGoogleSignUpProps {
-  clickHandler: () => void;
-}
-
-const GoogleSignUp: React.FC<IGoogleSignUpProps> = ({ clickHandler }) => {
-  return (
-    <StyledGoogleWrapper type="button">
-      <StyledGoogleBtn onClick={() => clickHandler()}>
-        <Image width={24} height={24} alt="google-icon.svg" src={googleIcon} />
-        <span>sign up with google</span>
-      </StyledGoogleBtn>
-    </StyledGoogleWrapper>
-  );
-};
-
-const StyledGoogleWrapper = styled(StyledSecondary)`
+export const StyledGoogleWrapper = styled(StyledSecondary)`
   width: 100%;
   height: 62px;
   padding: 1px;
-  /* background-color: transparent; */
   background-image: linear-gradient(0deg, white 100%);
 
   &:hover {
@@ -50,7 +28,7 @@ const StyledGoogleWrapper = styled(StyledSecondary)`
   }
 `;
 
-const StyledGoogleBtn = styled(StyledBorderedBtn)`
+export const StyledGoogleBtn = styled(StyledBorderedBtn)`
   padding-left: 20px;
   padding-right: 20px;
   width: 100%;
@@ -74,5 +52,3 @@ const StyledGoogleBtn = styled(StyledBorderedBtn)`
     }
   }
 `;
-
-export default GoogleSignUp;

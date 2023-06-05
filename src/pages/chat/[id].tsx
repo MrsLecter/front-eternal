@@ -14,7 +14,6 @@ import Menu from "@/componets/common/modal/menu/Menu";
 import Payment from "@/componets/common/modal/payment/Payment";
 import Result from "@/componets/common/modal/result/Result";
 import TitleMedium from "@/componets/common/title/TitleMedium";
-import Loader from "@/componets/common/loader/loader";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import Signin from "@/componets/common/modal/signin/Signin";
 import Signup from "@/componets/common/modal/signup/Signup";
@@ -23,16 +22,16 @@ import Cardpay from "@/componets/common/modal/cardpay/Cardpay";
 import RestorePassword from "@/componets/common/modal/restorePassword/RestorePassword";
 import { PaywallWrapper } from "@/styles/pages/common";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
-import {
-  StyledChatContainer,
-  StyledSectionChatWrapper,
-} from "@/styles/pages/chat.styled";
+
 import WrapperPage from "@/componets/common/wrappers/wrapperPage/WrapperPage";
+import Loader from "@/componets/common/loader/Loader";
+import styled from "styled-components";
 
 const Chat: React.FC = () => {
   const router = useRouter();
   const soulId = router.query.id as string;
   const currentSoulsData = getSoulsDataForId(soulId);
+
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
 
@@ -143,5 +142,74 @@ const Chat: React.FC = () => {
     );
   }
 };
+
+const StyledSectionChatWrapper = styled.div`
+  height: 100%;
+  min-height: 100%;
+  @media (max-width: 870px) {
+    height: 812px;
+  }
+`;
+
+const StyledChatContainer = styled.main`
+  position: relative;
+  height: calc(100% - 96px);
+  min-height: calc(100% - 96px);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #0a0907;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  & > div {
+    width: 50%;
+    height: calc(100vh - 84px);
+    min-height: calc(100vh - 84px);
+  }
+
+  & > div:first-child {
+    overflow: visible;
+    box-shadow: 0px 24px 34px #0a0907;
+    /* background-color: green; */
+    z-index: 10;
+  }
+
+  & > div:last-child {
+    z-index: 3;
+  }
+
+  @media (max-width: 1250px) {
+    flex-direction: column;
+    overflow-y: auto;
+    & > div {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 870px) {
+    /* min-height: 728px;
+    height: calc(100% - 84px);
+    max-height: calc(100% - 84px); */
+    height: auto;
+    min-height: auto;
+    max-height: auto;
+
+    & > div {
+      height: 100%;
+    }
+
+    & > div:first-child {
+      height: 360px;
+      min-height: 360px;
+    }
+
+    & > div:last-child {
+      min-height: 368px;
+      height: 100%;
+    }
+    overflow-y: scroll;
+  }
+`;
 
 export default Chat;

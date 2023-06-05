@@ -24,9 +24,9 @@ export default NextAuth({
   ],
   secret: JWT_SECRET,
   theme: {
-    colorScheme: "dark", // "auto" | "dark" | "light"
-    brandColor: "#004821", // Hex color code
-    logo: "/_next/static/media/eternal-logo.c42d13c6.svg", // Absolute URL to image
+    colorScheme: "dark",
+    brandColor: "#004821",
+    logo: "/_next/static/media/eternal-logo.0b5d0f9d.svg",
   },
   session: {
     strategy: "jwt",

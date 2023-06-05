@@ -1,9 +1,8 @@
 "use client";
 
-import styled from "styled-components";
-import GoogleSignUp from "./GoogleSignUpBtn";
+import GoogleSignUp from "./elements/GoogleSignUpBtn";
 import PrimarySubmitBtn from "../../../buttons/PrimarySubmitBtn";
-import Input from "../../../input/Input";
+import Input from "../../../input/input/Input";
 import { FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useAppDispatch } from "@/hooks/reducers.hook";
@@ -13,6 +12,7 @@ import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { internalSlice } from "@/store/reducers/internalSlice";
+import { StyledFormRow } from "./SignupForm.styles";
 
 const SignupForm: React.FC = () => {
   const { setEmail } = userSlice.actions;
@@ -80,6 +80,9 @@ const SignupForm: React.FC = () => {
           alert("Error: user already exist! Please, login");
           changeToSignin();
         }
+        if (response.response.status === 422) {
+          alert("Error: user already exist! Try to signup with google");
+        }
       } catch (err: any) {
         console.error("Error:", err);
       }
@@ -114,40 +117,5 @@ const SignupForm: React.FC = () => {
     </form>
   );
 };
-
-const StyledFormRow = styled.div`
-  width: 100%;
-  height: 62px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  & > div {
-    margin-top: 0px;
-    width: 48.72%;
-  }
-
-  @media (max-width: 545px) {
-    width: 279px;
-    height: 140px;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    & > div:first-child {
-      margin-top: 16px;
-      order: 2;
-    }
-
-    & > div:last-child {
-      margin-top: 0px;
-    }
-
-    & > div {
-      width: 100%;
-    }
-  }
-`;
 
 export default SignupForm;

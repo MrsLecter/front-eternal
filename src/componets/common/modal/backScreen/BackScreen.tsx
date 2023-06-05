@@ -7,9 +7,7 @@ interface IBackdropProps {
 
 const BackScreen: React.FC<IBackdropProps> = ({ backClickHandler }) => {
   return (
-   
       <StyledBackdrop onClick={backClickHandler} />
-
   );
 };
 

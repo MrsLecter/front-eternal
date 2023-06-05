@@ -40,6 +40,7 @@ export const StyledTileMedium = styled.div`
   @media (max-width: 870px) {
     width: 343px;
     margin-bottom: 16px;
+    margin-top: 60px;
 
     p:first-child {
       font-size: 24px;

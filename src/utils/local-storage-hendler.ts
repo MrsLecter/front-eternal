@@ -13,6 +13,7 @@ class LocalStorageHandler {
     accessToken,
     refreshToken,
     shareLink,
+    isGoogleAuth,
   }: ILocalStorageData) {
     const userDataObject = {
       id,
@@ -25,6 +26,7 @@ class LocalStorageHandler {
       accessToken,
       refreshToken,
       shareLink,
+      isGoogleAuth,
     };
 
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
@@ -213,6 +215,16 @@ class LocalStorageHandler {
       smsAvailable: false,
     };
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
+  }
+
+  public isGoogleAuth() {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
+    if (userData) {
+      const userDataObject = JSON.parse(userData);
+      return userDataObject.isGoogleAuth;
+    } else {
+      return false;
+    }
   }
 }
 

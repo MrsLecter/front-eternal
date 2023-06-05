@@ -1,29 +1,19 @@
-import styled from "styled-components";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { useRouter } from "next/router";
 import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { internalSlice } from "@/store/reducers/internalSlice";
-import { Input } from "@/componets/common/input/Input";
+import { Input } from "@/componets/common/input/input/Input";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
+import { StyledLink } from "./SignInForm.styles";
 
-interface ISigninFormProps {}
-
-const SignInForm: React.FC<ISigninFormProps> = ({}) => {
+const SignInForm: React.FC = () => {
   const { signin } = userSlice.actions;
-  const {
-    showMenuModal,
-    backdropClick,
-    toggleToLogin,
-    toggleToSignup,
-    toggleToAbout,
-    toggleLoginChangePassword,
-  } = internalSlice.actions;
+  const { backdropClick, toggleToAbout, toggleLoginChangePassword } =
+    internalSlice.actions;
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const {
     value: email,
@@ -103,7 +93,8 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
             questionsamount: response.data.message.questionsamount,
             accessToken: response.data.message.accesstoken,
             refreshToken: response.data.message.refreshtoken,
-            shareLink: response.data.message.sharelink,
+            shareLink: !!response.data.message.sharelink,
+            isGoogleAuth: false,
           });
           if (!response.data.message.readabout) {
             dispatch(backdropClick());
@@ -112,15 +103,18 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
             dispatch(backdropClick());
           }
         }
-        if (response.status === 404) {
+        if (response.response.status === 404) {
           alert(`Error: There is no user with ${email} email!`);
         }
-        if (response.status === 406) {
+        if (response.response.status === 406) {
           alert(`Error: invalid password! Try again`);
         }
-      } catch (err) {
-        console.error("Error", err);
-      }
+        if (response.response.status === 422) {
+          alert(
+            "Error: Password isn't assigned! Please, click on forgot password button or set password in account details after repeat registration throught google "
+          );
+        }
+      } catch (err) {}
     }
   };
 
@@ -149,37 +143,5 @@ const SignInForm: React.FC<ISigninFormProps> = ({}) => {
     </div>
   );
 };
-
-const StyledLink = styled.div`
-  width: 100%;
-  margin: 32px 0px;
-
-  button {
-    width: 100%;
-    font-family: "Avenir Regular";
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 150%;
-    letter-spacing: -0.01em;
-    text-align: left;
-    background-color: transparent;
-    border: none;
-    color: #ffffff;
-    opacity: 0.7;
-  }
-
-  button:hover {
-    opacity: 1;
-  }
-
-  @media (max-width: 870px) {
-    margin-top: 21px;
-    margin-bottom: 24px;
-    button {
-      font-size: 14px;
-      line-height: 21px;
-    }
-  }
-`;
 
 export default SignInForm;

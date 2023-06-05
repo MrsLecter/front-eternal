@@ -1,6 +1,13 @@
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import { StyledMessages } from "./Messages.styles";
 import UserInput from "./userInput/UserInput";
 import ChatBox from "./chatBox/ChatBox";
+import Pusher from "pusher-js";
+import { PUSHER_DATA } from "@/constants/common";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { internalSlice } from "@/store/reducers/internalSlice";
+import { getConstructedMessage } from "@/utils/functions";
 
 interface IMessagesProps {
   avatarImg: string | undefined;
@@ -8,6 +15,47 @@ interface IMessagesProps {
 }
 
 const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
+  const userId = localStorageHandler.getUserId();
+  const dispatch = useAppDispatch();
+
+  const { addToDialog, deleteLastDialogMessage, allowTyping, deleteDialog } =
+    internalSlice.actions;
+
+  const { firstMessage, dialog } = useAppSelector(
+    (store) => store.internalReducer
+  );
+  const isAuth = localStorageHandler.getAccessToken();
+  const { questionsAmount } = useAppSelector((store) => store.userReducer);
+
+  useEffect(() => {
+    if (isAuth && questionsAmount !== 0 && !firstMessage) {
+      Pusher.logToConsole = true;
+      const pusherClient = new Pusher(PUSHER_DATA.Secret, {
+        cluster: "eu",
+      });
+      pusherClient.subscribe(PUSHER_DATA.ChatId + userId);
+
+      pusherClient.bind(PUSHER_DATA.EventName, (data: any) => {
+        dispatch(deleteLastDialogMessage());
+        dispatch(
+          addToDialog({
+            message: getConstructedMessage({
+              sender: "soul",
+              message: data.answer,
+            }),
+          })
+        );
+
+        dispatch(allowTyping());
+      });
+
+      return () => {
+        pusherClient.unsubscribe(PUSHER_DATA.ChatId);
+        pusherClient.unbind(PUSHER_DATA.EventName);
+      };
+    }
+  }, [dialog]);
+
   return (
     <StyledMessages>
       <ChatBox avatarImg={avatarImg} soulId={soulId} />
@@ -16,40 +64,4 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   );
 };
 
-const StyledMessages = styled.div`
-  padding-left: 60px;
-  position: relative;
-  min-width: calc(100% - 60px);
-  height: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: space-between;
-  background-color: transparent;
-  /* overflow: hidden; */
-  z-index: 10;
-
-  @media (max-width: 1600px) {
-    min-height: calc(100% - 80px);
-    min-width: calc(100% - 32px);
-    padding-left: 16px;
-  }
-
-  @media (max-width: 1250px) {
-    justify-content: flex-end;
-    align-items: start;
-    padding-bottom: 0px;
-    min-width: calc(100% - 505px);
-    padding-left: 16px;
-  }
-
-  @media (max-width: 870px) {
-    margin-top: 100px;
-    padding-top: 0px;
-    height: 100%;
-    min-height: 407px;
-  }
-`;
-
-export default Messages;
+export default React.memo(Messages);

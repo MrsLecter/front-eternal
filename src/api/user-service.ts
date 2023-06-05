@@ -33,19 +33,21 @@ import {
   IChangePasswordResponse,
   IUpdateSubscriptionResponse,
   IRefreshRequestResponse,
+  ISigninErrorResponse,
 } from "./user-service-types";
 
 class UserService {
   public async makeRefreshRequest(): Promise<IRefreshRequestResponse> {
     try {
-      const refreshToken = localStorageHandler.getRefreshToken();
+      const refreshToken: IRefreshRequestResponse =
+        localStorageHandler.getRefreshToken();
       const instance = axios.create({
         baseURL: REFRESH_URL,
         headers: { Authorization: "Bearer " + refreshToken },
       });
       return await instance.post("/");
     } catch (err: any) {
-      console.error("An error occured in post photos request: ", err);
+      console.error("An error occured in makeRefreshRequest: ", err);
       return err;
     }
   }
@@ -56,9 +58,9 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }) {
+  }): Promise<ISignupResponse> {
     try {
-      const response = await axios.post<ISignupResponse>(
+      const response: ISignupResponse = await axios.post(
         REGISTRATION_URL,
         {
           email,
@@ -72,7 +74,7 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in signup request: ", err);
       return err;
     }
   }
@@ -90,9 +92,12 @@ class UserService {
           },
         }
       );
+      if (response.status === 500) {
+        alert("sdfsdfsdf");
+      }
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in googleAuth request: ", err);
       return err;
     }
   }
@@ -103,7 +108,7 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }) {
+  }): Promise<AxiosResponse<ISigninResponse, any>> {
     try {
       const response = await axios.post<ISigninResponse>(
         LOGIN_URL,
@@ -119,14 +124,18 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in signin request: ", err);
       return err;
     }
   }
 
-  public async resetPassword({ email }: { email: string }) {
+  public async resetPassword({
+    email,
+  }: {
+    email: string;
+  }): Promise<IResetPasswordResponse> {
     try {
-      const response = await axiosInstance().post<IResetPasswordResponse>(
+      const response: IResetPasswordResponse = await axiosInstance().post(
         RESET_PASSWORD_URL,
         {
           email,
@@ -139,7 +148,7 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in resetPassword request: ", err);
       return err;
     }
   }
@@ -150,9 +159,9 @@ class UserService {
   }: {
     code: string;
     newpassword: string;
-  }) {
+  }): Promise<ISendNewPasswordResponse> {
     try {
-      const response = await axios.post<ISendNewPasswordResponse>(
+      const response: ISendNewPasswordResponse = await axios.post(
         SET_NEW_PASSWORD,
         {
           code,
@@ -166,7 +175,10 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error(
+        "An error occured in restoreForgottenPassword request: ",
+        err
+      );
       return err;
     }
   }
@@ -177,9 +189,9 @@ class UserService {
   }: {
     passwordOld: string;
     passwordNew: string;
-  }) {
+  }): Promise<IChangePasswordResponse> {
     try {
-      const response = await axiosInstance().post<IChangePasswordResponse>(
+      const response: IChangePasswordResponse = await axiosInstance().post(
         CHANGE_PASSWORD,
         {
           password: passwordOld,
@@ -194,14 +206,14 @@ class UserService {
 
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in changePassword request: ", err);
       return err;
     }
   }
 
-  public async about() {
+  public async about(): Promise<IReadaboutResponse> {
     try {
-      const response = await axiosInstance().post<IReadaboutResponse>(
+      const response: IReadaboutResponse = await axiosInstance().post(
         SET_READABOUT_URL,
         {
           headers: {
@@ -211,7 +223,7 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in about request: ", err);
       return err;
     }
   }
@@ -221,12 +233,12 @@ class UserService {
     email,
     phone,
   }: {
-    name: string;
+    name: string | null;
     email: string;
     phone: string;
-  }) {
+  }): Promise<IChangeDetailsResponse> {
     try {
-      const response = await axiosInstance().post<IChangeDetailsResponse>(
+      const response: IChangeDetailsResponse = await axiosInstance().post(
         PROFILE_DETAILS_URL,
         {
           name,
@@ -241,14 +253,14 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in addProfileDetails request: ", err);
       return err;
     }
   }
 
-  public async setProPlan(cardEncrypted: string) {
+  public async setProPlan(cardEncrypted: string): Promise<ISetProPlanResponse> {
     try {
-      const response = await axiosInstance().post<ISetProPlanResponse>(
+      const response: ISetProPlanResponse = await axiosInstance().post(
         SET_PRO_SUBSCRIPTION,
         {
           codedCard: cardEncrypted,
@@ -261,14 +273,14 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in setProPlan request: ", err);
       return err;
     }
   }
 
-  public async setFreePlan() {
+  public async setFreePlan(): Promise<ISetFreePlanResponse> {
     try {
-      const response = await axiosInstance().post<ISetFreePlanResponse>(
+      const response: ISetFreePlanResponse = await axiosInstance().post(
         SET_FREE_SUBSCRIPTION,
         {},
         {
@@ -279,14 +291,14 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in setFreePlan request: ", err);
       return err;
     }
   }
 
-  public async cancelSubscription() {
+  public async cancelSubscription(): Promise<ICancellSubscriptionResponse> {
     try {
-      const response = await axiosInstance().post<ICancellSubscriptionResponse>(
+      const response: ICancellSubscriptionResponse = await axiosInstance().post(
         CANCEL_SUBSCRIPTION_URL,
         {},
         {
@@ -297,16 +309,16 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in cancelSubscription request: ", err);
       return err;
     }
   }
 
-  public async updateSubscription(cardEncrypted: string) {
+  public async updateSubscription(
+    cardEncrypted: string
+  ): Promise<IUpdateSubscriptionResponse> {
     try {
-      const response = (
-        await axiosInstance().post
-      )<IUpdateSubscriptionResponse>(
+      const response: IUpdateSubscriptionResponse = await axiosInstance().post(
         UPDATE_SUBSCRIPTION_URL,
         {
           codedCard: cardEncrypted,
@@ -319,7 +331,7 @@ class UserService {
       );
       return response;
     } catch (err: any) {
-      console.error("An error occured in registration request: ", err);
+      console.error("An error occured in updateSubscription request: ", err);
       return err;
     }
   }

@@ -9,6 +9,7 @@ export const StyledChatContainer = styled.main`
   justify-content: flex-start;
   background-color: #0a0907;
   overflow-x: hidden;
+  overflow-y: hidden;
 
   & > div {
     width: 50%;
@@ -22,31 +23,30 @@ export const StyledChatContainer = styled.main`
 
   @media (max-width: 1250px) {
     flex-direction: column;
+    overflow-y: auto;
     & > div {
       width: 100%;
-      /* height: 421px; */
-      /* min-height: 421px; */
     }
   }
 
   @media (max-width: 870px) {
     height: 100%;
     min-height: 900px;
+
     & > div {
       height: 100%;
-      /* height: 505px; */
-      /* min-height: 505px; */
     }
 
     & > div:first-child {
       height: 405px;
       min-height: 405px;
     }
+
     & > div:last-child {
-      height: 307px;
+      /* height: 307px; */
       min-height: 307px;
     }
-    overflow-y: hidden;
+    overflow-y: scroll;
   }
 `;
 

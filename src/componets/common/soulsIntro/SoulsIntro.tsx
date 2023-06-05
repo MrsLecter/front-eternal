@@ -16,6 +16,7 @@ import secondR from "@images/individuals/4_albert_einstein.png";
 import thirdL from "@images/individuals/3_elon_mask.png";
 import thirdR from "@images/individuals/5_mother_teresa.png";
 
+
 interface ISoulsIntroProps {
   isBlured?: boolean;
 }

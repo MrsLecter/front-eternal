@@ -1,4 +1,4 @@
-import Input from "../../common/input/Input";
+import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
@@ -33,8 +33,8 @@ const ChangePasswordForm: React.FC = () => {
     if (passwordOldIsValid && passwordNewIsValid) {
       try {
         const response = await userService.changePassword({
-          passwordOld,
-          passwordNew,
+          passwordOld: passwordOld as string,
+          passwordNew: passwordNew as string,
         });
 
         if (response.status === 200) {

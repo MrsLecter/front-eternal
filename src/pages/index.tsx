@@ -2,7 +2,6 @@ import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
 import Individuals from "@/componets/home/individuals/Individuals";
 import { useState, useEffect, useMemo } from "react";
-import Loader from "@/componets/common/loader/loader";
 import Modal from "@/componets/common/modal/Modal";
 import Footer from "@/componets/common/footer/Footer";
 import Menu from "@/componets/common/modal/menu/Menu";
@@ -31,6 +30,7 @@ import {
 import userService from "@/api/user-service";
 import { useSession } from "next-auth/react";
 import localStorageHandler from "@/utils/local-storage-hendler";
+import Loader from "@/componets/common/loader/Loader";
 
 export default function Home() {
   const session = useSession();
@@ -53,7 +53,6 @@ export default function Home() {
         const response = await userService.googleAuth(token);
 
         if (response.status === 201) {
-      
           setGoogleSignup(true);
           dispatch(
             signin({
@@ -78,6 +77,7 @@ export default function Home() {
             accessToken: response.data.message.accesstoken,
             refreshToken: response.data.message.refreshtoken,
             shareLink: response.data.message.sharelink,
+            isGoogleAuth: true,
           });
         }
       } catch (err) {
