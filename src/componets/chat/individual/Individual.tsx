@@ -24,7 +24,7 @@ const Individual: React.FC<IIndividualProps> = ({ individualData }) => {
     largeWidth = (document.documentElement.clientWidth * 57) / 100;
     largeHeight = (document.documentElement.clientHeight * 54) / 100;
     smallWidth = (document.documentElement.clientWidth * 22) / 100;
-    smallHeight = (document.documentElement.clientHeight * 58) / 100;
+    smallHeight = 352;
   }
   if (!individualData)
     return (

@@ -18,6 +18,7 @@ interface IInternalData {
   showPaywallResultModal: boolean;
   isSmallHeader: boolean;
   isTypingAllowed: boolean;
+  temp: string;
 }
 
 const internalSetting: IInternalData = {
@@ -37,6 +38,7 @@ const internalSetting: IInternalData = {
   showPaywallResultModal: false,
   isSmallHeader: false,
   isTypingAllowed: false,
+  temp: "",
 };
 
 export const internalSlice = createSlice({
@@ -52,7 +54,7 @@ export const internalSlice = createSlice({
     },
 
     addHistory(state, action: PayloadAction<{ message: string[][] }>) {
-      state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
+      // state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
       state.dialog.unshift(...action.payload.message);
     },
 
@@ -149,6 +151,14 @@ export const internalSlice = createSlice({
 
     allowTyping(state) {
       state.isTypingAllowed = true;
+    },
+
+    setTemp(state, action: PayloadAction<{ message: string }>) {
+      state.temp = action.payload.message;
+    },
+
+    deleteTemp(state) {
+      state.temp = "";
     },
   },
 });

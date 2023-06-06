@@ -73,8 +73,8 @@ const DetailsForm: React.FC = () => {
       try {
         const response = await userService.addProfileDetails({
           name: fullname,
-          email: emailInput || email,
-          phone: phoneInput || phone!,
+          email: emailInput ? emailInput : email,
+          phone: phoneInput ? phoneInput : phone!,
         });
 
         if (response.status === 200) {
@@ -109,6 +109,7 @@ const DetailsForm: React.FC = () => {
         placeholder={phone ? phone : "8329822222"}
         inputValue={phoneInput}
         isRequired={false}
+        maxLen={10}
         onChangeHandler={phoneInputChangeHandler}
       />
       <div>

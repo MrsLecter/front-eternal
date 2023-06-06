@@ -31,6 +31,7 @@ export const StyledChatBox = styled.div`
   @media (max-width: 1250px) {
     margin-top: 0px;
     margin-right: 12px;
+    /* height: 100%; */
     max-height: 100%;
   }
 

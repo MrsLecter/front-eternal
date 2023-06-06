@@ -28,7 +28,7 @@ export const INDIVIDUALS_DATA = [
   {
     id: 1,
     name: "Steve Jobs",
-    about: "Apple Computer Founder",
+    about: "Apple Founder",
     image: "/images/individuals/1_steve_jobs.png",
     background: "/images/backgrounds/2_palegreen.png",
   },

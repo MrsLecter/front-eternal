@@ -58,7 +58,7 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }): Promise<ISignupResponse> {
+  }) {
     try {
       const response: ISignupResponse = await axios.post(
         REGISTRATION_URL,
@@ -108,7 +108,7 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }): Promise<AxiosResponse<ISigninResponse, any>> {
+  }) {
     try {
       const response = await axios.post<ISigninResponse>(
         LOGIN_URL,

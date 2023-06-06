@@ -2,12 +2,13 @@ import { StyledInputRounded, StyledInputWrapper } from "./Input.styles";
 import { IInputProps } from "./Input.types";
 
 export const Input: React.FC<IInputProps> = ({
-  label,
+  label="",
   type,
-  placeholder,
-  inputValue,
+  placeholder="",
+  inputValue="",
   isRequired = true,
   autofocus = false,
+  maxLen = 300,
   onChangeHandler,
 }) => {
   return (
@@ -20,7 +21,7 @@ export const Input: React.FC<IInputProps> = ({
         placeholder={placeholder}
         name={type}
         required={isRequired}
-        maxLength={300}
+        maxLength={maxLen}
         autoFocus={autofocus}
       />
     </StyledInputWrapper>

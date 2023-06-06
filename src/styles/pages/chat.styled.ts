@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const StyledSectionChatWrapper = styled.div`
+  height: 100%;
+  min-height: 100%;
+
+  @media (max-width: 1250px) {
+    height: 100%;
+  }
+`;
+
 export const StyledChatContainer = styled.main`
   position: relative;
   height: calc(100% - 96px);
@@ -19,6 +28,12 @@ export const StyledChatContainer = styled.main`
 
   & > div:first-child {
     overflow: visible;
+    box-shadow: 0px 24px 34px #0a0907;
+    z-index: 10;
+  }
+
+  & > div:last-child {
+    z-index: 3;
   }
 
   @media (max-width: 1250px) {
@@ -27,51 +42,22 @@ export const StyledChatContainer = styled.main`
     & > div {
       width: 100%;
     }
-  }
-
-  @media (max-width: 870px) {
-    height: 100%;
-    min-height: 900px;
+    min-height: 728px;
+    height: calc(100% - 84px);
+    max-height: calc(100% - 84px);
 
     & > div {
       height: 100%;
     }
 
     & > div:first-child {
-      height: 405px;
-      min-height: 405px;
+      height: 360px;
+      min-height: 360px;
     }
 
     & > div:last-child {
-      /* height: 307px; */
-      min-height: 307px;
+      min-height: 368px;
     }
     overflow-y: scroll;
-  }
-`;
-
-export const StyledSectionChatWrapper = styled.section`
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: space-between;
-  background-color: #0a0907;
-  overflow: hidden;
-
-  @media (max-width: 1600px) {
-    min-height: 100%;
-  }
-
-  @media (max-width: 1200px) {
-    overflow-y: auto;
-    min-height: 812px;
-  }
-
-  @media (max-width: 870px) {
-    overflow-y: auto;
-    min-height: 1000px;
   }
 `;

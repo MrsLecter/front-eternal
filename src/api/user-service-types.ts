@@ -40,6 +40,9 @@ export interface ISigninResponse {
     readabout: boolean;
     sharelink: boolean;
   };
+  response?:{
+    status: number;
+  }
 
 }
 

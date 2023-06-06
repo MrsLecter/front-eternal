@@ -7,5 +7,6 @@ export interface IInputProps {
   inputValue: string | null;
   isRequired?: boolean;
   autofocus?: boolean;
+  maxLen?: number;
   onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
 }
