@@ -2,8 +2,6 @@ import { INDIVIDUALS_DATA } from "@/constants/greeting";
 import { IIndividualsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";
-import { useRouteMatch } from "react-router-dom";
-import { ISoulsResponse } from "@/api/souls-service-types";
 
 export const getSoulsDataForId = (id: string): IIndividualsData | undefined => {
   return INDIVIDUALS_DATA.find((individual) => individual.id === parseInt(id));

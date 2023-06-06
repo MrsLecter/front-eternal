@@ -1,0 +1,41 @@
+
+//signup
+post /us-registration (body: email password(не менее 8 символов))
+post /us-google-auth (body: idToken)
+
+//signin
+post /us-login  (body: email password(не менее 8 символов))
+post /tokens-refresh (authorization: refreshtoken)
+
+---->post /us-changeemail (authorization: accesstoken body: email(формата мейла))
+---->post /us-changename (authorization: accesstoken body: name(не менее 1 символа))
+---->post /us-changephone (authorization: accesstoken body: phone(формат как в фотодропе))
+---->post /us-changepassword (authorization: accesstoken body: password, newpassword(не менее 8 символов))
+
+//forgot password 
+post /us-changeForgottenPassword   ( body: code, newpassword(не менее 8 символов))
+post /us-forgotpassword  (body: email(формата мейла))
+
+//details page
+ post /us-change-info (auth: bearer token, body : email, name or phone(формат номера как был на фрамолоджи +от 1 до 5 цифр(2-3 цифры)3 цифры - от 4 до6))
+
+
+//payment
+post /update-subscription  (authorization: accesstoken body: cardnumber, exp_month, exp_year, cvc)
+post /cancel-subscription  (authorization: accesstoken)
+post /add-free-quest (authorization: accesstoken)
+post /subscription  (authorization: accesstoken body: cardnumber, exp_month, exp_year, cvc) формат карты, дата в будущем, сивиси 3 цифры
+Карту 4242 4241 4242 4242
+Год 4 цифры месяц 2 цифры
+Свс 3
+
+post /us-phoneconfirm  (authorization: accesstoken body: code, phone(формат как в фотодропе))
+post /us-resendphoneconfirm  (body:  phone(формат как в фотодропе)
+
+
+post /ask-questions  (authorization: accesstoken  body: souls(список строк с именами), question(один вопрос без вопросительного знака, просто текст))
+
+ get /auth/google
+ post /us-change-readabout (auth: bearer token)
+ 
+ https://eternalai.onrender.com

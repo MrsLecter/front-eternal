@@ -1,0 +1,60 @@
+login: someuser@gmail.com
+password: 5MMM%#*mtur
+
+login: someuser2@gmail.com
+password: 5MMM%#*mtur
+
+login: someuser3@gmail.com
+password: 5MMM%#*mtur
+
+login: testreg@gmail.com
+password: 5MMM%#*mtur
+
+login: testmobile@gmail.com
+password: 5MMM%#*mtur
+
+login: yper75@gmail.com
+password TNT4%#*mtur
+
+1)apollo client SS4Ir6zgzOv9https://www.apollographql.com/blog/apollo-client/next-js/next-js-getting-started/
+
+2) Google auth: 
+https://www.youtube.com/watch?v=6lCXM11Tgyg
+https://www.makeuseof.com/integrate-google-authentication-in-nextjs-using-nextauth/
+https://developers.google.com/identity/sign-in/web/backend-auth
+https://developers.google.com/identity/sign-in/web/build-button
+https://developers.google.com/identity/branding-guidelines
+//openssl rand -base64 32
+// openssl list -cipher-algorithms
+
+API key
+AIzaSyBPJDUKuVrf0H0oQjnsAH8thiZAPWBdGIM
+
+Client Id
+857675376588-cs6frd8opnh0jr5nh1igt89m73ieuj92.apps.googleusercontent.com
+
+Client Secret
+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
+
+3) password regexp
+Password with the following conditions:
+
+At least 1 digit
+At least 1 special characters
+At least 1 alphabetic character
+No blank space
+
+
+4)Homepage
+https://jsfiddle.net/sree296/DTcHh/39349/
+
+5)add „use client“ to your pages / components. Then they will be client rendered. I am actually doing the same thing right now
+
+TODO:
+toastify вместо alert
+
+NEXT:
+toastify
+похоже не обновляет токен
+нет прокрутки сообщений
+толщина шаре кнопки
