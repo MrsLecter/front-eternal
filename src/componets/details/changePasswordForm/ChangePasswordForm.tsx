@@ -2,7 +2,7 @@ import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import userService from "@/api/user-service";
 import { StyledForm } from "./ChangePasswordBlock.styles";
 
@@ -11,13 +11,28 @@ const ChangePasswordForm: React.FC = () => {
     value: passwordOld,
     error: passwordOldIsValid,
     changeHandler: passwordOldChangeHandler,
-  } = useInput({ regexp: PASSWORD_REGEXP, allowEmpty: false });
+    refresh: resetPasswordOld,
+  } = useInput({
+    regexp: PASSWORD_REGEXP,
+    allowEmpty: false,
+    initialValue: "",
+  });
 
   const {
     value: passwordNew,
     error: passwordNewIsValid,
     changeHandler: passwordNewChangeHandler,
-  } = useInput({ regexp: PASSWORD_REGEXP, allowEmpty: false });
+    refresh: resetPasswordNew,
+  } = useInput({
+    regexp: PASSWORD_REGEXP,
+    allowEmpty: false,
+    initialValue: "",
+  });
+
+  const refreshForm = () => {
+    resetPasswordNew();
+    resetPasswordOld();
+  };
 
   const detailsSaveHandler = async (event: FormEvent) => {
     event.preventDefault();
@@ -39,6 +54,11 @@ const ChangePasswordForm: React.FC = () => {
 
         if (response.status === 200) {
           alert("Success: password has been changed");
+          refreshForm();
+        }
+        if (response.status === 406) {
+          alert("Error: wrong old password!");
+          refreshForm();
         }
       } catch (err) {
         console.error("Error: ", err);

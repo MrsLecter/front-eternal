@@ -19,6 +19,7 @@ interface IInternalData {
   isSmallHeader: boolean;
   isTypingAllowed: boolean;
   temp: string;
+  internalSoulid: number;
 }
 
 const internalSetting: IInternalData = {
@@ -39,6 +40,7 @@ const internalSetting: IInternalData = {
   isSmallHeader: false,
   isTypingAllowed: false,
   temp: "",
+  internalSoulid: 0,
 };
 
 export const internalSlice = createSlice({
@@ -49,12 +51,15 @@ export const internalSlice = createSlice({
       state.dialog = [];
     },
 
+    restoreDialog(state, action: PayloadAction<{ oldDialog: string[][] }>) {
+      state.dialog = [...action.payload.oldDialog];
+    },
+
     addToDialog(state, action: PayloadAction<{ message: string[] }>) {
       state.dialog.push(action.payload.message);
     },
 
     addHistory(state, action: PayloadAction<{ message: string[][] }>) {
-      // state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
       state.dialog.unshift(...action.payload.message);
     },
 
@@ -159,6 +164,14 @@ export const internalSlice = createSlice({
 
     deleteTemp(state) {
       state.temp = "";
+    },
+
+    setSoulId(state, action: PayloadAction<{ soulid: number }>) {
+      state.internalSoulid = action.payload.soulid;
+    },
+
+    deleteSoulId(state) {
+      state.internalSoulid = 0;
     },
   },
 });

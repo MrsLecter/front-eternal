@@ -33,9 +33,17 @@ export const useInput = (props: useInputProps) => {
     }
   };
 
+  const refreshHandler = () => {
+    return (() => {
+      setInput("");
+      setInputIsValid(true);
+    })();
+  };
+
   return {
     value: input,
     error: inputIsValid,
     changeHandler: inputChangeHandler,
+    refresh: refreshHandler,
   };
 };

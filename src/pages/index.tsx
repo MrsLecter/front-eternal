@@ -2,25 +2,10 @@ import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
 import Individuals from "@/componets/home/individuals/Individuals";
 import { useState, useEffect, useMemo } from "react";
-import Modal from "@/componets/common/modal/Modal";
 import Footer from "@/componets/common/footer/Footer";
-import Menu from "@/componets/common/modal/menu/Menu";
-import Signin from "@/componets/common/modal/signin/Signin";
-import Signup from "@/componets/common/modal/signup/Signup";
-import About from "@/componets/common/modal/about/About";
-import Result from "@/componets/common/modal/result/Result";
-import Payment from "@/componets/common/modal/payment/Payment";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
-import PaywallModal from "@/componets/common/modal/PaywallModal";
-import TitleMedium from "@/componets/common/title/TitleMedium";
-import Cardpay from "@/componets/common/modal/cardpay/Cardpay";
-
-import { StorageCellEnum } from "@/constants/common";
-import { ILocalStorageData } from "../../types/app-common.types";
 import { userSlice } from "@/store/reducers/userSlice";
-import RestorePassword from "@/componets/common/modal/restorePassword/RestorePassword";
-import { PaywallWrapper } from "@/styles/pages/common";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
 import {
   StyledBackground,
@@ -31,9 +16,12 @@ import userService from "@/api/user-service";
 import { useSession } from "next-auth/react";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Loader from "@/componets/common/loader/Loader";
+import ModalContainer from "@/componets/common/modal/ModalConteiner";
+import { useSync } from "@/hooks/use-sync";
 
 export default function Home() {
   const session = useSession();
+  const sync = useSync();
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
   const { signin } = userSlice.actions;
@@ -41,9 +29,10 @@ export default function Home() {
 
   useEffect(() => {
     setInitialRenderComplete(true);
+    sync();
   }, []);
 
-  const { backdropClick, deleteDialog, deleteFirstMessage } =
+  const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
     internalSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -89,23 +78,16 @@ export default function Home() {
     }
   }, [session.data]);
 
-  const {
-    showCommonModal,
-    showMenuModal,
-    isSmallHeader,
-    showLoginModal,
-    showSignupModal,
-    showAboutModal,
-    showPaywallModal,
-    showPaywallPricingModal,
-    showPaywallResultModal,
-    showPaywallCardpayModal,
-    showRestorePasswordModal,
-  } = useAppSelector((store) => store.internalReducer);
+  const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
+    (store) => store.internalReducer
+  );
 
   useEffect(() => {
     dispatch(deleteDialog());
     dispatch(deleteFirstMessage());
+    dispatch(deleteSoulId());
+    dispatch(allowTyping());
+    localStorageHandler.removeDialog();
   }, []);
 
   useEffect(() => {
@@ -118,27 +100,12 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    let localData = localStorage.getItem(StorageCellEnum.USER);
-    if (localData) {
-      const parsedData: ILocalStorageData = JSON.parse(localData);
-      dispatch(
-        signin({
-          id: parsedData.id,
-          email: parsedData.email,
-          name: parsedData.name!,
-          phone: parsedData.phone!,
-          nextPayment: parsedData.nextpayment as string,
-          questionsAmount: parsedData.questionsamount,
-          readAbout: parsedData.readabout,
-          shareLink: !!parsedData.shareLink,
-        })
-      );
-    }
-  }, []);
-
   const liftToTop = () => {
     const headerElem = document.getElementById("topHeader");
+    if (!headerElem) {
+      console.error("Error! Element with id 'tohHeader' not found!");
+    }
+
     if (headerElem) {
       headerElem.scrollIntoView();
     }
@@ -166,44 +133,7 @@ export default function Home() {
         <HeadCommon />
         <WrapperPage shouldNotScroll={showPaywallModal || showCommonModal}>
           <StyledBackground>
-            {showCommonModal && (
-              <Modal backClickHandler={() => dispatch(backdropClick())}>
-                {showMenuModal && <Menu />}
-                {showLoginModal && <Signin />}
-                {showSignupModal && <Signup />}
-                {showAboutModal && <About />}
-                {showRestorePasswordModal && <RestorePassword />}
-              </Modal>
-            )}
-            {showPaywallModal && (
-              <PaywallModal backClickHandler={() => dispatch(backdropClick())}>
-                {showPaywallResultModal && <Result />}
-                {showPaywallPricingModal && (
-                  <PaywallWrapper>
-                    <TitleMedium
-                      label={"Unlock full features"}
-                      description={
-                        "Share or subscribe to continue asking unlimited questions"
-                      }
-                    />
-                    <Payment
-                      modalClickHandler={() => dispatch(backdropClick())}
-                    />
-                  </PaywallWrapper>
-                )}
-                {showPaywallCardpayModal && (
-                  <PaywallWrapper>
-                    <TitleMedium
-                      label={"Unlock full features"}
-                      description={
-                        "Share or subscribe to continue asking unlimited questions"
-                      }
-                    />
-                    <Cardpay />
-                  </PaywallWrapper>
-                )}
-              </PaywallModal>
-            )}
+            <ModalContainer />
             {MainContent}
           </StyledBackground>
         </WrapperPage>

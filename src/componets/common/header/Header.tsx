@@ -112,10 +112,7 @@ const Header: React.FC<IHeader> = ({
                   <StyledTextWrapper>
                     <TextBtn label={"sign out"} clickHandler={signoutHandler} />
                   </StyledTextWrapper>
-                  <PrimaryBtn
-                    label={"get started"}
-                    clickHandler={signupClickHandler}
-                  />
+                  
                 </>
               )
             ) : (

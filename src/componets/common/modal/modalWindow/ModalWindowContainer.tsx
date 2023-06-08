@@ -1,4 +1,3 @@
-
 import FocusTrap from "focus-trap-react";
 import { FOCUS_TRAP_OPTIONS } from "@/constants/focus-trap-options";
 import { useAppSelector } from "@/hooks/reducers.hook";
@@ -8,14 +7,13 @@ import { ContentWrapper, ModalWrapper } from "./ModalWindow.styles";
 
 export interface IModalsContainerProps {
   children: React.ReactNode;
- closeModal: () => void;
+  closeModal: () => void;
 }
 
 const ModalWindowContainer: React.FC<IModalsContainerProps> = ({
   children,
   closeModal,
 }) => {
-  
   const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
@@ -27,7 +25,7 @@ const ModalWindowContainer: React.FC<IModalsContainerProps> = ({
 
   return (
     <FocusTrap focusTrapOptions={FOCUS_TRAP_OPTIONS}>
-      <ModalWrapper onClick={(e) => backdropClickHandler(e)}>
+      <ModalWrapper onMouseDown={(e) => backdropClickHandler(e)}>
         <Header
           zIndex={101}
           isHaveClose={showCommonModal}
@@ -36,14 +34,9 @@ const ModalWindowContainer: React.FC<IModalsContainerProps> = ({
         <ContentWrapper>
           <StyledModalWindowContainer>{children}</StyledModalWindowContainer>
         </ContentWrapper>
-        
       </ModalWrapper>
-      
     </FocusTrap>
   );
 };
-
-
-
 
 export default ModalWindowContainer;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledSectionChatWrapper = styled.div`
   height: 100%;
   min-height: 100%;
+  overflow-x: visible;
 
   @media (max-width: 1250px) {
     height: 100%;
@@ -17,7 +18,7 @@ export const StyledChatContainer = styled.main`
   flex-direction: row;
   justify-content: flex-start;
   background-color: #0a0907;
-  overflow-x: hidden;
+  overflow-x: visible;
   overflow-y: hidden;
 
   & > div {

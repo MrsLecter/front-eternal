@@ -18,7 +18,7 @@ const LoaderImage: React.FC<ILoaderImageProps> = ({ type = "background" }) => {
     if (document.documentElement.clientWidth < 1600) {
       aspectRatio = 0.6;
     } else {
-      aspectRatio = 1.2;
+      aspectRatio = 1.0;
     }
   } else if (type === "mobile") {
     aspectRatio = 375 / basis;

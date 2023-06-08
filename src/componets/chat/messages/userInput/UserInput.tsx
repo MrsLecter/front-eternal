@@ -36,6 +36,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   const dispatch = useAppDispatch();
   const [userInput, setUserInput] = useState<string>("");
   const { shareLink } = useAppSelector((store) => store.userReducer);
+
   const submitQuestionHandler = (event: FormEvent) => {
     event.preventDefault();
 
@@ -91,7 +92,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
-  
+
   return (
     <StyledUserInput>
       <form action="/action_page.php" onSubmit={submitQuestionHandler}>
@@ -112,6 +113,5 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
     </StyledUserInput>
   );
 };
-
 
 export default UserInput;

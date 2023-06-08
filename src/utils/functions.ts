@@ -87,7 +87,7 @@ export const getConstructedMessage = ({
   sender,
   message,
 }: {
-  sender: "soul" | "user" | "soul intro" | "user intro";
+  sender: "soul" | "user" | "soul intro";
   message: string;
 }): string[] => {
   return [sender, message];

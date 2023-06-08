@@ -18,6 +18,7 @@ export enum APP_ROUTES {
 
 export enum StorageCellEnum {
   USER = "@eternal-user",
+  DIALOG = "@eternal-dialog",
 }
 
 const BASE_API_URL = "https://eternalai.onrender.com";

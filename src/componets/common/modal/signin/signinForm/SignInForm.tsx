@@ -20,12 +20,14 @@ const SignInForm: React.FC = () => {
     value: email,
     error: emailIsValid,
     changeHandler: emailChangeHandler,
+    refresh: resetEmail,
   } = useInput({ regexp: EMAIL_REGEXP, allowEmpty: false });
 
   const {
     value: password,
     error: passwordIsValid,
     changeHandler: passwordChangeHandler,
+    refresh: resetPassword,
   } = useInput({ regexp: PASSWORD_REGEXP, allowEmpty: false });
 
   const handleResetPassword = async () => {
@@ -41,6 +43,7 @@ const SignInForm: React.FC = () => {
           alert(
             `Error: user with email ${email} isn't registered! Change email`
           );
+          resetEmail();
         }
 
         if (response.status === 200) {
@@ -58,10 +61,12 @@ const SignInForm: React.FC = () => {
   const signinHandler = async () => {
     if (!passwordIsValid) {
       alert("Error: password is not valid!");
+      resetPassword();
     }
 
     if (!emailIsValid) {
       alert("Error: email is not valid!");
+      resetEmail();
     }
 
     if (passwordIsValid && emailIsValid) {
@@ -104,16 +109,21 @@ const SignInForm: React.FC = () => {
             dispatch(backdropClick());
           }
         }
-        if ((response.response).status === 404) {
+        if (response.response.status === 404) {
           alert(`Error: There is no user with ${email} email!`);
+          resetEmail();
+          resetPassword();
         }
         if (response.response.status === 406) {
           alert(`Error: invalid password! Try again`);
+          resetPassword();
         }
         if (response.response.status === 422) {
           alert(
             "Error: Password isn't assigned! Please, click on forgot password button or set password in account details after repeat registration throught google "
           );
+          resetEmail();
+          resetPassword();
         }
       } catch (err) {}
     }

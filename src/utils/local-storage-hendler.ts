@@ -226,6 +226,24 @@ class LocalStorageHandler {
       return false;
     }
   }
+
+  public updateDialog(dialog: string[][]) {
+    localStorage.setItem(StorageCellEnum.DIALOG, JSON.stringify(dialog));
+  }
+
+  public getDialog() {
+    const dialogData = localStorage.getItem(StorageCellEnum.DIALOG);
+    if (dialogData) {
+      const dialogDataObject = JSON.parse(dialogData);
+      return dialogDataObject;
+    } else {
+      return [];
+    }
+  }
+
+  public removeDialog() {
+    localStorage.removeItem(StorageCellEnum.DIALOG);
+  }
 }
 
 const localStorageHandler = new LocalStorageHandler();

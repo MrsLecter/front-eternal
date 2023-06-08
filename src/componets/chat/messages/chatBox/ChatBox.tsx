@@ -25,6 +25,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   const dispatch = useAppDispatch();
   const messageRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  
   const observer = useRef<any>();
 
   const {
@@ -36,12 +37,12 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     setTemp,
     deleteTemp,
     deleteLastDialogMessage,
+    restoreDialog,
   } = internalSlice.actions;
 
   const { userQuestionType, firstMessage, dialog, temp } = useAppSelector(
     (store) => store.internalReducer
   );
-  const { questionsAmount } = useAppSelector((store) => store.userReducer);
 
   const [fetchQuery, { loading, data }] = useLazyQuery<{
     souls: [
@@ -55,7 +56,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   }>(getFreeAnswerQueryString({ questionType: userQuestionType }));
   const currentSoulsData = getSoulsDataForId(soulId);
   const userId = localStorageHandler.getUserId();
-  currentPage;
 
   const lastMessageRef = useCallback((element: HTMLDivElement) => {
     if (observer.current) observer.current.disconnect();
@@ -65,6 +65,14 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
       }
     });
     if (element) observer.current.observe(element);
+  }, []);
+
+  useEffect(() => {
+    if (dialog.length === 0) {
+      const localDialogArr = localStorageHandler.getDialog();
+      console.warn("empty dialog", localDialogArr);
+      dispatch(restoreDialog({ oldDialog: localDialogArr }));
+    }
   }, []);
 
   useEffect(() => {
@@ -92,6 +100,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
               }),
             })
           );
+          localStorageHandler.updateDialog(dialog);
           dispatch(disallowTyping());
         }, 100);
 
@@ -105,9 +114,8 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
               }),
             })
           );
-
+          localStorageHandler.updateDialog(dialog);
           dispatch(deleteFirstMessage());
-
           dispatch(allowTyping());
         }, 1000);
       }
@@ -137,8 +145,10 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
               messages: response.message.chathistory,
             });
             dispatch(addHistory({ message }));
+            localStorageHandler.updateDialog(dialog);
+            dispatch(allowTyping());
           } else {
-            if (temp && userQuestionType === "intro") {
+            if (temp && userQuestionType === "intro" && dialog.length === 0) {
               dispatch(
                 addToDialog({
                   message: getConstructedMessage({
@@ -147,6 +157,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
                   }),
                 })
               );
+              localStorageHandler.updateDialog(dialog);
               dispatch(deleteTemp());
             }
           }
@@ -165,6 +176,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     if (messageRef.current) {
       messageRef.current.scrollIntoView({ behavior: "smooth" });
     }
+    localStorageHandler.updateDialog(dialog);
   }, [dialog]);
 
   return (

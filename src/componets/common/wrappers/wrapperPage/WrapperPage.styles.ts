@@ -8,7 +8,7 @@ export const StyledBackground = styled.div<{ background: string }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  overflow-x: visible;
 
   overflow-y: auto;
   background-color: ${(props) => props.background};
@@ -25,7 +25,7 @@ export const StyledMainContent = styled.div`
   max-width: 1640px;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: visible;
 
   @media (max-width: 1250px) {
     height: 100%;

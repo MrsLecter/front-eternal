@@ -6,9 +6,7 @@ interface IBackdropProps {
 }
 
 const BackScreen: React.FC<IBackdropProps> = ({ backClickHandler }) => {
-  return (
-      <StyledBackdrop onClick={backClickHandler} />
-  );
+  return <StyledBackdrop onMouseDown={backClickHandler} />;
 };
 
 export const StyledBackdrop = styled.div`
@@ -16,9 +14,9 @@ export const StyledBackdrop = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  min-width:100vw;
+  min-width: 100vw;
   height: 100vh;
-  min-height:100vh;
+  min-height: 100vh;
   z-index: 100;
   background: rgba(3, 2, 2, 0.4);
   backdrop-filter: blur(77px);

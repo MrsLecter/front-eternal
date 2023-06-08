@@ -33,7 +33,7 @@ export const BagelWrapper = styled.div<{
   height: number;
 }>`
   position: relative;
-  width: ${(props) => props.width + "px"};
+  width: 100%;
   height: ${(props) => props.height + "px"};
   margin: 0 auto;
 `;
@@ -54,6 +54,7 @@ export const BagelEllipse = styled.div<EllipseProps>`
   filter: blur(${(props) => props.blur + "px"});
   transform: rotate(${(props) => props.from + "deg"});
   mix-blend-mode: screen;
+  overflow-x: visible;
   ${(props) =>
     props.animationType === "left" &&
     css`
@@ -73,10 +74,11 @@ export const LoaderImageWrapper = styled.div<{ type: string }>`
   position: absolute;
   width: 100%;
   height: 100%;
-  /* max-height: 940px; */
+  max-height: ${(props) => (props.type === "background" ? "940px" : "100%")};
   left: 0;
   top: 0;
   background: transparent;
+  overflow-x: visible;
   overflow-y: hidden;
   z-index: -1;
 

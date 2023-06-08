@@ -25,20 +25,20 @@ const ModalWindow: React.FC<IModalWindowProps> = ({ children, closeModal }) => {
 
   return (
     <FocusTrap focusTrapOptions={FOCUS_TRAP_OPTIONS}>
-      <ModalWrapper onClick={(e) => backdropClickHandler(e)}>
+      <ModalWrapper onMouseDown={(e) => backdropClickHandler(e)}>
         <Header
           zIndex={101}
           isHaveClose={showCommonModal}
           isSmall={isSmallHeader || showPaywallModal}
         />
         <ContentWrapper>
-          <ModalDiv onClick={(e) => modalClickHandler(e)}>{children}</ModalDiv>
+          <ModalDiv onMouseDown={(e) => modalClickHandler(e)}>
+            {children}
+          </ModalDiv>
         </ContentWrapper>
       </ModalWrapper>
     </FocusTrap>
   );
 };
-
-
 
 export default ModalWindow;
