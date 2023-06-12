@@ -48,10 +48,6 @@ const Menu: React.FC<IMenuProps> = ({ signupHandler, signinHandler }) => {
     dispatch(toggleToPayment());
   };
 
-  const showAboutModal = () => {
-    dispatch(toggleToAbout());
-  };
-
   const showLoginModal = () => {
     dispatch(toggleToLogin());
   };
@@ -69,7 +65,7 @@ const Menu: React.FC<IMenuProps> = ({ signupHandler, signinHandler }) => {
     <StyledMenuWrapper>
       <StyledMenu>
         <li>
-          <button onClick={showAboutModal}>About us</button>
+          <Link href={APP_ROUTES.Home}>{"About us"}</Link>
         </li>
         <li>
           <button onClick={showPaymentModal}>Pricing</button>

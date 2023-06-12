@@ -1,9 +1,14 @@
 import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
+import { ModalDiv } from "../modalWindow/ModalWindow.styles";
 import CardpayBlock from "./cardpayForm/CardpayBlock";
 
 const Cardpay: React.FC = () => {
+    const modalDivClickHandler = (event: React.MouseEvent) => {
+      event.stopPropagation();
+    };
   return (
-    <WrapperModal
+    <ModalDiv onMouseDown={(e) => modalDivClickHandler(e)}>
+<WrapperModal
       width={"625"}
       isPaddingSmall={true}
       maxHeight={364}
@@ -11,6 +16,9 @@ const Cardpay: React.FC = () => {
     >
       <CardpayBlock />
     </WrapperModal>
+
+    </ModalDiv>
+    
   );
 };
 

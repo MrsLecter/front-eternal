@@ -3,7 +3,7 @@ import { FOCUS_TRAP_OPTIONS } from "@/constants/focus-trap-options";
 import { useAppSelector } from "@/hooks/reducers.hook";
 import Header from "../../header/Header";
 import { StyledModalWindowContainer } from "./ModalWindowContainer.styles";
-import { ContentWrapper, ModalWrapper } from "./ModalWindow.styles";
+import { ContentWrapper, ModalDiv, ModalWrapper } from "./ModalWindow.styles";
 
 export interface IModalsContainerProps {
   children: React.ReactNode;

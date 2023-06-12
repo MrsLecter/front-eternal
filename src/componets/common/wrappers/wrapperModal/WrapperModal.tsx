@@ -17,6 +17,8 @@ const WrapperModal: React.FC<IWrapperModal> = ({
   minHeight = 0,
   marginTop = 0,
 }) => {
+
+
   return (
     <StyledWrapperModalContainer
       width={width}
@@ -25,12 +27,14 @@ const WrapperModal: React.FC<IWrapperModal> = ({
       maxHeight={maxHeight}
       minHeight={minHeight}
       marginTop={marginTop}
+     
     >
       <StyledWrapperModal
         noBorder={noBorder}
         paddingSmall={isPaddingSmall}
         isPayment={isPayment}
         id="modalActive"
+        
       >
         {header || text ? (
           <div>

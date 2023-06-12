@@ -52,7 +52,7 @@ const SignupForm: React.FC = () => {
 
     if (!passwordIsValid) {
       alert(
-        "Error: password not valid! Password must include 1 digit, 1 special character and 1 aplhabetic character. Minimum 8 symbols length"
+        "Error: password not valid! Password must include 1 digit, 1 special character and 1 uppercase alphabetic character. Minimum 8 symbols length"
       );
     }
 

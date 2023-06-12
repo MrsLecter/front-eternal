@@ -15,7 +15,7 @@ import HeadCommon from "@/componets/common/headCommon/HeadCommon";
 import DetailsForm from "@/componets/details/detailsForm/DetailsForm";
 import ChangePasswordForm from "@/componets/details/changePasswordForm/ChangePasswordForm";
 import Loader from "@/componets/common/loader/Loader";
-import ModalContainer from "@/componets/common/modal/ModalConteiner";
+import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import BackgroundDetails from "@/componets/details/BackgroundDetails";

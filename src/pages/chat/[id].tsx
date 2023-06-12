@@ -12,7 +12,7 @@ import {
   StyledChatContainer,
   StyledSectionChatWrapper,
 } from "@/styles/pages/chat.styled";
-import ModalContainer from "@/componets/common/modal/ModalConteiner";
+import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import localStorageHandler from "@/utils/local-storage-hendler";

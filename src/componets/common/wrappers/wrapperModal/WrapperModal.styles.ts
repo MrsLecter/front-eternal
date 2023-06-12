@@ -25,7 +25,7 @@ export const StyledWrapperModalContainer = styled.div<{
     props.noBorder
       ? "linear-gradient(90.83deg, rgba(4, 4, 16, 0.6) 11.84%, rgba(15, 3, 6, 0.6) 111.32%)"
       : "linear-gradient(281.4deg, #f82d98 -2.34%, #5833ef 114.41%)"};
-  z-index: 4;
+  z-index: 5;
 
   @media (max-width: 870px) {
     margin-top: ${(props) =>
@@ -84,7 +84,7 @@ export const StyledWrapperModal = styled.div<{
 
   @media (max-width: 870px) {
     padding: ${(props) => (props.paddingSmall ? "24px" : "32px")};
-    
+
     & > div:first-child {
       margin-bottom: ${(props) => (props.isPayment ? "-2px" : "24px")};
     }

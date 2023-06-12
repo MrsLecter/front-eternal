@@ -16,7 +16,7 @@ import userService from "@/api/user-service";
 import { useSession } from "next-auth/react";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Loader from "@/componets/common/loader/Loader";
-import ModalContainer from "@/componets/common/modal/ModalConteiner";
+import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
 
 export default function Home() {
