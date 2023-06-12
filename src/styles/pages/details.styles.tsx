@@ -8,11 +8,6 @@ export const WrapperDetailsCentring = styled.div<{ shouldNotScroll: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(
-    89.43deg,
-    rgb(248, 45, 152) 26.75%,
-    rgb(88, 51, 239) 77.55%
-  );
   overflow: auto;
 
   ${(props) =>

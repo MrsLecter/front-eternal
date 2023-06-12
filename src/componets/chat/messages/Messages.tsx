@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { StyledMessages } from "./Messages.styles";
 import UserInput from "./userInput/UserInput";
 import ChatBox from "./chatBox/ChatBox";
@@ -17,15 +17,14 @@ interface IMessagesProps {
 const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   const userId = localStorageHandler.getUserId();
   const dispatch = useAppDispatch();
-
+  const messageRef = useRef<HTMLDivElement>(null);
   const { addToDialog, deleteLastDialogMessage, allowTyping, deleteDialog } =
     internalSlice.actions;
-
+  const isAuth = localStorageHandler.getAccessToken();
+  const { questionsAmount } = useAppSelector((store) => store.userReducer);
   const { firstMessage, dialog } = useAppSelector(
     (store) => store.internalReducer
   );
-  const isAuth = localStorageHandler.getAccessToken();
-  const { questionsAmount } = useAppSelector((store) => store.userReducer);
 
   useEffect(() => {
     if (isAuth && questionsAmount !== 0 && !firstMessage) {
@@ -58,7 +57,11 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
 
   return (
     <StyledMessages>
-      <ChatBox avatarImg={avatarImg} soulId={soulId} />
+      <ChatBox
+        avatarImg={avatarImg}
+        soulId={soulId}
+        visibleMessageRef={messageRef}
+      />
       <UserInput soulId={soulId} />
     </StyledMessages>
   );

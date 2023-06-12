@@ -214,6 +214,6 @@ export const StyledTitleWrapper = styled.div`
 
   @media (max-width: 670px) {
     width: 100%;
-    margin-top: 58px;
+    margin-top: 44px;
   }
 `;

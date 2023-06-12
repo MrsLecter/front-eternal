@@ -5,11 +5,13 @@ export const StyledIndividualMessageBox = styled.div`
   width: calc(100% - 55px);
   min-width: calc(100% - 55px);
   margin-right: 40px;
+  margin-top: 24px;
   right: 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+  transform: rotateX(180deg);
 
   & > div:first-child {
     width: 60px;
@@ -34,7 +36,6 @@ export const StyledIndividualMessageBox = styled.div`
 `;
 
 export const StyledIndividualMessage = styled.div`
-  margin-bottom: 24px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -50,18 +51,6 @@ export const StyledIndividualMessage = styled.div`
   letter-spacing: -0.01em;
   color: #e4e4e4;
   background: rgba(255, 255, 255, 0.1);
-  animation: messageAppeating 0.2s ease-in-out;
-
-  @keyframes messageAppeating {
-    from {
-      transform: translateX(-100px) scale(0.2);
-      opacity: 0.6;
-    }
-    to {
-      transform: translateX(0px) scale(1);
-      opacity: 1;
-    }
-  }
 
   & > div:last-child {
     position: absolute;

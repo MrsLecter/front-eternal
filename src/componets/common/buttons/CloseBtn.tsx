@@ -1,8 +1,4 @@
 import styled from "styled-components";
-import Image from "next/image";
-import closeIcon from "@icons/close-btn.svg";
-import Link from "next/link";
-import { APP_ROUTES } from "@/constants/common";
 import { useRouter } from "next/router";
 
 interface ICloseBtnProps {
@@ -13,7 +9,7 @@ const CloseBtn: React.FC<ICloseBtnProps> = ({ clickHandler }) => {
   const router = useRouter();
   return (
     <StyledCloseBtn onClick={clickHandler}>
-      <Image src={closeIcon} width={10} height={10} alt="close-btn.svg" />
+      <div>&times;</div>
     </StyledCloseBtn>
   );
 };
@@ -33,6 +29,14 @@ export const StyledCloseBtn = styled.button`
   cursor: pointer;
   animation: appearing 0.5s ease-in-out;
 
+  & > div:first-child {
+    margin-top: -15px;
+    width: 14px;
+    height: 14px;
+    color: white;
+    font-size: 28px;
+  }
+
   @keyframes appearing {
     from {
       opacity: 0;
@@ -40,26 +44,6 @@ export const StyledCloseBtn = styled.button`
     to {
       opacity: 1;
     }
-  }
-
-  & > div:first-child {
-    position: absolute;
-    left: 70.62%;
-    right: 29.38%;
-    top: 29.37%;
-    bottom: 12.3%;
-    border: 1.5px solid #ffffff;
-    transform: rotate(45deg);
-  }
-
-  & > div:last-child {
-    position: absolute;
-    left: 29.38%;
-    right: 12.29%;
-    top: 29.37%;
-    bottom: 70.63%;
-    border: 1.5px solid #ffffff;
-    transform: rotate(45deg);
   }
 
   &:hover,

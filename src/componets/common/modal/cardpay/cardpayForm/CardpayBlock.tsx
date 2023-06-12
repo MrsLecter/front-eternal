@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import paypalIcon from "@icons/paypal.svg";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
@@ -8,9 +7,7 @@ import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import userService from "@/api/user-service";
-
 import localStorageHandler from "@/utils/local-storage-hendler";
-
 import { internalSlice } from "@/store/reducers/internalSlice";
 import ProBtn from "@/componets/common/buttons/ProBtn";
 import TitlePricing from "@/componets/common/title/TitlePricing";
@@ -18,6 +15,13 @@ import CardNumberInput from "@/componets/common/input/cardNumberInput/CardNumber
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
 import SecondaryWhiteBtn from "@/componets/common/buttons/SecondaryWhiteBtn";
 import { StyledProOfferBlock } from "../../payment/paymentlForm/proOfferBlock/ProOfferBlock.styles";
+import {
+  PaypalWrapper,
+  ProBtnWrapper,
+  StyledCardNumberWrapper,
+  StyledSubmitBtnWrapper,
+  TitleWrapper,
+} from "./CardpayBlock.styles";
 
 interface ICardpayBlockProps {
   isNeedSubmitBtn?: boolean;
@@ -156,69 +160,5 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
     </StyledProOfferBlock>
   );
 };
-
-const ProBtnWrapper = styled.div`
-  @media (max-width: 870px) {
-    margin-bottom: 10px;
-  }
-`;
-
-const TitleWrapper = styled.div`
-  margin-top: 12px;
-
-  @media (max-width: 870px) {
-    margin-top: 0px;
-  }
-`;
-
-const PaypalWrapper = styled.div`
-  display: none;
-
-  @media (max-width: 870px) {
-    display: block;
-    width: 100%;
-    margin-bottom: -26px;
-  }
-`;
-
-const StyledCardNumberWrapper = styled.div`
-  margin-top: 12px;
-  margin-bottom: 22px;
-
-  @media (max-width: 375px) {
-    margin-top: 12px;
-    margin-bottom: 16px;
-  }
-`;
-
-const StyledSubmitBtnWrapper = styled.div<{ isNeedSubmitBtn: boolean }>`
-  width: 100%;
-  margin-bottom: -30px;
-
-  button:nth-child(1) {
-    display: block;
-  }
-
-  button:nth-child(2) {
-    display: none;
-  }
-
-  @media (max-width: 870px) {
-    margin-top: -2px;
-    margin-bottom: 24px;
-  }
-
-  @media (max-width: 375px) {
-    margin-bottom: 16px;
-
-    button:nth-child(1) {
-      display: ${(props) => (props.isNeedSubmitBtn ? "block" : "none")};
-    }
-
-    button:nth-child(2) {
-      display: block;
-    }
-  }
-`;
 
 export default CardpayBlock;

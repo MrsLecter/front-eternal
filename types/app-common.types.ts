@@ -1,4 +1,4 @@
-export interface IIndividualsData {
+export interface ISoulsData {
   id: number;
   name: string;
   about: string;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledMenuWrapper = styled.div`
-  /* margin-top: 20vh; */
   width: 100%;
   height: auto;
   display: flex;
@@ -16,7 +15,6 @@ export const StyledMenuWrapper = styled.div`
 `;
 
 export const StyledMenu = styled.ul`
-  /* margin-top: 30px; */
   width: 279px;
   display: flex;
   list-style-type: none;
@@ -83,7 +81,6 @@ export const StyledSocialContainer = styled.div`
   z-index: 2;
 
   & > div {
-    /* width: 155.11px; */
     height: 54px;
     display: flex;
     flex-direction: row;
@@ -129,7 +126,6 @@ export const StyledButtonsContainer = styled.div`
   margin-top: 10px;
   width: 343px;
   height: 99px;
-  /* padding: 0px 16px; */
   position: relative;
   display: flex;
   flex-direction: column;

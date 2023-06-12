@@ -55,12 +55,14 @@ export const BagelEllipse = styled.div<EllipseProps>`
   transform: rotate(${(props) => props.from + "deg"});
   mix-blend-mode: screen;
   overflow-x: visible;
+
   ${(props) =>
     props.animationType === "left" &&
     css`
       animation: ${rotateLeft} 20s linear infinite;
       animation-direction: alternate;
     `}
+
   ${(props) =>
     props.animationType === "right" &&
     css`

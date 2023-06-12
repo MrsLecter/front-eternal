@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/constants/common";
-import { MENU_LINKS, SOCIAL_LINKS } from "@/constants/modals";
+import { SOCIAL_LINKS } from "@/constants/modals";
 import TextBtn from "../../buttons/TextBtn";
 import {
   LoginWrapper,

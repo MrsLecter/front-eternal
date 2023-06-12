@@ -29,7 +29,7 @@ export const StyledTitle = styled.div<{ center: boolean }>`
   z-index: 10;
 
   h1 {
-    margin-top: 0px;
+    margin: 0px;
     text-transform: uppercase;
   }
 

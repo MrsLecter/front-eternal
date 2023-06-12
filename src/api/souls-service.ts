@@ -1,6 +1,5 @@
 import { APP_ROUTES, ASK_QUESTION, GET_HISTORY_URL } from "@/constants/common";
 import { IChatHistoryResponse, ISoulsResponse } from "./souls-service-types";
-import axios, { AxiosResponse } from "axios";
 import axiosInstance from "./custom-axios-instance";
 import localStorageHandler from "@/utils/local-storage-hendler";
 

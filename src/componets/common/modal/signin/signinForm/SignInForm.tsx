@@ -8,7 +8,6 @@ import { internalSlice } from "@/store/reducers/internalSlice";
 import { Input } from "@/componets/common/input/input/Input";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
 import { StyledLink } from "./SignInForm.styles";
-import { AxiosResponse } from "axios";
 
 const SignInForm: React.FC = () => {
   const { signin } = userSlice.actions;

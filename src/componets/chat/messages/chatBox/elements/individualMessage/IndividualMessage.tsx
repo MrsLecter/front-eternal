@@ -4,23 +4,20 @@ import {
   StyledIndividualMessageBox,
 } from "./IndividualMessage.styles";
 import Image from "next/image";
+import avatarStub from "@images/backgrounds/1_darkblue.png";
 import * as Avenir from "@typography/Avenir";
 import { SITE_URL } from "@/constants/common";
 
 interface IIndividualMessageProps {
   text: string;
   avatarImg: string | undefined;
-  setVisibleRef?: React.RefObject<HTMLDivElement>;
   soulsName?: string;
-  lastMessageRef?: (element: any) => void;
 }
 
 const IndividualMessage: React.FC<IIndividualMessageProps> = ({
   text,
   avatarImg,
-  setVisibleRef,
   soulsName,
-  lastMessageRef,
 }) => {
   const handleShareMessage = () => {
     navigator.clipboard.writeText(
@@ -29,19 +26,20 @@ const IndividualMessage: React.FC<IIndividualMessageProps> = ({
       )} told me: "${text}". See more : ${SITE_URL}`
     );
   };
+
   return (
-    <StyledIndividualMessageBox ref={setVisibleRef}>
+    <StyledIndividualMessageBox>
       <div>
         <Image
           width={60}
           height={62}
           alt="individual-avatar.png"
-          src={avatarImg!}
+          src={avatarImg! ? avatarImg : avatarStub}
           quality={100}
           style={{ borderRadius: "50%" }}
         />
       </div>
-      <StyledIndividualMessage ref={lastMessageRef}>
+      <StyledIndividualMessage>
         <div>
           <Avenir.H5>{text}</Avenir.H5>
         </div>

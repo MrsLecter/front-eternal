@@ -1,10 +1,10 @@
-import IndividualsCard from "./individualsCard/IndividualsCard";
-import IndividualsContainer from "./individualsContainer/IndividualsContainer";
-import { INDIVIDUALS_DATA } from "@/constants/greeting";
+import { SOULS_DATA } from "@/constants/greeting";
 import Title from "@/componets/common/title/Title";
-import { StyledSectionLeft } from "./Individuals.styles";
+import { StyledSectionLeft } from "./Souls.styles";
+import SoulsContainer from "./soulsContainer/SoulsContainer";
+import SoulCard from "./soulCard/soulCard";
 
-const Individuals: React.FC = () => {
+const Souls: React.FC = () => {
   return (
     <StyledSectionLeft>
       <Title
@@ -14,9 +14,9 @@ const Individuals: React.FC = () => {
           "Ask a question to your favorite person and get a realistic response"
         }
       />
-      <IndividualsContainer>
-        {INDIVIDUALS_DATA &&
-          INDIVIDUALS_DATA.map((item, index) => {
+      <SoulsContainer>
+        {SOULS_DATA &&
+          SOULS_DATA.map((item, index) => {
             if (
               item.id === 0 ||
               item.id === 2 ||
@@ -24,7 +24,7 @@ const Individuals: React.FC = () => {
               item.id === 5
             ) {
               return (
-                <IndividualsCard
+                <SoulCard
                   id={item.id}
                   key={item.id}
                   name={item.name}
@@ -37,7 +37,7 @@ const Individuals: React.FC = () => {
               );
             } else {
               return (
-                <IndividualsCard
+                <SoulCard
                   id={item.id}
                   key={item.id}
                   name={item.name}
@@ -49,9 +49,9 @@ const Individuals: React.FC = () => {
               );
             }
           })}
-      </IndividualsContainer>
+      </SoulsContainer>
     </StyledSectionLeft>
   );
 };
 
-export default Individuals;
+export default Souls;

@@ -11,13 +11,7 @@ export const StyledMessages = styled.div`
   align-items: space-between;
   background-color: transparent;
   z-index: 10;
-  /* 
-  @media (max-width: 1600px) {
-    min-height: calc(100% - 80px);
-    min-width: calc(100% - 32px);
-    padding-left: 16px;
-  }
-*/
+
   @media (max-width: 1250px) {
     justify-content: flex-end;
     align-items: start;

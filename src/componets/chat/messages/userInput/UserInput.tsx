@@ -25,7 +25,6 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   const { removeOneQuestion } = userSlice.actions;
   const {
     disallowTyping,
-    allowTyping,
     addToDialog,
     toggleToSignup,
     toggleToPayment,
@@ -36,7 +35,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
   const dispatch = useAppDispatch();
   const [userInput, setUserInput] = useState<string>("");
   const { shareLink } = useAppSelector((store) => store.userReducer);
-
+  const lastChatMessage = document.getElementById("chatBottom");
   const submitQuestionHandler = (event: FormEvent) => {
     event.preventDefault();
 
@@ -64,6 +63,9 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
               }),
             })
           );
+          if (lastChatMessage) {
+            lastChatMessage.scrollIntoView();
+          }
           clearTimeout(userMessageDelay);
         }, 600);
 
@@ -80,6 +82,10 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
 
           clearTimeout(soulMessageDelay);
         }, 1200);
+        
+        if (lastChatMessage) {
+          lastChatMessage.scrollIntoView();
+        }
         const response = sendMessageToChannel({
           questionText: userInput.trim(),
           soulId,

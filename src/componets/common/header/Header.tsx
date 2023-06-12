@@ -1,4 +1,3 @@
-import styled, { css } from "styled-components";
 import MenuBtn from "../buttons/MenuBtn";
 import Logo from "../logo/Logo";
 import TextBtn from "../buttons/TextBtn";
@@ -112,7 +111,6 @@ const Header: React.FC<IHeader> = ({
                   <StyledTextWrapper>
                     <TextBtn label={"sign out"} clickHandler={signoutHandler} />
                   </StyledTextWrapper>
-                  
                 </>
               )
             ) : (

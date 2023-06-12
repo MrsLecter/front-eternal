@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { userSlice } from "@/store/reducers/userSlice";
@@ -8,7 +7,6 @@ import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
 import { FormEvent } from "react";
 import userService from "@/api/user-service";
-import { APP_ROUTES } from "@/constants/common";
 import { StyledForm } from "./DetailsForm.styles";
 
 const DetailsForm: React.FC = () => {

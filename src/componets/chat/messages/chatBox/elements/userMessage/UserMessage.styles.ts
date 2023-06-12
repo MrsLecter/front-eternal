@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledUserMessageContainer = styled.div`
-  margin-bottom: 24px;
+  margin-top: 24px;
   margin-left: 20px;
   margin-right: 0px;
   right: 0;
@@ -9,18 +9,8 @@ export const StyledUserMessageContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
-  animation: messageAppeating 0.2s ease-in-out;
-
-  @keyframes messageAppeating {
-    from {
-      transform: translateX(-100px) scale(0.2);
-      opacity: 0.6;
-    }
-    to {
-      transform: translateX(0px) scale(1);
-      opacity: 1;
-    }
-  }
+  transform: rotateX(180deg);
+  
 
   h5 {
     margin: 0px;

@@ -3,18 +3,12 @@ import * as Avenir from "@typography/Avenir";
 
 interface IUserMessageProps {
   text: string;
-  setVisibleRef?: React.RefObject<HTMLDivElement>;
-  lastMessageRef?: (element: any) => void;
 }
 
-const UserMessage: React.FC<IUserMessageProps> = ({
-  text,
-  setVisibleRef,
-  lastMessageRef,
-}) => {
+const UserMessage: React.FC<IUserMessageProps> = ({ text }) => {
   return (
-    <StyledUserMessageContainer ref={setVisibleRef}>
-      <div ref={lastMessageRef}>
+    <StyledUserMessageContainer>
+      <div>
         <Avenir.H5>{text}</Avenir.H5>
       </div>
     </StyledUserMessageContainer>

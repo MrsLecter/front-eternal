@@ -47,6 +47,7 @@ export const StyledLabelBox = styled.div`
   background: ${({ theme }) => theme.backgroundDarkGradient};
 
   @media (max-width: 670px) {
+    padding: 24px;
     width: 341px;
     height: 62px;
     font-size: 14px;

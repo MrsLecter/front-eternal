@@ -1,16 +1,20 @@
 import { APP_ROUTES } from "@/constants/common";
-import { useAppDispatch } from "@/hooks/reducers.hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import Image from "next/image";
 import Link from "next/link";
 import {
   StyledImageWrapper,
-  StyledIndividualsAbout,
-  StyledIndividualsCard,
-} from "./IndividualsCard.styles";
-import { IIndividualsCard } from "./IndividualsCard.types";
+  StyledSoulAbout,
+  StyledSoulCard,
+} from "./soulCard.styles";
+import { ISoulCard } from "./soulCard.types";
+import { useEffect } from "react";
+import soulsService from "@/api/souls-service";
+import { getMessageArray } from "@/utils/functions";
+import localStorageHandler from "@/utils/local-storage-hendler";
 
-const IndividualsCard: React.FC<IIndividualsCard> = ({
+const SoulCard: React.FC<ISoulCard> = ({
   id,
   name,
   about,
@@ -19,8 +23,10 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
   enlargedImage = false,
   isReflected = false,
 }) => {
-  const { setFirstMessage } = internalSlice.actions;
+  const { setFirstMessage, setSoulId, addHistory } = internalSlice.actions;
+  const { dialog } = useAppSelector((store) => store.internalReducer);
   const dispatch = useAppDispatch();
+  const isAuth = localStorageHandler.getAccessToken();
 
   let largeWidth = 0;
   let largeHeight = 0;
@@ -34,17 +40,14 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
     smallHeight = (document.documentElement.clientHeight * 2.71) / 100;
   }
 
-  const handleIndividualsClick = () => {
+  const handleSoulClick = () => {
     dispatch(setFirstMessage({ type: "intro" }));
+    dispatch(setSoulId({ soulid: id }));
   };
 
   return (
-    <Link
-      tabIndex={-1}
-      href={APP_ROUTES.Chat + id}
-      onClick={handleIndividualsClick}
-    >
-      <StyledIndividualsCard tabIndex={0}>
+    <Link tabIndex={-1} href={APP_ROUTES.Chat + id} onClick={handleSoulClick}>
+      <StyledSoulCard tabIndex={0}>
         <StyledImageWrapper
           enlargedImage={enlargedImage}
           isReflected={isReflected}
@@ -137,13 +140,13 @@ const IndividualsCard: React.FC<IIndividualsCard> = ({
           )}
         </StyledImageWrapper>
 
-        <StyledIndividualsAbout>
+        <StyledSoulAbout>
           <div>{name}</div>
           <div>{about}</div>
-        </StyledIndividualsAbout>
-      </StyledIndividualsCard>
+        </StyledSoulAbout>
+      </StyledSoulCard>
     </Link>
   );
 };
 
-export default IndividualsCard;
+export default SoulCard;

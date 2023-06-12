@@ -1,15 +1,15 @@
-import { INDIVIDUALS_DATA } from "@/constants/greeting";
-import { IIndividualsData } from "../../types/app-common.types";
+import { SOULS_DATA } from "@/constants/greeting";
+import { ISoulsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";
 
-export const getSoulsDataForId = (id: string): IIndividualsData | undefined => {
-  return INDIVIDUALS_DATA.find((individual) => individual.id === parseInt(id));
+export const getSoulsDataForId = (id: string): ISoulsData | undefined => {
+  return SOULS_DATA.find((soul) => soul.id === parseInt(id));
 };
 
 export const getRandomIndividualId = (): number => {
-  const maxId = INDIVIDUALS_DATA.length;
-  const minId = INDIVIDUALS_DATA[0].id;
+  const maxId = SOULS_DATA.length;
+  const minId = SOULS_DATA[0].id;
 
   return Math.floor(Math.random() * (maxId - minId) + minId);
 };
@@ -74,12 +74,15 @@ export const getMessageArray = ({
   let arrResult = [];
   if (messages && messages.length > 0) {
     for (let message of messages) {
+      // arrResult.push(["soul", Object.values(message)[0]]);
+      // arrResult.push(["user", Object.keys(message)[0]]);
+
       arrResult.push(["soul", Object.values(message)[0]]);
-      arrResult.push(["user", Object.keys(message)[0]]);
+       arrResult.push(["user", Object.keys(message)[0]]);
     }
   }
 
-  arrResult.reverse();
+  // arrResult.reverse();
   return arrResult;
 };
 

@@ -21,7 +21,8 @@ export const StyledChatBox = styled.div`
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: scroll;
+    transform: rotateX(180deg);
   }
 
   @media (min-width: 1640px) {
@@ -31,7 +32,6 @@ export const StyledChatBox = styled.div`
   @media (max-width: 1250px) {
     margin-top: 0px;
     margin-right: 12px;
-    /* height: 100%; */
     max-height: 100%;
   }
 

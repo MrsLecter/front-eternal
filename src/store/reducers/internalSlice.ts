@@ -20,6 +20,8 @@ interface IInternalData {
   isTypingAllowed: boolean;
   temp: string;
   internalSoulid: number;
+  currentHistoryPage: number;
+  totalHistoryPages: number;
 }
 
 const internalSetting: IInternalData = {
@@ -41,6 +43,8 @@ const internalSetting: IInternalData = {
   isTypingAllowed: false,
   temp: "",
   internalSoulid: 0,
+  currentHistoryPage: 1,
+  totalHistoryPages: 2,
 };
 
 export const internalSlice = createSlice({
@@ -49,22 +53,45 @@ export const internalSlice = createSlice({
   reducers: {
     deleteDialog(state) {
       state.dialog = [];
+      state.totalHistoryPages = 2;
+      state.currentHistoryPage = 1;
     },
 
-    restoreDialog(state, action: PayloadAction<{ oldDialog: string[][] }>) {
+    restoreDialog(
+      state,
+      action: PayloadAction<{
+        oldDialog: string[][];
+        currentHistoryPage: number;
+        totalHistoryPages: number;
+      }>
+    ) {
       state.dialog = [...action.payload.oldDialog];
+      state.currentHistoryPage = action.payload.currentHistoryPage;
+      state.totalHistoryPages = action.payload.totalHistoryPages;
     },
 
     addToDialog(state, action: PayloadAction<{ message: string[] }>) {
-      state.dialog.push(action.payload.message);
+      // state.dialog.push(action.payload.message);
+      state.dialog = [action.payload.message, ...state.dialog];
     },
 
-    addHistory(state, action: PayloadAction<{ message: string[][] }>) {
-      state.dialog.unshift(...action.payload.message);
+    addHistory(
+      state,
+      action: PayloadAction<{ message: string[][]; currentHistoryPage: number }>
+    ) {
+      state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
+      // state.dialog.unshift(...action.payload.message);
+      state.dialog.push(...action.payload.message);
+      state.currentHistoryPage = action.payload.currentHistoryPage;
+    },
+
+    settotalHistoryPages(state, action: PayloadAction<{ maxPages: number }>) {
+      state.totalHistoryPages = action.payload.maxPages;
     },
 
     deleteLastDialogMessage(state) {
-      state.dialog.pop();
+      // state.dialog.pop();
+      state.dialog.shift();
     },
 
     deleteFirstMessage(state) {
@@ -172,6 +199,10 @@ export const internalSlice = createSlice({
 
     deleteSoulId(state) {
       state.internalSoulid = 0;
+    },
+
+    changeCurrentHistoryPage(state, action: PayloadAction<{ page: number }>) {
+      state.currentHistoryPage = action.payload.page;
     },
   },
 });

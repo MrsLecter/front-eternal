@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import {
   getConstructedMessage,
@@ -13,36 +13,43 @@ import soulsService from "@/api/souls-service";
 import { StyledChatBox } from "./ChatBox.styles";
 import UserMessage from "./elements/userMessage/UserMessaege";
 import IndividualMessage from "./elements/individualMessage/IndividualMessage";
-import PageLoader from "next/dist/client/page-loader";
 
 interface IChatBoxProps {
   avatarImg: string | undefined;
   soulId: string;
+  visibleMessageRef: React.RefObject<HTMLDivElement>;
 }
 
-const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
+const ChatBox: React.FC<IChatBoxProps> = ({
+  avatarImg,
+  soulId,
+  visibleMessageRef,
+}) => {
   const isAuth = localStorageHandler.getAccessToken();
   const dispatch = useAppDispatch();
-  const messageRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  
-  const observer = useRef<any>();
+  const [isHistoryLoading, setIsHistoryLoading] = useState<boolean>(true);
 
   const {
-    addHistory,
+    userQuestionType,
+    firstMessage,
+    dialog,
+    totalHistoryPages,
+    currentHistoryPage,
+  } = useAppSelector((store) => store.internalReducer);
+  const [isChatCompleteLoading, setisChatCompleteLoading] =
+    useState<boolean>(true);
+
+  const {
     deleteFirstMessage,
     addToDialog,
     disallowTyping,
     allowTyping,
-    setTemp,
-    deleteTemp,
-    deleteLastDialogMessage,
     restoreDialog,
+    addHistory,
+    settotalHistoryPages,
+    changeCurrentHistoryPage,
   } = internalSlice.actions;
-
-  const { userQuestionType, firstMessage, dialog, temp } = useAppSelector(
-    (store) => store.internalReducer
-  );
 
   const [fetchQuery, { loading, data }] = useLazyQuery<{
     souls: [
@@ -56,22 +63,22 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   }>(getFreeAnswerQueryString({ questionType: userQuestionType }));
   const currentSoulsData = getSoulsDataForId(soulId);
   const userId = localStorageHandler.getUserId();
-
-  const lastMessageRef = useCallback((element: HTMLDivElement) => {
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setCurrentPage((prevPage) => prevPage + 1);
-      }
-    });
-    if (element) observer.current.observe(element);
-  }, []);
+  const lastChatMessage = document.getElementById("chatBottom");
+  const chatBox = document.getElementById("chatBox");
 
   useEffect(() => {
     if (dialog.length === 0) {
-      const localDialogArr = localStorageHandler.getDialog();
-      console.warn("empty dialog", localDialogArr);
-      dispatch(restoreDialog({ oldDialog: localDialogArr }));
+      const localDialogObj = localStorageHandler.getDialog();
+      if (localDialogObj) {
+        dispatch(
+          restoreDialog({
+            oldDialog: localDialogObj.dialog,
+            currentHistoryPage: localDialogObj.currentHistoryPage,
+            totalHistoryPages: localDialogObj.totalHistoryPages,
+          })
+        );
+        setCurrentPage(localDialogObj.currentHistoryPage);
+      }
     }
   }, []);
 
@@ -83,29 +90,16 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
         },
       });
     }
+    if (lastChatMessage) {
+      lastChatMessage.scrollIntoView();
+    }
   }, [firstMessage]);
 
   useEffect(() => {
     if (firstMessage && data && data.souls[0]) {
-      dispatch(setTemp({ message: Object.values(data!.souls[0])[1] }));
       dispatch(disallowTyping());
-
       if (userQuestionType !== "intro" || !isAuth) {
-        const userMessageDelay = setTimeout(() => {
-          dispatch(
-            addToDialog({
-              message: getConstructedMessage({
-                sender: "soul intro",
-                message: "Thinking...",
-              }),
-            })
-          );
-          localStorageHandler.updateDialog(dialog);
-          dispatch(disallowTyping());
-        }, 100);
-
         const soulMessageDelay = setTimeout(() => {
-          dispatch(deleteLastDialogMessage());
           dispatch(
             addToDialog({
               message: getConstructedMessage({
@@ -114,103 +108,145 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
               }),
             })
           );
-          localStorageHandler.updateDialog(dialog);
-          dispatch(deleteFirstMessage());
-          dispatch(allowTyping());
         }, 1000);
+      } else if (dialog.length === 0) {
+        dispatch(
+          addToDialog({
+            message: getConstructedMessage({
+              sender: "soul intro",
+              message: Object.values(data!.souls[0])[1],
+            }),
+          })
+        );
       }
+
+      setisChatCompleteLoading(true);
+      localStorageHandler.updateDialog({
+        dialog,
+        currentHistoryPage: currentHistoryPage,
+        totalHistoryPages: totalHistoryPages,
+      });
+      dispatch(deleteFirstMessage());
+      dispatch(allowTyping());
     }
   }, [data]);
 
   useEffect(() => {
-    const getMessagesHistory = async ({
-      page,
-      soulId,
-    }: {
-      page: number;
-      soulId: string;
-    }) => {
+    localStorageHandler.updateDialog({
+      dialog,
+      currentHistoryPage: currentHistoryPage,
+      totalHistoryPages: totalHistoryPages,
+    });
+    const lastChatMessage = document.getElementById("chatBottom");
+    if (currentPage < 2) {
+      if (lastChatMessage) {
+        lastChatMessage.scrollIntoView();
+      }
+    }
+  }, [dialog]);
+
+  useEffect(() => {
+    const getMessagesHistory = async ({ soulId }: { soulId: string }) => {
       try {
         const response = await soulsService.getHistory({
           page: currentPage,
           soulid: soulId,
         });
+        setIsHistoryLoading(false);
+
         if (response.status === 200) {
           let chathistory = response.message.chathistory;
-          if (!!chathistory && chathistory.length > 0) {
-            if (firstMessage) {
-              dispatch(deleteFirstMessage());
-            }
+          let maxHistoryPage = response.message.pageamount;
+          dispatch(settotalHistoryPages({ maxPages: maxHistoryPage }));
+          if (chathistory && chathistory.length > 0) {
             const message = getMessageArray({
-              messages: response.message.chathistory,
+              messages: chathistory,
             });
-            dispatch(addHistory({ message }));
-            localStorageHandler.updateDialog(dialog);
+            dispatch(addHistory({ message, currentHistoryPage: currentPage }));
+            localStorageHandler.updateDialog({
+              dialog,
+              currentHistoryPage: currentHistoryPage,
+              totalHistoryPages: totalHistoryPages,
+            });
             dispatch(allowTyping());
           } else {
-            if (temp && userQuestionType === "intro" && dialog.length === 0) {
-              dispatch(
-                addToDialog({
-                  message: getConstructedMessage({
-                    sender: "soul intro",
-                    message: temp,
-                  }),
-                })
-              );
-              localStorageHandler.updateDialog(dialog);
-              dispatch(deleteTemp());
-            }
+            dispatch(allowTyping());
           }
+          setIsHistoryLoading(false);
         }
       } catch (e) {
         console.error("Error: ", e);
+        setIsHistoryLoading(false);
       }
     };
-
-    if (isAuth && currentPage > 0) {
-      getMessagesHistory({ page: currentPage, soulId: soulId });
+    if (isAuth && isHistoryLoading && currentPage <= totalHistoryPages) {
+      getMessagesHistory({ soulId: soulId });
+      localStorageHandler.updateDialog({
+        dialog,
+        currentHistoryPage: currentHistoryPage,
+        totalHistoryPages: totalHistoryPages,
+      });
     }
-  }, [currentPage]);
+  }, [isHistoryLoading]);
 
   useEffect(() => {
-    if (messageRef.current) {
-      messageRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-    localStorageHandler.updateDialog(dialog);
-  }, [dialog]);
+    if (isAuth) {
+      const boxElem = document.getElementById("chatBox");
 
-  return (
-    <StyledChatBox>
-      <div>
-        {dialog &&
-          dialog.map((item, index) => {
-            if (item[0] === "user") {
-              return (
-                <UserMessage
-                  lastMessageRef={index === 1 ? lastMessageRef : undefined}
-                  setVisibleRef={undefined}
-                  key={index}
-                  text={item[1]}
-                />
-              );
-            } else if (item[0] === "soul" || item[0] === "soul intro") {
-              return (
-                <IndividualMessage
-                  lastMessageRef={index === 1 ? lastMessageRef : undefined}
-                  setVisibleRef={
-                    index === dialog.length - 1 ? messageRef : undefined
-                  }
-                  soulsName={currentSoulsData?.name}
-                  key={index}
-                  avatarImg={avatarImg}
-                  text={item[1]}
-                />
-              );
-            }
-          })}
-      </div>
-    </StyledChatBox>
-  );
+      if (boxElem) {
+        boxElem.addEventListener("scroll", scrollHandler);
+      }
+
+      return () => {
+        if (boxElem) {
+          boxElem.removeEventListener("scroll", scrollHandler);
+        }
+      };
+    }
+  }, []);
+
+  const scrollHandler = (e: any) => {
+    if (
+      isAuth &&
+      e.target.scrollHeight - e.target.scrollTop ===
+        e.currentTarget.offsetHeight
+    ) {
+      setIsHistoryLoading(true);
+      setCurrentPage((currentPage) => currentPage + 1);
+      dispatch(changeCurrentHistoryPage({ page: currentPage }));
+    }
+  };
+
+  if (!isChatCompleteLoading) {
+    return (
+      <StyledChatBox>
+        <div>Loading...</div>
+      </StyledChatBox>
+    );
+  } else {
+    return (
+      <StyledChatBox>
+        <div id="chatBox">
+          <div id="chatBottom" />
+          {dialog &&
+            dialog.map((item, index) => {
+              if (item[0] === "user") {
+                return <UserMessage key={index} text={item[1]} />;
+              } else if (item[0] === "soul" || item[0] === "soul intro") {
+                return (
+                  <IndividualMessage
+                    soulsName={currentSoulsData?.name}
+                    key={index}
+                    avatarImg={avatarImg}
+                    text={item[1]}
+                  />
+                );
+              }
+            })}
+        </div>
+      </StyledChatBox>
+    );
+  }
 };
 
 export default ChatBox;

@@ -2,12 +2,10 @@ import Logo from "../logo/Logo";
 import Image from "next/image";
 import { StyledFooter, StyledSocial } from "./Footer.styles";
 import { BodyTiny } from "@/styles/textStyles/Avenir";
-
 import twitterIcon from "@icons/social-twitter.svg";
 import youtubeIcon from "@icons/social-youtube.svg";
 import facebokIcon from "@icons/social-facebook.svg";
 import { H6 } from "@/styles/textStyles/Arquitecta";
-import Link from "next/link";
 
 interface IFooterProps {
   liftToTopHandler?: () => void;

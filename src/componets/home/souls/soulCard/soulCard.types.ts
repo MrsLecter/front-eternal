@@ -1,4 +1,4 @@
-export interface IIndividualsCard {
+export interface ISoulCard {
   id: number;
   name: string;
   about: string;

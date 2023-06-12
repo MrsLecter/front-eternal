@@ -84,6 +84,7 @@ export const StyledWrapperModal = styled.div<{
 
   @media (max-width: 870px) {
     padding: ${(props) => (props.paddingSmall ? "24px" : "32px")};
+    
     & > div:first-child {
       margin-bottom: ${(props) => (props.isPayment ? "-2px" : "24px")};
     }

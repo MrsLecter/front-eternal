@@ -15,7 +15,7 @@ export const StyledSectionLeft = styled.div`
   }
 
   @media (max-width: 860px) {
-    margin-top: 64px;
+    margin-top: 54px;
     padding: 0px 12px;
   }
 `;

@@ -227,17 +227,35 @@ class LocalStorageHandler {
     }
   }
 
-  public updateDialog(dialog: string[][]) {
-    localStorage.setItem(StorageCellEnum.DIALOG, JSON.stringify(dialog));
+  public updateDialog({
+    dialog,
+    currentHistoryPage,
+    totalHistoryPages,
+  }: {
+    dialog: string[][];
+    currentHistoryPage: number;
+    totalHistoryPages: number;
+  }) {
+    const dialogObject = {
+      dialog,
+      currentHistoryPage,
+      totalHistoryPages,
+    };
+
+    localStorage.setItem(StorageCellEnum.DIALOG, JSON.stringify(dialogObject));
   }
 
-  public getDialog() {
+  public getDialog():
+    | {
+        dialog: string[][];
+        currentHistoryPage: number;
+        totalHistoryPages: number;
+      }
+    | undefined {
     const dialogData = localStorage.getItem(StorageCellEnum.DIALOG);
     if (dialogData) {
       const dialogDataObject = JSON.parse(dialogData);
       return dialogDataObject;
-    } else {
-      return [];
     }
   }
 

@@ -6,16 +6,15 @@ import {
   StyledBorder,
 } from "./SoulsIntro.styles";
 import Image from "next/image";
-import backgroundLight from "@images/all-individuals/light-1.png";
-import conversation from "@images/all-individuals/conversation-1.png";
-import pinkSpot from "@images/all-individuals/pink-spot.png";
+import backgroundLight from "@images/all-souls/light-1.png";
+import conversation from "@images/all-souls/conversation-1.png";
+import pinkSpot from "@images/all-souls/pink-spot.png";
 
-import first from "@images/individuals/2_martin_luther_king.png";
-import secondL from "@images/individuals/1_steve_jobs.png";
-import secondR from "@images/individuals/4_albert_einstein.png";
-import thirdL from "@images/individuals/3_elon_mask.png";
-import thirdR from "@images/individuals/5_mother_teresa.png";
-
+import first from "@images/souls/2_martin_luther_king.png";
+import secondL from "@images/souls/1_steve_jobs.png";
+import secondR from "@images/souls/4_albert_einstein.png";
+import thirdL from "@images/souls/3_elon_mask.png";
+import thirdR from "@images/souls/5_mother_teresa.png";
 
 interface ISoulsIntroProps {
   isBlured?: boolean;

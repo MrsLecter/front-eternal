@@ -9,7 +9,6 @@ export const StyledBackground = styled.div<{ background: string }>`
   justify-content: center;
   align-items: center;
   overflow-x: visible;
-
   overflow-y: auto;
   background-color: ${(props) => props.background};
   z-index: -12;

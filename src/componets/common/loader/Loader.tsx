@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import LoaderImage from "@/componets/common/loaderImage/LoaderImage";
 import { WrapperLoader } from "./Loader.styles";
 
@@ -9,6 +8,7 @@ const Loader: React.FC = () => {
   let logoWidth = 0;
   let logoHeight = 0;
   let realWidth = 0;
+  
   if (typeof window !== "undefined") {
     realWidth = document.documentElement.clientWidth;
     loaderWidth = (document.documentElement.clientWidth * 17) / 100;

@@ -1,10 +1,8 @@
-import { gql } from "@apollo/client";
-import client from "./apollo-client";
-import axios, { AxiosResponse } from "axios";
+
+import axios from "axios";
 import {
   REGISTRATION_URL,
   REFRESH_URL,
-  REQUEST_HEADERS_POST,
   PROFILE_DETAILS_URL,
   LOGIN_URL,
   RESET_PASSWORD_URL,
@@ -33,7 +31,6 @@ import {
   IChangePasswordResponse,
   IUpdateSubscriptionResponse,
   IRefreshRequestResponse,
-  ISigninErrorResponse,
 } from "./user-service-types";
 
 class UserService {
@@ -92,12 +89,10 @@ class UserService {
           },
         }
       );
-      if (response.status === 500) {
-        alert("sdfsdfsdf");
-      }
       return response;
     } catch (err: any) {
       console.error("An error occured in googleAuth request: ", err);
+
       return err;
     }
   }

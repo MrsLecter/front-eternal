@@ -3,7 +3,7 @@ import Header from "@/componets/common/header/Header";
 import { useRouter } from "next/router";
 import Individual from "@/componets/chat/individual/Individual";
 import Messages from "@/componets/chat/messages/Messages";
-import { getSoulsDataForId } from "@/utils/functions";
+import { getMessageArray, getSoulsDataForId } from "@/utils/functions";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
 import WrapperPage from "@/componets/common/wrappers/wrapperPage/WrapperPage";
@@ -15,19 +15,21 @@ import {
 import ModalContainer from "@/componets/common/modal/ModalConteiner";
 import { useSync } from "@/hooks/use-sync";
 import { internalSlice } from "@/store/reducers/internalSlice";
+import localStorageHandler from "@/utils/local-storage-hendler";
+import soulsService from "@/api/souls-service";
 
 const Chat: React.FC = () => {
   const router = useRouter();
   const sync = useSync();
   const dispatch = useAppDispatch();
-  const { setSoulId, allowTyping } = internalSlice.actions;
+  const { setSoulId, allowTyping, restoreDialog, addHistory } =
+    internalSlice.actions;
   const soulId = router.query.id as string;
-  dispatch(setSoulId({ soulid: +soulId }));
-  const { showCommonModal, isSmallHeader, showPaywallModal, internalSoulid } =
+  const { showCommonModal, isSmallHeader, showPaywallModal, dialog } =
     useAppSelector((store) => store.internalReducer);
 
-  const currentSoulsData = getSoulsDataForId(String(internalSoulid));
-
+  const currentSoulsData = getSoulsDataForId(soulId);
+  const isAuth = localStorageHandler.getAccessToken();
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
 
@@ -35,6 +37,11 @@ const Chat: React.FC = () => {
     setInitialRenderComplete(true);
     sync();
     dispatch(allowTyping());
+
+    const lastChatMessage = document.getElementById("chatBottom");
+    if (lastChatMessage) {
+      lastChatMessage.scrollIntoView();
+    }
   }, []);
 
   if (!initialRenderComplete) {
@@ -45,20 +52,13 @@ const Chat: React.FC = () => {
         <HeadCommon />
         <WrapperPage color={"#0a0907"}>
           <StyledSectionChatWrapper>
-            <Header
-              isHaveShareBtn={true}
-              isHaveClose={showCommonModal}
-              isSmall={isSmallHeader || showPaywallModal}
-            />
+            <Header isHaveShareBtn={true} />
             <StyledChatContainer>
               <div>
                 <Individual individualData={currentSoulsData} />
               </div>
               <div>
-                <Messages
-                  soulId={String(internalSoulid)}
-                  avatarImg={currentSoulsData?.image}
-                />
+                <Messages soulId={soulId} avatarImg={currentSoulsData?.image} />
               </div>
             </StyledChatContainer>
           </StyledSectionChatWrapper>
@@ -68,5 +68,4 @@ const Chat: React.FC = () => {
     );
   }
 };
-
 export default Chat;

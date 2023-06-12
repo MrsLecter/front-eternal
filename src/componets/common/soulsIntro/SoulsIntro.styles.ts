@@ -69,11 +69,13 @@ export const Intro = styled.div`
   div:nth-child(4) {
     position: relative;
     margin: 0 auto;
+
     figure {
       width: 35vw;
       max-width: 567px;
       min-width: 251.6px;
     }
+
     aspect-ratio: 1/1;
     margin: 0 auto;
   }
@@ -133,40 +135,45 @@ export const Intro = styled.div`
 
   @media (max-width: 1400px) {
     height: 60%;
+
     div:nth-child(2) {
+      transform: translateX(118px);
       figure {
         width: 26vw;
         min-width: 168.18px;
         max-width: 379px;
       }
-      transform: translateX(118px);
     }
 
     div:nth-child(5) {
+      transform: translateX(-150px);
       figure {
         width: 26vw;
         max-width: 379px;
         min-width: 168.18px;
       }
-      transform: translateX(-150px);
     }
 
     div:nth-child(1) {
-      figure {
-        width: 23vw;
-      }
       transform: translateX(220px);
-    }
-    div:nth-child(6) {
+
       figure {
         width: 23vw;
       }
+    }
+
+    div:nth-child(6) {
       transform: translateX(-250px);
+
+      figure {
+        width: 23vw;
+      }
     }
   }
 
   @media (max-width: 869px) {
     height: 40%;
+
     div:nth-child(1) {
       display: none;
       width: 0vw;
@@ -184,6 +191,7 @@ export const Intro = styled.div`
     div:nth-child(2) {
       transform: translateX(15vw);
     }
+
     div:nth-child(5) {
       transform: translateX(-15vw);
     }
@@ -197,10 +205,12 @@ export const Intro = styled.div`
 
   @media (max-width: 600px) {
     height: 40%;
+
     div:nth-child(1) {
       display: none;
       width: 0vw;
     }
+
     div:nth-child(6) {
       display: none;
       width: 0vw;
@@ -213,24 +223,27 @@ export const Intro = styled.div`
     }
 
     div:nth-child(2) {
+      transform: translateX(15vw);
+
       figure {
         max-height: 205.45px;
       }
-      transform: translateX(15vw);
     }
     div:nth-child(5) {
+      transform: translateX(-15vw);
       figure {
         max-height: 197.02px;
       }
-      transform: translateX(-15vw);
     }
   }
 
   @media (max-width: 480px) {
     height: 30%;
+
     div:nth-child(2) {
       transform: translateX(19vw);
     }
+
     div:nth-child(5) {
       transform: translateX(-17vw);
     }

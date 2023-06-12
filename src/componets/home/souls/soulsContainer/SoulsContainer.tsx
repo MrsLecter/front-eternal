@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-interface IIndividualsContainerProps {
+interface ISoulsContainerProps {
   children: React.ReactNode;
 }
 
-const IndividualsContainer: React.FC<IIndividualsContainerProps> = ({
-  children,
-}) => {
-  return <StyledIndividualsContainer>{children}</StyledIndividualsContainer>;
+const SoulsContainer: React.FC<ISoulsContainerProps> = ({ children }) => {
+  return <StyledSoulsContainer>{children}</StyledSoulsContainer>;
 };
 
-const StyledIndividualsContainer = styled.div`
+const StyledSoulsContainer = styled.div`
   width: 100%;
   max-width: 1400px;
   margin-top: 32px;
@@ -21,12 +19,12 @@ const StyledIndividualsContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   overflow-y: auto;
 
-  @media (max-width: 860px) {
+  @media (max-width: 870px) {
     margin-top: 26px;
-    margin-bottom: 58px;
+    margin-bottom: 44px;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
   }
 `;
 
-export default IndividualsContainer;
+export default SoulsContainer;

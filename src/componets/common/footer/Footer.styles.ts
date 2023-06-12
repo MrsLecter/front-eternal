@@ -28,7 +28,7 @@ export const StyledFooter = styled.footer`
     width: 211.44px;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 870px) {
     width: calc(100% - 32px);
     height: 222px;
     min-height: 222px;
@@ -50,8 +50,8 @@ export const StyledFooter = styled.footer`
     }
 
     div:nth-child(3) {
-      margin-top: 32px;
-      margin-bottom: 32px;
+      margin: 32px 16px 32px;
+
       div {
         height: 32px;
       }

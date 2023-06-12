@@ -10,7 +10,7 @@ const HeadCommon: React.FC = () => {
         name="description"
         content="Discover Eternal AI, a cutting-edge platform where you can chat with humanity's greatest minds using advanced AI technology. Unleash your curiosity and learn from the legends who shaped our world."
       />
-      <meta property="og:url" content="https://eternal.ai/" />
+      <meta property="og:url" content="https://front-eternal.vercel.app/" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Eternal AI" />
       <meta

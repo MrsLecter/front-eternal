@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const StyledIndividualsCard = styled.div`
+export const StyledSoulCard = styled.div`
   position: relative;
   height: 297.72px;
   width: 260px;
@@ -89,7 +89,7 @@ export const StyledImageWrapper = styled.div<{
   }
 `;
 
-export const StyledIndividualsAbout = styled.div`
+export const StyledSoulAbout = styled.div`
   position: absolute;
   height: 0px;
   bottom: -1px;

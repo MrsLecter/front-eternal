@@ -1,5 +1,4 @@
 export interface ISoulsResponse {
-  // souls: ISoulInfo[];
   status: number;
   message: {
     history: boolean;
@@ -24,6 +23,7 @@ export interface IChatHistoryResponse {
   message: {
     user: number;
     soul: number;
+    pageamount: number;
     chathistory: { [key: string]: string }[];
   };
 }

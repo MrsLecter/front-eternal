@@ -1,6 +1,6 @@
 import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
-import Individuals from "@/componets/home/individuals/Individuals";
+import Souls from "@/componets/home/souls/Souls";
 import { useState, useEffect, useMemo } from "react";
 import Footer from "@/componets/common/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
@@ -26,6 +26,10 @@ export default function Home() {
     useState<boolean>(false);
   const { signin } = userSlice.actions;
   const [googleSignup, setGoogleSignup] = useState<boolean>(false);
+  const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
+    (store) => store.internalReducer
+  );
+  const { accessToken } = useAppSelector((store) => store.userReducer);
 
   useEffect(() => {
     setInitialRenderComplete(true);
@@ -78,10 +82,6 @@ export default function Home() {
     }
   }, [session.data]);
 
-  const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
-  );
-
   useEffect(() => {
     dispatch(deleteDialog());
     dispatch(deleteFirstMessage());
@@ -113,17 +113,13 @@ export default function Home() {
 
   const MainContent = useMemo(() => {
     return (
-      <StyledMainContent>
-        <Header
-          isHaveClose={showCommonModal}
-          isSmall={isSmallHeader || showPaywallModal}
-        />
+      <>
         <Greeting />
-        <Individuals />
+        <Souls />
         <Footer liftToTopHandler={liftToTop} />
-      </StyledMainContent>
+      </>
     );
-  }, [showCommonModal, isSmallHeader, showPaywallModal, googleSignup]);
+  }, []);
 
   if (!initialRenderComplete) {
     return <Loader />;
@@ -134,7 +130,10 @@ export default function Home() {
         <WrapperPage shouldNotScroll={showPaywallModal || showCommonModal}>
           <StyledBackground>
             <ModalContainer />
-            {MainContent}
+            <StyledMainContent>
+              <Header />
+              {MainContent}
+            </StyledMainContent>
           </StyledBackground>
         </WrapperPage>
       </>

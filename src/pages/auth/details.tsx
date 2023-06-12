@@ -18,6 +18,7 @@ import Loader from "@/componets/common/loader/Loader";
 import ModalContainer from "@/componets/common/modal/ModalConteiner";
 import { useSync } from "@/hooks/use-sync";
 import localStorageHandler from "@/utils/local-storage-hendler";
+import BackgroundDetails from "@/componets/details/BackgroundDetails";
 
 const Details: React.FC = () => {
   const { signin } = userSlice.actions;
@@ -52,10 +53,7 @@ const Details: React.FC = () => {
         <WrapperDetailsCentring
           shouldNotScroll={showPaywallModal || showCommonModal}
         >
-          <Header
-            isHaveClose={showCommonModal}
-            isSmall={isSmallHeader || showPaywallModal}
-          />
+          <Header />
           <StyledModalWrapper>
             <WrapperModal
               width={"760"}
@@ -87,6 +85,7 @@ const Details: React.FC = () => {
           </StyledModalWrapper>
           <Footer />
           <ModalContainer />
+          <BackgroundDetails />
         </WrapperDetailsCentring>
       </>
     );
