@@ -27,4 +27,8 @@ export const StyledProOfferBlock = styled.div`
 
 export const StyledProBtnWrapper = styled.div`
   margin-bottom: 12px;
+
+  button:hover {
+    cursor: default;
+  }
 `;

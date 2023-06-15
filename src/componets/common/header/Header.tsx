@@ -22,6 +22,7 @@ const Header: React.FC<IHeader> = ({
   isHaveShareBtn = false,
   isSmall = false,
   zIndex = 4,
+  ref,
 }) => {
   const isAuth = localStorageHandler.getAccessToken();
   const { signout } = userSlice.actions;
@@ -73,6 +74,7 @@ const Header: React.FC<IHeader> = ({
       isSmall={isSmall}
       onClick={rolldownAllWindows}
       zIndex={zIndex}
+      ref={ref}
     >
       {!isSmall && isHaveClose && (
         <div>

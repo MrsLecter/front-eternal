@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import {
   REGISTRATION_URL,
@@ -42,6 +41,7 @@ class UserService {
         baseURL: REFRESH_URL,
         headers: { Authorization: "Bearer " + refreshToken },
       });
+      alert("refresh");
       return await instance.post("/");
     } catch (err: any) {
       console.error("An error occured in makeRefreshRequest: ", err);

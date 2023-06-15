@@ -75,12 +75,21 @@ class LocalStorageHandler {
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
   }
 
+  public getReadAbout() {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
+
+    if (userData) {
+      const userDataObject = JSON.parse(userData);
+      return userDataObject.readabout;
+    }
+  }
+
   public setIsReadAbout() {
     const userData = localStorage.getItem(StorageCellEnum.USER);
 
     if (userData) {
       const userDataObject = JSON.parse(userData);
-      userDataObject.readAbout = true;
+      userDataObject.readabout = true;
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -229,16 +238,15 @@ class LocalStorageHandler {
 
   public updateDialog({
     dialog,
-    currentHistoryPage,
     totalHistoryPages,
   }: {
     dialog: string[][];
-    currentHistoryPage: number;
     totalHistoryPages: number;
   }) {
+    const MESSAGES_ON_PAGE = 10;
     const dialogObject = {
       dialog,
-      currentHistoryPage,
+      currentHistoryPage: Math.floor(dialog.length / MESSAGES_ON_PAGE),
       totalHistoryPages,
     };
 

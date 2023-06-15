@@ -6,7 +6,7 @@ import { userSlice } from "@/store/reducers/userSlice";
 import {
   getConstructedMessage,
   getMessageArray,
-  getRandomIndividualId,
+  getRandomSoulId,
 } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
@@ -23,7 +23,7 @@ const QuestionItem: React.FC<IQuestionItemProps> = ({
   const { setFirstMessage, setSoulId, addHistory } = internalSlice.actions;
   const { removeOneQuestion } = userSlice.actions;
   const dispatch = useAppDispatch();
-  const randomSoulId = getRandomIndividualId();
+  const randomSoulId = getRandomSoulId();
   const { dialog } = useAppSelector((store) => store.internalReducer);
   const clickHandler = async () => {
     const currentMessage = GREETING_USER_QUESTIONS.filter(

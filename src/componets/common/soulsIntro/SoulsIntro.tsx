@@ -6,8 +6,8 @@ import {
   StyledBorder,
 } from "./SoulsIntro.styles";
 import Image from "next/image";
-import backgroundLight from "@images/all-souls/light-1.png";
-import conversation from "@images/all-souls/conversation-1.png";
+import backgroundLight from "@images/all-souls/light.png";
+import conversation from "@images/all-souls/conversation.png";
 import pinkSpot from "@images/all-souls/pink-spot.png";
 
 import first from "@images/souls/2_martin_luther_king.png";
@@ -29,7 +29,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={thirdL}
-                alt="zero"
+                alt="thirdLeft.png"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -45,7 +45,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={secondL}
-                alt="zero"
+                alt="secondLeft.png"
                 style={{ width: "100%", height: "auto", zIndex: -6 }}
                 priority={true}
               />
@@ -57,7 +57,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={pinkSpot}
-                alt="zero"
+                alt="pinkSpot.png"
                 style={{
                   width: "100%",
                   height: "100%",
@@ -77,7 +77,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={first}
-                alt="zero"
+                alt="firstSoul.png"
                 style={{ width: "100%", height: "auto", zIndex: -4 }}
                 priority={true}
               />
@@ -88,7 +88,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={secondR}
-                alt="zero"
+                alt="secondRight.png"
                 style={{ width: "100%", height: "auto", zIndex: 6 }}
                 priority={true}
               />
@@ -100,7 +100,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
             <figure>
               <Image
                 src={thirdR}
-                alt="zero"
+                alt="thirdRight.png"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -117,7 +117,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
           <figure>
             <Image
               src={backgroundLight}
-              alt="zero"
+              alt="backgroundLight.png"
               style={{ width: "100%", height: "auto" }}
             />
             <figcaption></figcaption>
@@ -127,7 +127,7 @@ const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
           <figure>
             <Image
               src={conversation}
-              alt="zero"
+              alt="conversation.png"
               style={{ width: "100%", height: "auto" }}
               priority={true}
             />

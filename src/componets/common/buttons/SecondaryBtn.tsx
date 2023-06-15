@@ -12,7 +12,12 @@ const BorderedBtn: React.FC<IBorderedBtnProps> = ({ clickHandler }) => {
       <StyledShareBtn>
         {document.documentElement.clientWidth > 870 && (
           <>
-            <Image width={16} height={16} alt="share-btn.svg" src={shareIcon} />
+            <Image
+              width={16}
+              height={16}
+              alt="bordered-btn.svg"
+              src={shareIcon}
+            />
             &nbsp;
           </>
         )}

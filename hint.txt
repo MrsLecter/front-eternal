@@ -10,6 +10,9 @@ password: 5MMM%#*mtur
 login: testreg@gmail.com
 password: 5MMM%#*mtur
 
+login: testreg2@gmail.com
+password: 5MMM%#*mtur
+
 login: testmobile@gmail.com
 password: 5MMM%#*mtur
 

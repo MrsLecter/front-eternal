@@ -39,7 +39,7 @@ export const ImageGradient = styled.div`
   }
 `;
 
-export const StyledIndividual = styled.div`
+export const StyledSoul = styled.div`
   position: relative;
   padding-top: 77px;
   width: 100%;
@@ -67,7 +67,7 @@ export const StyledIndividual = styled.div`
   }
 `;
 
-export const StyledIndividualLabel = styled.div`
+export const StyledSoulLabel = styled.div`
   margin-top: 0px;
   padding: 10px;
   width: 100%;

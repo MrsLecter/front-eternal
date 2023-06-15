@@ -9,8 +9,6 @@ export const StyledUserMessageContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
-  transform: rotateX(180deg);
-  
 
   h5 {
     margin: 0px;

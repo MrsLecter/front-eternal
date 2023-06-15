@@ -1,20 +1,17 @@
 import { getCapitalizeName } from "@/utils/functions";
-import {
-  StyledIndividualMessage,
-  StyledIndividualMessageBox,
-} from "./IndividualMessage.styles";
 import Image from "next/image";
 import avatarStub from "@images/backgrounds/1_darkblue.png";
 import * as Avenir from "@typography/Avenir";
 import { SITE_URL } from "@/constants/common";
+import { StyledSoulMessage, StyledSoulMessageBox } from "./SoulMessage.styles";
 
-interface IIndividualMessageProps {
+interface ISoulMessageProps {
   text: string;
   avatarImg: string | undefined;
   soulsName?: string;
 }
 
-const IndividualMessage: React.FC<IIndividualMessageProps> = ({
+const SoulMessage: React.FC<ISoulMessageProps> = ({
   text,
   avatarImg,
   soulsName,
@@ -28,18 +25,18 @@ const IndividualMessage: React.FC<IIndividualMessageProps> = ({
   };
 
   return (
-    <StyledIndividualMessageBox>
+    <StyledSoulMessageBox>
       <div>
         <Image
           width={60}
           height={62}
-          alt="individual-avatar.png"
+          alt="Soul-avatar.png"
           src={avatarImg! ? avatarImg : avatarStub}
           quality={100}
           style={{ borderRadius: "50%" }}
         />
       </div>
-      <StyledIndividualMessage>
+      <StyledSoulMessage>
         <div>
           <Avenir.H5>{text}</Avenir.H5>
         </div>
@@ -72,9 +69,9 @@ const IndividualMessage: React.FC<IIndividualMessageProps> = ({
             </figure>
           </button>
         </div>
-      </StyledIndividualMessage>
-    </StyledIndividualMessageBox>
+      </StyledSoulMessage>
+    </StyledSoulMessageBox>
   );
 };
 
-export default IndividualMessage;
+export default SoulMessage;

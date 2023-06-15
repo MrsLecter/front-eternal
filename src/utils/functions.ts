@@ -7,7 +7,7 @@ export const getSoulsDataForId = (id: string): ISoulsData | undefined => {
   return SOULS_DATA.find((soul) => soul.id === parseInt(id));
 };
 
-export const getRandomIndividualId = (): number => {
+export const getRandomSoulId = (): number => {
   const maxId = SOULS_DATA.length;
   const minId = SOULS_DATA[0].id;
 
@@ -78,7 +78,7 @@ export const getMessageArray = ({
       // arrResult.push(["user", Object.keys(message)[0]]);
 
       arrResult.push(["soul", Object.values(message)[0]]);
-       arrResult.push(["user", Object.keys(message)[0]]);
+      arrResult.push(["user", Object.keys(message)[0]]);
     }
   }
 
@@ -90,7 +90,7 @@ export const getConstructedMessage = ({
   sender,
   message,
 }: {
-  sender: "soul" | "user" | "soul intro";
+  sender: "soul" | "user" | "soul intro" | "position";
   message: string;
 }): string[] => {
   return [sender, message];

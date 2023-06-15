@@ -9,7 +9,7 @@ const Souls: React.FC = () => {
     <StyledSectionLeft>
       <Title
         center={false}
-        label={"individuals"}
+        label={"souls"}
         description={
           "Ask a question to your favorite person and get a realistic response"
         }

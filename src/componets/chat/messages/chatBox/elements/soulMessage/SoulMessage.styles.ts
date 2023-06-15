@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledIndividualMessageBox = styled.div`
+export const StyledSoulMessageBox = styled.div`
   position: relative;
   width: calc(100% - 55px);
   min-width: calc(100% - 55px);
@@ -11,7 +11,6 @@ export const StyledIndividualMessageBox = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  transform: rotateX(180deg);
 
   & > div:first-child {
     width: 60px;
@@ -35,7 +34,7 @@ export const StyledIndividualMessageBox = styled.div`
   }
 `;
 
-export const StyledIndividualMessage = styled.div`
+export const StyledSoulMessage = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

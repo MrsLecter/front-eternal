@@ -24,7 +24,7 @@ const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
         autoFocus={props.haveFocus}
       />
       <StyledImageWrapper>
-        <Image width={24} height={16} alt="shuffle.svg" src={cardIcon} />
+        <Image width={24} height={16} alt="cardIcon.svg" src={cardIcon} />
       </StyledImageWrapper>
       <StyledDateInput
         type="text"

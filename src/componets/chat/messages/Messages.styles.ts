@@ -5,6 +5,7 @@ export const StyledMessages = styled.div`
   position: relative;
   min-width: calc(100% - 60px);
   height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

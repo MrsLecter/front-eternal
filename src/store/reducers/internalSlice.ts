@@ -65,33 +65,36 @@ export const internalSlice = createSlice({
         totalHistoryPages: number;
       }>
     ) {
-      state.dialog = [...action.payload.oldDialog];
+      const oldDialogReversed = action.payload.oldDialog;
+      state.dialog = [...oldDialogReversed];
       state.currentHistoryPage = action.payload.currentHistoryPage;
       state.totalHistoryPages = action.payload.totalHistoryPages;
     },
 
     addToDialog(state, action: PayloadAction<{ message: string[] }>) {
       // state.dialog.push(action.payload.message);
-      state.dialog = [action.payload.message, ...state.dialog];
+      state.dialog = [...state.dialog, action.payload.message];
     },
 
     addHistory(
       state,
       action: PayloadAction<{ message: string[][]; currentHistoryPage: number }>
     ) {
-      state.dialog = state.dialog.filter((item) => item[0] !== "soul intro");
-      // state.dialog.unshift(...action.payload.message);
-      state.dialog.push(...action.payload.message);
+      state.dialog = state.dialog.filter(
+        (item) => item[0] !== "soul intro" && item[0] !== "position"
+      );
+      const reversedMessages = action.payload.message.reverse();
+      state.dialog = [["position", ""], ...state.dialog];
+      state.dialog = [...reversedMessages, ...state.dialog];
       state.currentHistoryPage = action.payload.currentHistoryPage;
     },
 
-    settotalHistoryPages(state, action: PayloadAction<{ maxPages: number }>) {
+    setTotalHistoryPages(state, action: PayloadAction<{ maxPages: number }>) {
       state.totalHistoryPages = action.payload.maxPages;
     },
 
     deleteLastDialogMessage(state) {
-      // state.dialog.pop();
-      state.dialog.shift();
+      state.dialog.pop();
     },
 
     deleteFirstMessage(state) {
@@ -110,6 +113,11 @@ export const internalSlice = createSlice({
     showMenuModal(state) {
       state.showCommonModal = !state.showCommonModal;
       state.showMenuModal = !state.showMenuModal;
+    },
+
+    showReadAboutModal(state) {
+      state.showCommonModal = true;
+      state.showAboutModal = true;
     },
 
     backdropClick(state) {

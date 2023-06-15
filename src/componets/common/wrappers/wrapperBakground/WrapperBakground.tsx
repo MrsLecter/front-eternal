@@ -6,7 +6,7 @@ const WrapperBackground: React.FC = () => {
   return (
     <StyledWrapperBackground>
       <Image
-        alt="travel"
+        alt="background.png"
         src={bluredImage}
         fill={true}
         style={{ objectFit: "cover", backdropFilter: "blur(107px)" }}

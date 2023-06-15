@@ -22,7 +22,6 @@ export default function App({
   session: Session;
 }>) {
   const [render, setRender] = useState(false);
-
   useEffect(() => setRender(true), []);
 
   return (

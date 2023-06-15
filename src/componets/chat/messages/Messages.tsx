@@ -17,7 +17,6 @@ interface IMessagesProps {
 const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   const userId = localStorageHandler.getUserId();
   const dispatch = useAppDispatch();
-  const messageRef = useRef<HTMLDivElement>(null);
   const { addToDialog, deleteLastDialogMessage, allowTyping, deleteDialog } =
     internalSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
@@ -25,6 +24,8 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   const { firstMessage, dialog } = useAppSelector(
     (store) => store.internalReducer
   );
+
+
 
   useEffect(() => {
     if (isAuth && questionsAmount !== 0 && !firstMessage) {
@@ -44,7 +45,10 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
             }),
           })
         );
-
+        const lastChatMessage = document.getElementById("chatBottom");
+        if (lastChatMessage) {
+          lastChatMessage.scrollIntoView();
+        }
         dispatch(allowTyping());
       });
 
@@ -57,11 +61,7 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
 
   return (
     <StyledMessages>
-      <ChatBox
-        avatarImg={avatarImg}
-        soulId={soulId}
-        visibleMessageRef={messageRef}
-      />
+      <ChatBox avatarImg={avatarImg} soulId={soulId} />
       <UserInput soulId={soulId} />
     </StyledMessages>
   );

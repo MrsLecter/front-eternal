@@ -14,7 +14,7 @@ const axiosInstance = () => {
   const onSuccess = (response: AxiosResponse) => response.data;
 
   const onError = async (error: any) => {
-      if (error.response.status === 404) {
+    if (error.response.status === 404) {
       alert("Error: there is no such user! Try to register first");
     }
     if (error.response.status === 406) {
@@ -22,10 +22,10 @@ const axiosInstance = () => {
     }
     if (error.response.status === 403 || error.response.status === 401) {
       const newTokens = await userService.makeRefreshRequest();
-      if (localStorageHandler.isGoogleAuth()) {
-        localStorageHandler.deleteUsersData();
-        window.location.replace(APP_ROUTES.Home);
-      }
+      // if (localStorageHandler.isGoogleAuth()) {
+      //   localStorageHandler.deleteUsersData();
+      //   window.location.replace(APP_ROUTES.Home);
+      // }
 
       if (newTokens.status === 201) {
         localStorageHandler.updateTokens({
@@ -33,10 +33,11 @@ const axiosInstance = () => {
           refreshToken: newTokens.message.refreshtoken,
         });
         return axiosInstance(error.config);
-      } else {
-        localStorageHandler.deleteUsersData();
-        window.location.replace(APP_ROUTES.Home);
       }
+      // } else {
+      //   localStorageHandler.deleteUsersData();
+      //   window.location.replace(APP_ROUTES.Home);
+      // }
     } else {
       alert("Error! Try again");
       return error.response;

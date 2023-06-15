@@ -1,7 +1,7 @@
 import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
 import Souls from "@/componets/home/souls/Souls";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Footer from "@/componets/common/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
@@ -25,15 +25,20 @@ export default function Home() {
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
   const { signin } = userSlice.actions;
+  const { showReadAboutModal } = internalSlice.actions;
   const [googleSignup, setGoogleSignup] = useState<boolean>(false);
   const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
-  const { accessToken } = useAppSelector((store) => store.userReducer);
 
   useEffect(() => {
+    const isAuth = localStorageHandler.getAccessToken();
+    const isReadAbout = localStorageHandler.getReadAbout();
     setInitialRenderComplete(true);
     sync();
+    if (isAuth && !isReadAbout) {
+      dispatch(showReadAboutModal());
+    }
   }, []);
 
   const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =

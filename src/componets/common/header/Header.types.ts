@@ -3,4 +3,5 @@ export interface IHeader {
   isHaveClose?: boolean;
   isSmall?: boolean;
   zIndex?: number;
+  ref?: React.RefObject<HTMLDivElement>;
 }

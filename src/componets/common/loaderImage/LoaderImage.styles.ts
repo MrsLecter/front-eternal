@@ -92,7 +92,11 @@ export const LoaderImageWrapper = styled.div<{ type: string }>`
       align-items: center;
     `}
 
-  @media(max-width: 870px) {
+  @media(max-width: 1200px) {
+    overflow-y: visible;
+  }
+
+  @media (max-width: 870px) {
     margin-top: 80px;
     max-height: 330px;
   }
