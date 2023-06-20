@@ -124,9 +124,11 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
       }
 
       setisChatCompleteLoading(true);
+
       localStorageHandler.updateDialog({
         dialog,
       });
+      setIsHistoryLoading(false);
       dispatch(deleteFirstMessage());
       dispatch(allowTyping());
     }
