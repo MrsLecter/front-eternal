@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-interface IMenuProps {
+interface IMenuProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
 }
 
-const MenuBtn: React.FC<IMenuProps> = ({ clickHandler }) => {
+const MenuBtn: React.FC<IMenuProps> = (props) => {
+  const { clickHandler, ...defaultProps } = props;
   const menuBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (clickHandler) {
@@ -12,7 +13,12 @@ const MenuBtn: React.FC<IMenuProps> = ({ clickHandler }) => {
     }
   };
   return (
-    <StyledMenuBtn onClick={(e) => menuBtnClickHandler(e)}>
+    <StyledMenuBtn
+      onClick={(e) => menuBtnClickHandler(e)}
+      aria-label="menu-button"
+      aria-labelledby="menu"
+      {...defaultProps}
+    >
       <StyledMenuSign>
         <div />
         <div />

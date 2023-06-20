@@ -1,9 +1,15 @@
 export interface ISignupResponse {
-  message: {
-    accesstoken: string;
-    email: string;
-    id: number;
-    refreshtoken: string;
+  data: {
+    message: {
+      accesstoken: string;
+      email: string;
+      id: number;
+      refreshtoken: string;
+    };
+    status: number;
+  };
+  response?: {
+    status: number;
   };
   status: number;
 }
@@ -28,18 +34,21 @@ export interface ISendNewPasswordResponse {
 
 export interface ISigninResponse {
   status: number;
-  message: {
-    id: number;
-    name: string | null;
-    accesstoken: string;
-    refreshtoken: string;
-    email: string;
-    nextpayment: Date;
-    phone: null | string;
-    questionsamount: number | string;
-    readabout: boolean;
-    sharelink: boolean;
+  data: {
+    message: {
+      id: number;
+      name: string | null;
+      accesstoken: string;
+      refreshtoken: string;
+      email: string;
+      nextpayment: Date;
+      phone: null | string;
+      questionsamount: number | string;
+      readabout: boolean;
+      sharelink: boolean;
+    };
   };
+
   response?: {
     status: number;
   };
@@ -65,17 +74,19 @@ export interface IChangeDetailsResponse {
 
 export interface IGoogleAuthResponse {
   status: number;
-  message: {
-    accesstoken: string;
-    email: string;
-    id: number;
-    name?: string | null;
-    nextpayment?: string | Date;
-    phone?: string | null;
-    questionsamount?: string | number;
-    readabout?: number;
-    sharelink?: boolean;
-    refreshtoken: string;
+  data: {
+    message: {
+      accesstoken: string;
+      email: string;
+      id: number;
+      name: string | null;
+      nextpayment: string | Date;
+      phone: string | null;
+      questionsamount: string | number;
+      readabout: number;
+      sharelink: boolean;
+      refreshtoken: string;
+    };
   };
 }
 
@@ -118,8 +129,11 @@ export interface IUpdateSubscriptionResponse {
 
 export interface IRefreshRequestResponse {
   status: number;
-  message: {
-    accesstoken: string;
-    refreshtoken: string;
+  data: {
+    message: {
+      accesstoken: string;
+      refreshtoken: string;
+    };
+    status: number;
   };
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { StyledUserMessageContainer } from "./UserMessage.styles";
 import * as Avenir from "@typography/Avenir";
 

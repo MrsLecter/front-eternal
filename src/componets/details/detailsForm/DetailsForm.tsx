@@ -2,17 +2,16 @@ import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { useRouter } from "next/router";
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
 import { FormEvent } from "react";
 import userService from "@/api/user-service";
 import { StyledForm } from "./DetailsForm.styles";
+import localStorageHandler from "@/utils/local-storage-hendler";
 
 const DetailsForm: React.FC = () => {
-  const { setEmail } = userSlice.actions;
+  const { setNewUserDetails } = userSlice.actions;
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { email, name, phone } = useAppSelector((store) => store.userReducer);
 
   const {
@@ -32,7 +31,7 @@ const DetailsForm: React.FC = () => {
   } = useInput({
     regexp: EMAIL_REGEXP,
     allowEmpty: false,
-    initialValue: email,
+    initialValue: email as string,
   });
 
   const {
@@ -77,6 +76,18 @@ const DetailsForm: React.FC = () => {
 
         if (response.status === 200) {
           alert("Success: Detailes changes");
+          dispatch(
+            setNewUserDetails({
+              name: fullname,
+              email: emailInput ? emailInput : email,
+              phone: phoneInput ? phoneInput : phone!,
+            })
+          );
+          localStorageHandler.updateUserDetails({
+            name: fullname,
+            email: emailInput ? emailInput : email,
+            phone: phoneInput ? phoneInput : phone!,
+          });
         }
       } catch (err) {
         console.error("Error: ", err);

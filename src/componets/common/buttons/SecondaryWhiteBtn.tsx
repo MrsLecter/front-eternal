@@ -2,19 +2,16 @@ import styled from "styled-components";
 import Image from "next/image";
 import { StyledSecondary, StyledBorderedBtn } from "./SecondaryBtn";
 
-interface ISecondaryWhiteBtnProps {
+interface ISecondaryWhiteBtnProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   image?: { src: any; width: number; height: number };
   clickHandler?: () => void;
   constHeight?: boolean;
 }
 
-const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = ({
-  label,
-  image,
-  clickHandler,
-  constHeight = false,
-}) => {
+const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = (props) => {
+  const { label, image, clickHandler, constHeight = false, ...defaultProps } = props;
   const secondaryBtnClichHandler = () => {
     if (clickHandler) {
       clickHandler();
@@ -24,6 +21,7 @@ const SecondaryWhiteBtn: React.FC<ISecondaryWhiteBtnProps> = ({
     <StyledSecondaryWhite
       onClick={secondaryBtnClichHandler}
       constHeight={constHeight}
+      {...defaultProps}
     >
       <StyledSecondaryBtn>
         {image && image.src && (

@@ -17,12 +17,13 @@ import {
   StyledTextWrapper,
   StyledUpadatePaymentBlock,
 } from "./UpdatePaymentBlock.styles";
+import { internalSlice } from "@/store/reducers/internalSlice";
 
 const UpdatePaymentBlock: React.FC = () => {
   const { setProPlan, cancelSubscription } = userSlice.actions;
+  const { toggleToPayment } = internalSlice.actions;
   const { nextPayment } = useAppSelector((store) => store.userReducer);
   const [isActiveCardBlock, setCardBlockActive] = useState<boolean>(true);
-
   const dispatch = useAppDispatch();
 
   const changeCardBlock = () => {
@@ -33,6 +34,7 @@ const UpdatePaymentBlock: React.FC = () => {
     value: cardNumber,
     error: cardNumberIsValid,
     changeHandler: cardNumberChangeHandler,
+    refresh: resetCardNumber,
   } = useInput({
     regexp: CODE_REGEXP,
     allowEmpty: false,
@@ -44,6 +46,7 @@ const UpdatePaymentBlock: React.FC = () => {
     value: monthYear,
     error: monthYearIsValid,
     changeHandler: monthYearChangeHandler,
+    refresh: resetMonthYear,
   } = useInput({
     regexp: "none",
     allowEmpty: false,
@@ -55,6 +58,7 @@ const UpdatePaymentBlock: React.FC = () => {
     value: CVV,
     error: CVVIsValid,
     changeHandler: CVVChangeHandler,
+    refresh: resetCVV,
   } = useInput({
     regexp: "none",
     allowEmpty: false,
@@ -62,16 +66,21 @@ const UpdatePaymentBlock: React.FC = () => {
     maskType: "cvc",
   });
 
+  const refreshForm = () => {
+    resetCardNumber();
+    resetMonthYear();
+    resetCVV();
+  };
+
   const cancelSubscriptionHandler = async () => {
     try {
       const response = await userService.cancelSubscription();
       if (response.status === 200) {
         dispatch(cancelSubscription());
+        refreshForm();
         localStorageHandler.cancelSubscription();
         setCardBlockActive(false);
         alert("Success: subscription cancelled successfully!");
-      } else {
-        alert("Error: subscription not cancelled! Try again");
       }
     } catch (err: any) {
       console.error("Error: ", err);
@@ -110,7 +119,12 @@ const UpdatePaymentBlock: React.FC = () => {
           dispatch(setProPlan());
           localStorageHandler.setProPlan();
           setCardBlockActive(true);
+          refreshForm();
           alert("Success: successfully subscribed!");
+        }
+        if (response.status === 406) {
+          alert("Error: purchase a subscription before upgrade!");
+          dispatch(toggleToPayment());
         }
       } catch (err) {
         console.error("Error: ", err);

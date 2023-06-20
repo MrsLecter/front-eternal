@@ -8,13 +8,13 @@ import facebokIcon from "@icons/social-facebook.svg";
 import { H6 } from "@/styles/textStyles/Arquitecta";
 
 interface IFooterProps {
-  liftToTopHandler?: () => void;
+  logoClickHandler?: () => void;
 }
 
-const Footer: React.FC<IFooterProps> = ({ liftToTopHandler }) => {
+const Footer: React.FC<IFooterProps> = ({ logoClickHandler }) => {
   return (
     <StyledFooter>
-      <div onClick={liftToTopHandler}>
+      <div onClick={logoClickHandler}>
         <Logo />
       </div>
       <div>

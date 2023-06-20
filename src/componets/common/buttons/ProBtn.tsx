@@ -16,6 +16,12 @@ const StyledProWrapper = styled(StyledSecondary)`
   padding: 1px;
   border-radius: 16px;
   background-image: ${({ theme }) => theme.backgroundColorGradient};
+  user-select: none;
+  cursor: default;
+
+  &:hover {
+    cursor: default;
+  }
 
   &:focus {
     outline: none;

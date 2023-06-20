@@ -20,8 +20,6 @@ interface IInternalData {
   isTypingAllowed: boolean;
   temp: string;
   internalSoulid: number;
-  currentHistoryPage: number;
-  totalHistoryPages: number;
 }
 
 const internalSetting: IInternalData = {
@@ -43,8 +41,6 @@ const internalSetting: IInternalData = {
   isTypingAllowed: false,
   temp: "",
   internalSoulid: 0,
-  currentHistoryPage: 1,
-  totalHistoryPages: 2,
 };
 
 export const internalSlice = createSlice({
@@ -53,44 +49,29 @@ export const internalSlice = createSlice({
   reducers: {
     deleteDialog(state) {
       state.dialog = [];
-      state.totalHistoryPages = 2;
-      state.currentHistoryPage = 1;
     },
 
     restoreDialog(
       state,
       action: PayloadAction<{
         oldDialog: string[][];
-        currentHistoryPage: number;
-        totalHistoryPages: number;
       }>
     ) {
       const oldDialogReversed = action.payload.oldDialog;
       state.dialog = [...oldDialogReversed];
-      state.currentHistoryPage = action.payload.currentHistoryPage;
-      state.totalHistoryPages = action.payload.totalHistoryPages;
     },
 
     addToDialog(state, action: PayloadAction<{ message: string[] }>) {
-      // state.dialog.push(action.payload.message);
       state.dialog = [...state.dialog, action.payload.message];
     },
 
-    addHistory(
-      state,
-      action: PayloadAction<{ message: string[][]; currentHistoryPage: number }>
-    ) {
+    addHistory(state, action: PayloadAction<{ message: string[][] }>) {
       state.dialog = state.dialog.filter(
         (item) => item[0] !== "soul intro" && item[0] !== "position"
       );
       const reversedMessages = action.payload.message.reverse();
       state.dialog = [["position", ""], ...state.dialog];
       state.dialog = [...reversedMessages, ...state.dialog];
-      state.currentHistoryPage = action.payload.currentHistoryPage;
-    },
-
-    setTotalHistoryPages(state, action: PayloadAction<{ maxPages: number }>) {
-      state.totalHistoryPages = action.payload.maxPages;
     },
 
     deleteLastDialogMessage(state) {
@@ -207,10 +188,6 @@ export const internalSlice = createSlice({
 
     deleteSoulId(state) {
       state.internalSoulid = 0;
-    },
-
-    changeCurrentHistoryPage(state, action: PayloadAction<{ page: number }>) {
-      state.currentHistoryPage = action.payload.page;
     },
   },
 });

@@ -7,11 +7,8 @@ interface IPrimarySubmitBtnProps {
   isHigh?: boolean;
 }
 
-const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = ({
-  label,
-  clickHandler,
-  isHigh = true,
-}) => {
+const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = (props) => {
+  const { label, clickHandler, isHigh = true, ...defaultProps } = props;
   const submitClickHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -27,6 +24,7 @@ const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = ({
       type="submit"
       onClick={(e) => submitClickHandler(e)}
       isHigh={isHigh}
+      {...defaultProps}
     >
       {label}
     </StyledPrimarySubmitBtn>

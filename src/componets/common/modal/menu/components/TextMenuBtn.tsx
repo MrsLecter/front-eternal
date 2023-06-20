@@ -7,7 +7,12 @@ interface ITextBtnProps {
 
 const TextMenuBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
   return (
-    <StyledTextMenuBtn type="button" onClick={clickHandler}>
+    <StyledTextMenuBtn
+      type="button"
+      onClick={clickHandler}
+      aria-label="menu-option-button"
+      aria-labelledby="option"
+    >
       {label}
     </StyledTextMenuBtn>
   );

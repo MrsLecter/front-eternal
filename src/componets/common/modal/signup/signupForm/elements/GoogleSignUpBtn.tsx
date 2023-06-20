@@ -9,7 +9,11 @@ interface IGoogleSignUpProps {
 
 const GoogleSignUp: React.FC<IGoogleSignUpProps> = ({ clickHandler }) => {
   return (
-    <StyledGoogleWrapper type="button">
+    <StyledGoogleWrapper
+      type="button"
+      aria-label="google-signup-button"
+      aria-labelledby="google-signup"
+    >
       <StyledGoogleBtn onClick={() => clickHandler()}>
         <Image width={24} height={24} alt="google-icon.svg" src={googleIcon} />
         <span>sign up with google</span>
@@ -17,7 +21,5 @@ const GoogleSignUp: React.FC<IGoogleSignUpProps> = ({ clickHandler }) => {
     </StyledGoogleWrapper>
   );
 };
-
-
 
 export default GoogleSignUp;

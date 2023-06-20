@@ -36,6 +36,7 @@ const SignupForm: React.FC = () => {
   } = useInput({ regexp: PASSWORD_REGEXP, allowEmpty: false });
 
   const googleAuthHandler = () => {
+    localStorageHandler.setGoogleAuth();
     signIn();
   };
 
@@ -67,20 +68,13 @@ const SignupForm: React.FC = () => {
           alert(
             "Success: user is successfully registered. Signin to use service"
           );
-          dispatch(setEmail({ email: response.data.message.email }));
-          localStorageHandler.signup({
-            id: response.data.message.id,
-            email: response.data.message.email,
-            accessToken: response.data.message.accesstoken,
-            refreshToken: response.data.message.refreshtoken,
-          });
           changeToSignin();
         }
-        if (response.response.status === 406) {
+        if (response.response && response.response!.status === 406) {
           alert("Error: user already exist! Please, login");
           changeToSignin();
         }
-        if (response.response.status === 422) {
+        if (response.response && response.response!.status === 422) {
           alert("Error: user already exist! Try to signup with google");
         }
       } catch (err: any) {

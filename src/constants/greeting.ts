@@ -23,6 +23,7 @@ export const SOULS_DATA = [
     about: "political activist",
     image: "/images/souls/2_martin_luther_king.png",
     background: "/images/backgrounds/1_darkblue.png",
+    placeholder: "/images/placeholders/2_martin_luther_king_placeholder.png",
   },
 
   {
@@ -31,6 +32,7 @@ export const SOULS_DATA = [
     about: "Apple Founder",
     image: "/images/souls/1_steve_jobs.png",
     background: "/images/backgrounds/2_palegreen.png",
+    placeholder: "/images/placeholders/1_steve_jobs_placeholder.png",
   },
   {
     id: 3,
@@ -38,6 +40,7 @@ export const SOULS_DATA = [
     about: "space nerd",
     image: "/images/souls/3_elon_mask.png",
     background: "/images/backgrounds/3_violet.png",
+    placeholder: "/images/placeholders/3_elon_mask_placeholder.png",
   },
   {
     id: 4,
@@ -45,6 +48,7 @@ export const SOULS_DATA = [
     about: "genius",
     image: "/images/souls/4_albert_einstein.png",
     background: "/images/backgrounds/4_blue.png",
+    placeholder: "/images/placeholders/4_albert_einstein_placeholder.png",
   },
   {
     id: 5,
@@ -52,6 +56,7 @@ export const SOULS_DATA = [
     about: "philanthropist",
     image: "/images/souls/5_mother_teresa.png",
     background: "/images/backgrounds/5_yellow.png",
+    placeholder: "/images/placeholders/5_mother_teresa_placeholder.png",
   },
   {
     id: 6,
@@ -59,6 +64,7 @@ export const SOULS_DATA = [
     about: "lord & savior",
     image: "/images/souls/6_jesus_christ.png",
     background: "/images/backgrounds/6_color.png",
+    placeholder: "/images/placeholders/6_jesus_christ_placeholder.png",
   },
   {
     id: 7,
@@ -66,6 +72,7 @@ export const SOULS_DATA = [
     about: "artist",
     image: "/images/souls/7_leonardo_da_vinci.png",
     background: "/images/backgrounds/7_green.png",
+    placeholder: "/images/placeholders/7_leonardo_da_vinci_placeholder.png",
   },
   {
     id: 8,
@@ -73,6 +80,7 @@ export const SOULS_DATA = [
     about: "queen of england",
     image: "/images/souls/8_queen_elizabeth.png",
     background: "/images/backgrounds/8_someblue.png",
+    placeholder: "/images/placeholders/8_queen_elizabeth_placeholder.png",
   },
   {
     id: 9,
@@ -80,6 +88,7 @@ export const SOULS_DATA = [
     about: "author",
     image: "/images/souls/9_william_shakespeare.png",
     background: "/images/backgrounds/9_green.png",
+    placeholder: "/images/placeholders/9_william_shakespeare_placeholder.png",
   },
   {
     id: 10,
@@ -87,6 +96,7 @@ export const SOULS_DATA = [
     about: "philanthropist",
     image: "/images/souls/10_nelson_mandela.png",
     background: "/images/backgrounds/10_orange.png",
+    placeholder: "/images/placeholders/10_nelson_mandela_placeholder.png",
   },
   {
     id: 11,
@@ -94,6 +104,7 @@ export const SOULS_DATA = [
     about: "american history",
     image: "/images/souls/11_betsy_ross.png",
     background: "/images/backgrounds/11_pink.png",
+    placeholder: "/images/placeholders/11_betsy_ross_placeholder.png",
   },
   {
     id: 12,
@@ -101,6 +112,7 @@ export const SOULS_DATA = [
     about: "philanthropist",
     image: "/images/souls/12_gandhi.png",
     background: "/images/backgrounds/12_green.png",
+    placeholder: "/images/placeholders/12_gandhi_placeholder.png",
   },
   {
     id: 13,
@@ -108,6 +120,7 @@ export const SOULS_DATA = [
     about: "american president",
     image: "/images/souls/13_abraham_lincoln.png",
     background: "/images/backgrounds/2_palegreen.png",
+    placeholder: "/images/placeholders/13_abraham_lincoln_placeholder.png",
   },
   {
     id: 14,
@@ -115,5 +128,6 @@ export const SOULS_DATA = [
     about: "tv goofy guy",
     image: "/images/souls/14_ron_swonson.png",
     background: "/images/backgrounds/14_lightblue.png",
+    placeholder: "/images/placeholders/14_ron_swonson_placeholder.png",
   },
 ];

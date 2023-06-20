@@ -35,10 +35,14 @@ const Header: React.FC<IHeader> = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const shareBtnHandler = () => {
-    navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
-    alert("Success: link copied!");
-    navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+  const shareBtnHandler = async () => {
+    try {
+      await navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+      alert("Success: link copied!");
+      await navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+    } catch (err: any) {
+      console.error("Error: error occured while user copied link! Try again");
+    }
   };
 
   const signoutHandler = () => {

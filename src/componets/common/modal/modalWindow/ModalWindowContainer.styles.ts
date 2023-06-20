@@ -13,6 +13,7 @@ export const StyledModalWindowContainer = styled.div`
   transform: translate(-50%, -50%);
   z-index: 101;
   animation: appearing 0.5s ease-in-out;
+  scrollbar-gutter: stable;
   overflow: hidden;
 
   @keyframes appearing {

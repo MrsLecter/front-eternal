@@ -4,6 +4,7 @@ import avatarStub from "@images/backgrounds/1_darkblue.png";
 import * as Avenir from "@typography/Avenir";
 import { SITE_URL } from "@/constants/common";
 import { StyledSoulMessage, StyledSoulMessageBox } from "./SoulMessage.styles";
+import React from "react";
 
 interface ISoulMessageProps {
   text: string;
@@ -16,6 +17,7 @@ const SoulMessage: React.FC<ISoulMessageProps> = ({
   avatarImg,
   soulsName,
 }) => {
+
   const handleShareMessage = () => {
     navigator.clipboard.writeText(
       `See what ${getCapitalizeName(
@@ -41,7 +43,11 @@ const SoulMessage: React.FC<ISoulMessageProps> = ({
           <Avenir.H5>{text}</Avenir.H5>
         </div>
         <div>
-          <button onClick={handleShareMessage}>
+          <button
+            onClick={handleShareMessage}
+            aria-label="share-button"
+            aria-labelledby="share"
+          >
             <figure>
               <svg
                 width="24"

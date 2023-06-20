@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-interface ITextBtnProps {
+interface ITextBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   clickHandler?: () => void;
 }
 
-const TextBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
+const TextBtn: React.FC<ITextBtnProps> = (props) => {
+  const { label, clickHandler, ...defaultProps } = props;
   const textBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (clickHandler) {
@@ -13,7 +14,13 @@ const TextBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
     }
   };
   return (
-    <StyledTextBtn onClick={(e) => textBtnClickHandler(e)} type="button">
+    <StyledTextBtn
+      onClick={(e) => textBtnClickHandler(e)}
+      type="button"
+      aria-label="option-button"
+      aria-labelledby="option"
+      {...defaultProps}
+    >
       {label}
     </StyledTextBtn>
   );

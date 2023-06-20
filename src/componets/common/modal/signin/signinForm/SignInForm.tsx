@@ -108,16 +108,16 @@ const SignInForm: React.FC = () => {
             dispatch(backdropClick());
           }
         }
-        if (response.response.status === 404) {
+        if (response.response && response.response!.status === 404) {
           alert(`Error: There is no user with ${email} email!`);
           resetEmail();
           resetPassword();
         }
-        if (response.response.status === 406) {
+        if (response.response && response.response!.status === 406) {
           alert(`Error: invalid password! Try again`);
           resetPassword();
         }
-        if (response.response.status === 422) {
+        if (response.response && response.response!.status === 422) {
           alert(
             "Error: Password isn't assigned! Please, click on forgot password button or set password in account details after repeat registration throught google "
           );
@@ -147,7 +147,13 @@ const SignInForm: React.FC = () => {
         onChangeHandler={passwordChangeHandler}
       />
       <StyledLink>
-        <button onClick={handleResetPassword}>Forgot password?</button>
+        <button
+          onClick={handleResetPassword}
+          aria-label="forgot-password"
+          aria-labelledby="forget-password"
+        >
+          Forgot password?
+        </button>
       </StyledLink>
       <PrimarySubmitBtn label={"sign in"} clickHandler={signinHandler} />
     </div>

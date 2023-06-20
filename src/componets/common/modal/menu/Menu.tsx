@@ -68,14 +68,26 @@ const Menu: React.FC<IMenuProps> = ({ signupHandler, signinHandler }) => {
           <Link href={APP_ROUTES.Home}>{"About us"}</Link>
         </li>
         <li>
-          <button onClick={showPaymentModal}>Pricing</button>
+          <button
+            onClick={showPaymentModal}
+            aria-label="pricing-button"
+            aria-labelledby="pricing"
+          >
+            Pricing
+          </button>
         </li>
         <li>
           <Link href={APP_ROUTES.Home}>{"How it works"}</Link>
         </li>
         {isAuth && (
           <li>
-            <button onClick={goToDetailsPage}>{"My account"}</button>
+            <button
+              onClick={goToDetailsPage}
+              aria-label="account-button"
+              aria-labelledby="account"
+            >
+              {"My account"}
+            </button>
           </li>
         )}
       </StyledMenu>

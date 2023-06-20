@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
 const SubmitMessageBtn: React.FC = () => {
-  return <StyledSubmitMessageButton>submit</StyledSubmitMessageButton>;
+  return (
+    <StyledSubmitMessageButton
+      aria-label="message-button"
+      aria-labelledby="message"
+    >
+      submit
+    </StyledSubmitMessageButton>
+  );
 };
 
 const StyledSubmitMessageButton = styled.button`

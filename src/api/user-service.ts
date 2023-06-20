@@ -41,7 +41,6 @@ class UserService {
         baseURL: REFRESH_URL,
         headers: { Authorization: "Bearer " + refreshToken },
       });
-      alert("refresh");
       return await instance.post("/");
     } catch (err: any) {
       console.error("An error occured in makeRefreshRequest: ", err);
@@ -55,7 +54,7 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }) {
+  }): Promise<ISignupResponse> {
     try {
       const response: ISignupResponse = await axios.post(
         REGISTRATION_URL,
@@ -76,9 +75,9 @@ class UserService {
     }
   }
 
-  public async googleAuth(idToken: string) {
+  public async googleAuth(idToken: string): Promise<IGoogleAuthResponse> {
     try {
-      const response = await axios.post<IGoogleAuthResponse>(
+      const response: IGoogleAuthResponse = await axios.post(
         GOOGLE_AUTH_URL,
         {
           idToken,
@@ -103,9 +102,9 @@ class UserService {
   }: {
     email: string;
     password: string;
-  }) {
+  }): Promise<ISigninResponse> {
     try {
-      const response = await axios.post<ISigninResponse>(
+      const response: ISigninResponse = await axios.post(
         LOGIN_URL,
         {
           email,

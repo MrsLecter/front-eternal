@@ -7,7 +7,12 @@ interface IPrimaryMenuBtnProps {
 
 const PrimaryMenuBtn: React.FC<IPrimaryMenuBtnProps> = ({ clickHandler }) => {
   return (
-    <StyledPrimaryMenuBtn type="submit" onClick={clickHandler}>
+    <StyledPrimaryMenuBtn
+      type="submit"
+      onClick={clickHandler}
+      aria-label="signup-button"
+      aria-labelledby="signup"
+    >
       get started
     </StyledPrimaryMenuBtn>
   );

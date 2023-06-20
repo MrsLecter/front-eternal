@@ -2,7 +2,7 @@ import Input from "../../common/input/input/Input";
 import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
 import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import userService from "@/api/user-service";
 import { StyledForm } from "./ChangePasswordBlock.styles";
 

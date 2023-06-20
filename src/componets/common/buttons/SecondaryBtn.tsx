@@ -2,14 +2,16 @@ import shareIcon from "@icons/share-btn.svg";
 import Image from "next/image";
 import styled from "styled-components";
 
-interface IBorderedBtnProps {
+interface IBorderedBtnProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
 }
 
-const BorderedBtn: React.FC<IBorderedBtnProps> = ({ clickHandler }) => {
+const BorderedBtn: React.FC<IBorderedBtnProps> = (props) => {
+  const { clickHandler, ...defaultProps } = props;
   return (
-    <StyledShareBorderBtn onClick={clickHandler}>
-      <StyledShareBtn>
+    <StyledShareBorderBtn onClick={clickHandler} {...defaultProps}>
+      <StyledShare>
         {document.documentElement.clientWidth > 870 && (
           <>
             <Image
@@ -22,7 +24,7 @@ const BorderedBtn: React.FC<IBorderedBtnProps> = ({ clickHandler }) => {
           </>
         )}
         share
-      </StyledShareBtn>
+      </StyledShare>
     </StyledShareBorderBtn>
   );
 };
@@ -63,7 +65,7 @@ const StyledShareBorderBtn = styled(StyledSecondary)`
   background-image: ${({ theme }) => theme.backgroundColorGradient};
 `;
 
-const StyledShareBtn = styled(StyledBorderedBtn)`
+const StyledShare = styled(StyledBorderedBtn)`
   background-color: #0a0806;
   width: 100%;
   height: 100%;

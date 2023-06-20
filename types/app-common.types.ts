@@ -4,6 +4,7 @@ export interface ISoulsData {
   about: string;
   image: string;
   background: string;
+  placeholder: string;
 }
 
 export interface IUserData {
@@ -28,6 +29,7 @@ export interface ILocalStorageData {
   questionsamount: number | string;
   readabout: boolean;
   accessToken: string;
+  expiresIn?: Date | null;
   refreshToken: string;
   shareLink: boolean;
   isGoogleAuth: boolean;

@@ -15,6 +15,7 @@ export const ModalWrapper = styled.div`
   align-items: center;
   overflow: hidden;
   z-index: 101;
+  scrollbar-gutter: stable;
 `;
 
 export const ContentWrapper = styled.div`
@@ -23,7 +24,6 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 `;
 
 export const ModalDiv = styled.div`

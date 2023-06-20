@@ -18,18 +18,23 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import Loader from "@/componets/common/loader/Loader";
 import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
+import { isTokenExpired, liftToTop } from "@/utils/functions";
 
 export default function Home() {
   const session = useSession();
   const sync = useSync();
-  const [initialRenderComplete, setInitialRenderComplete] =
-    useState<boolean>(false);
   const { signin } = userSlice.actions;
   const { showReadAboutModal } = internalSlice.actions;
-  const [googleSignup, setGoogleSignup] = useState<boolean>(false);
-  const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
+  const { showCommonModal, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
+  const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
+    internalSlice.actions;
+  const { signout } = userSlice.actions;
+  const dispatch = useAppDispatch();
+  const [googleSignup, setGoogleSignup] = useState<boolean>(false);
+  const [initialRenderComplete, setInitialRenderComplete] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const isAuth = localStorageHandler.getAccessToken();
@@ -39,11 +44,27 @@ export default function Home() {
     if (isAuth && !isReadAbout) {
       dispatch(showReadAboutModal());
     }
-  }, []);
+    const refreshToken = async () => {
+      try {
+        const response = await userService.makeRefreshRequest();
 
-  const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
-    internalSlice.actions;
-  const dispatch = useAppDispatch();
+        if (response.status === 201) {
+          localStorageHandler.updateTokens({
+            accessToken: response.data.message.accesstoken,
+            refreshToken: response.data.message.refreshtoken,
+          });
+        }
+      } catch (err) {
+        localStorageHandler.deleteUsersData();
+        dispatch(signout());
+      }
+    };
+    const isNeedRefreshToken = isTokenExpired();
+
+    if (isNeedRefreshToken && isAuth) {
+      refreshToken();
+    }
+  }, []);
 
   useEffect(() => {
     const sendGoogleToken = async (token: string) => {
@@ -60,7 +81,7 @@ export default function Home() {
               phone: response.data.message.phone,
               nextPayment: response.data.message.nextpayment,
               questionsAmount: response.data.message.questionsamount,
-              readAbout: response.data.message.readabout,
+              readAbout: !!response.data.message.readabout,
               shareLink: response.data.message.sharelink,
             })
           );
@@ -69,7 +90,7 @@ export default function Home() {
             email: response.data.message.email,
             name: response.data.message.name,
             phone: response.data.message.phone,
-            readabout: response.data.message.readabout,
+            readabout: !!response.data.message.readabout,
             nextpayment: response.data.message.nextpayment,
             questionsamount: response.data.message.questionsamount,
             accessToken: response.data.message.accesstoken,
@@ -82,7 +103,8 @@ export default function Home() {
         console.error("Error: ", err);
       }
     };
-    if (session.data) {
+    const isGoogleAuth = localStorageHandler.getGoogleAuth();
+    if (session.data && isGoogleAuth) {
       sendGoogleToken(session.data.token_id);
     }
   }, [session.data]);
@@ -93,6 +115,7 @@ export default function Home() {
     dispatch(deleteSoulId());
     dispatch(allowTyping());
     localStorageHandler.removeDialog();
+    localStorageHandler.removeSoulData();
   }, []);
 
   useEffect(() => {
@@ -105,23 +128,12 @@ export default function Home() {
     }
   }, []);
 
-  const liftToTop = () => {
-    const headerElem = document.getElementById("topHeader");
-    if (!headerElem) {
-      console.error("Error! Element with id 'tohHeader' not found!");
-    }
-
-    if (headerElem) {
-      headerElem.scrollIntoView();
-    }
-  };
-
   const MainContent = useMemo(() => {
     return (
       <>
         <Greeting />
         <Souls />
-        <Footer liftToTopHandler={liftToTop} />
+        <Footer logoClickHandler={liftToTop} />
       </>
     );
   }, []);

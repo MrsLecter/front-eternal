@@ -2,6 +2,8 @@ import { SOULS_DATA } from "@/constants/greeting";
 import { ISoulsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";
+import { TOKEN_LIFETIME_MINUTES } from "@/constants/common";
+import localStorageHandler from "./local-storage-hendler";
 
 export const getSoulsDataForId = (id: string): ISoulsData | undefined => {
   return SOULS_DATA.find((soul) => soul.id === parseInt(id));
@@ -74,15 +76,10 @@ export const getMessageArray = ({
   let arrResult = [];
   if (messages && messages.length > 0) {
     for (let message of messages) {
-      // arrResult.push(["soul", Object.values(message)[0]]);
-      // arrResult.push(["user", Object.keys(message)[0]]);
-
       arrResult.push(["soul", Object.values(message)[0]]);
       arrResult.push(["user", Object.keys(message)[0]]);
     }
   }
-
-  // arrResult.reverse();
   return arrResult;
 };
 
@@ -94,4 +91,38 @@ export const getConstructedMessage = ({
   message: string;
 }): string[] => {
   return [sender, message];
+};
+
+export const liftToTop = (): void => {
+  const headerElem = document.getElementById("topHeader");
+  if (!headerElem) {
+    console.error("Error! Element with id 'tohHeader' not found!");
+  }
+
+  if (headerElem) {
+    //bigfix
+    setTimeout(function () {
+      headerElem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  }
+};
+
+export const getExpiresTokenDate = (): Date => {
+  const currentDate = new Date();
+
+  currentDate.setMinutes(currentDate.getMinutes() + TOKEN_LIFETIME_MINUTES);
+  return currentDate;
+};
+
+export const isTokenExpired = (): boolean => {
+  const currentDate = new Date();
+  const tokenExpireDate = localStorageHandler.getTokenExpireDate();
+  if (tokenExpireDate) {
+    return tokenExpireDate < currentDate;
+  } else {
+    return true;
+  }
 };

@@ -16,6 +16,7 @@ import { useSync } from "@/hooks/use-sync";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Soul from "@/componets/chat/soul/Soul";
+import { ISoulsData } from "../../../types/app-common.types";
 
 const Chat: React.FC = () => {
   const router = useRouter();
@@ -26,8 +27,10 @@ const Chat: React.FC = () => {
   const soulId = router.query.id as string;
   const { showCommonModal, isSmallHeader, showPaywallModal, dialog } =
     useAppSelector((store) => store.internalReducer);
-
   const currentSoulsData = getSoulsDataForId(soulId);
+  if (currentSoulsData) {
+    localStorageHandler.setSoulData(currentSoulsData as ISoulsData);
+  }
   const isAuth = localStorageHandler.getAccessToken();
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
@@ -54,7 +57,7 @@ const Chat: React.FC = () => {
             <Header isHaveShareBtn={true} />
             <StyledChatContainer>
               <div>
-                <Soul soulData={currentSoulsData} />
+                <Soul />
               </div>
               <div>
                 <Messages soulId={soulId} avatarImg={currentSoulsData?.image} />

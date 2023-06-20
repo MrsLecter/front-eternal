@@ -19,20 +19,19 @@ import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import BackgroundDetails from "@/componets/details/BackgroundDetails";
+import { liftToTop } from "@/utils/functions";
 
 const Details: React.FC = () => {
   const { signin } = userSlice.actions;
   const dispatch = useAppDispatch();
   const sync = useSync();
-  const [initialRenderComplete, setInitialRenderComplete] =
-    useState<boolean>(false);
-
   const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
     internalSlice.actions;
-
   const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
+  const [initialRenderComplete, setInitialRenderComplete] =
+    useState<boolean>(false);
 
   useEffect(() => {
     dispatch(deleteDialog());

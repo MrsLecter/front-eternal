@@ -7,7 +7,8 @@ interface IShareBtnProps {
   clickHandler?: () => void;
 }
 
-const ShareBtn: React.FC<IShareBtnProps> = ({ clickHandler }) => {
+const ShareBtn: React.FC<IShareBtnProps> = (props) => {
+  const { clickHandler, ...rest } = props;
   const shareBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (clickHandler) {
@@ -16,7 +17,7 @@ const ShareBtn: React.FC<IShareBtnProps> = ({ clickHandler }) => {
   };
 
   return (
-    <StyledShareBorderBtn onClick={(e) => shareBtnClickHandler(e)}>
+    <StyledShareBorderBtn onClick={(e) => shareBtnClickHandler(e)} {...rest}>
       <StyledShareBtn>
         {document.documentElement.clientWidth > 870 && (
           <>

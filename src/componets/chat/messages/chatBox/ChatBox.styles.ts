@@ -47,3 +47,5 @@ export const StyledChatBox = styled.div`
     width: 88vw;
   }
 `;
+
+

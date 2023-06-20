@@ -60,7 +60,7 @@ export const userSlice = createSlice({
 
     setFreePlan(state) {
       if (!state.shareLink) {
-        state.questionsAmount = 3;
+        state.questionsAmount = 5;
         state.shareLink = true;
       }
     },
@@ -78,6 +78,15 @@ export const userSlice = createSlice({
       state,
       action: PayloadAction<{ name: string; phone: string }>
     ) {
+      state.name = action.payload.name;
+      state.phone = action.payload.phone;
+    },
+
+    setNewUserDetails(
+      state,
+      action: PayloadAction<{ name: string; email: string; phone: string }>
+    ) {
+      state.email = action.payload.email;
       state.name = action.payload.name;
       state.phone = action.payload.phone;
     },

@@ -1,5 +1,10 @@
 import { StorageCellEnum } from "@/constants/common";
-import { ILocalStorageData, IUserData } from "../../types/app-common.types";
+import {
+  ILocalStorageData,
+  ISoulsData,
+  IUserData,
+} from "../../types/app-common.types";
+import { getExpiresTokenDate } from "./functions";
 
 class LocalStorageHandler {
   public signin({
@@ -13,7 +18,6 @@ class LocalStorageHandler {
     accessToken,
     refreshToken,
     shareLink,
-    isGoogleAuth,
   }: ILocalStorageData) {
     const userDataObject = {
       id,
@@ -24,9 +28,10 @@ class LocalStorageHandler {
       questionsamount,
       readabout,
       accessToken,
+      expiresIn: getExpiresTokenDate(),
       refreshToken,
       shareLink,
-      isGoogleAuth,
+      isGoogleAuth: false,
     };
 
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
@@ -42,6 +47,7 @@ class LocalStorageHandler {
       questionsamount: 1,
       readabout: false,
       accessToken: "",
+      expiresIn: null,
       refreshToken: "",
       shareLink: true,
     };
@@ -49,30 +55,13 @@ class LocalStorageHandler {
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
   }
 
-  public signup({
-    id,
-    email,
-    accessToken,
-    refreshToken,
-  }: {
-    id: number;
-    email: string;
-    accessToken: string;
-    refreshToken: string;
-  }) {
-    const userDataObject = {
-      id,
-      email,
-      accessToken,
-      refreshToken,
-      name: null,
-      nextpayment: null,
-      questionsamount: 0,
-      readabout: false,
-      shareLink: false,
-    };
+  public getTokenExpireDate() {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
 
-    localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
+    if (userData) {
+      const userDataObject = JSON.parse(userData);
+      return userDataObject.expiresIn;
+    }
   }
 
   public getReadAbout() {
@@ -116,12 +105,11 @@ class LocalStorageHandler {
 
   public deleteOneQuestion() {
     const userData = localStorage.getItem(StorageCellEnum.USER);
-    const currDate = new Date();
 
     if (userData) {
       const userDataObject = JSON.parse(userData);
       if (userDataObject.questionsamount !== "Infinity") {
-        userDataObject.questionsamount = userDataObject.questionsamount--;
+        userDataObject.questionsamount = userDataObject.questionsamount - 1;
       }
 
       localStorage.setItem(
@@ -145,7 +133,7 @@ class LocalStorageHandler {
 
     if (userData) {
       const userDataObject = JSON.parse(userData);
-      userDataObject.questionsamount = 3;
+      userDataObject.questionsamount = 5;
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -205,7 +193,9 @@ class LocalStorageHandler {
     if (userData) {
       const userDataObject = JSON.parse(userData);
       userDataObject.accessToken = accessToken;
+      userDataObject.expiresIn = getExpiresTokenDate();
       userDataObject.refreshToken = refreshToken;
+      userDataObject.isGoogleAuth = false;
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -226,28 +216,9 @@ class LocalStorageHandler {
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
   }
 
-  public isGoogleAuth() {
-    const userData = localStorage.getItem(StorageCellEnum.USER);
-    if (userData) {
-      const userDataObject = JSON.parse(userData);
-      return userDataObject.isGoogleAuth;
-    } else {
-      return false;
-    }
-  }
-
-  public updateDialog({
-    dialog,
-    totalHistoryPages,
-  }: {
-    dialog: string[][];
-    totalHistoryPages: number;
-  }) {
-    const MESSAGES_ON_PAGE = 10;
+  public updateDialog({ dialog }: { dialog: string[][] }) {
     const dialogObject = {
       dialog,
-      currentHistoryPage: Math.floor(dialog.length / MESSAGES_ON_PAGE),
-      totalHistoryPages,
     };
 
     localStorage.setItem(StorageCellEnum.DIALOG, JSON.stringify(dialogObject));
@@ -256,8 +227,6 @@ class LocalStorageHandler {
   public getDialog():
     | {
         dialog: string[][];
-        currentHistoryPage: number;
-        totalHistoryPages: number;
       }
     | undefined {
     const dialogData = localStorage.getItem(StorageCellEnum.DIALOG);
@@ -269,6 +238,57 @@ class LocalStorageHandler {
 
   public removeDialog() {
     localStorage.removeItem(StorageCellEnum.DIALOG);
+  }
+
+  public setSoulData(data: ISoulsData) {
+    localStorage.setItem(StorageCellEnum.SOUL_DATA, JSON.stringify(data));
+  }
+
+  public getSoulData(): ISoulsData | undefined {
+    const soulData = localStorage.getItem(StorageCellEnum.SOUL_DATA);
+    if (soulData) {
+      return JSON.parse(soulData);
+    }
+  }
+
+  public removeSoulData() {
+    localStorage.removeItem(StorageCellEnum.SOUL_DATA);
+  }
+
+  public updateUserDetails({
+    name,
+    email,
+    phone,
+  }: {
+    name: string;
+    email: string;
+    phone: string;
+  }) {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      userObject.email = email;
+      userObject.name = name;
+      userObject.phone = phone;
+      localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userObject));
+    }
+  }
+
+  public setGoogleAuth() {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      userObject.isGoogleAuth = true;
+      localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userObject));
+    }
+  }
+
+  public getGoogleAuth() {
+    const userData = localStorage.getItem(StorageCellEnum.USER);
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      return userObject.isGoogleAuth;
+    }
   }
 }
 

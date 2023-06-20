@@ -8,9 +8,8 @@ import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { StyledFormRow } from "./RestorePassword.styles";
 
-interface IRestorePasswordFormProps {}
 
-const RestorePasswordForm: React.FC<IRestorePasswordFormProps> = ({}) => {
+const RestorePasswordForm: React.FC= () => {
   const { toggleLoginChangePassword } = internalSlice.actions;
   const dispatch = useAppDispatch();
 

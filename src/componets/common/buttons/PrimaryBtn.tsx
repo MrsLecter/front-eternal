@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-interface PrimaryBtnProps {
+interface PrimaryBtnProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   clickHandler?: () => void;
 }
 
-const PrimaryBtn: React.FC<PrimaryBtnProps> = ({ label, clickHandler }) => {
+const PrimaryBtn: React.FC<PrimaryBtnProps> = (props) => {
+  const { label, clickHandler, ...defaultProps } = props;
   const primaryBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (clickHandler) {
@@ -16,6 +18,7 @@ const PrimaryBtn: React.FC<PrimaryBtnProps> = ({ label, clickHandler }) => {
     <StyledPrimaryBtnFixed
       type="button"
       onClick={(e) => primaryBtnClickHandler(e)}
+      {...defaultProps}
     >
       {label}
     </StyledPrimaryBtnFixed>

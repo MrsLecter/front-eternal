@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { StyledMessages } from "./Messages.styles";
 import UserInput from "./userInput/UserInput";
 import ChatBox from "./chatBox/ChatBox";
@@ -17,15 +17,13 @@ interface IMessagesProps {
 const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   const userId = localStorageHandler.getUserId();
   const dispatch = useAppDispatch();
-  const { addToDialog, deleteLastDialogMessage, allowTyping, deleteDialog } =
+  const { addToDialog, deleteLastDialogMessage, allowTyping } =
     internalSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
   const { questionsAmount } = useAppSelector((store) => store.userReducer);
   const { firstMessage, dialog } = useAppSelector(
     (store) => store.internalReducer
   );
-
-
 
   useEffect(() => {
     if (isAuth && questionsAmount !== 0 && !firstMessage) {

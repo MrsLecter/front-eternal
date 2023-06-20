@@ -30,6 +30,7 @@ export const StyledLabel = styled.div`
   line-height: 27px;
   text-align: center;
   letter-spacing: -0.01em;
+  user-select: none;
 
   @media (max-width: 870px) {
     margin-top: -2px;

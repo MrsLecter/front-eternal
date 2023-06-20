@@ -12,6 +12,7 @@ export const WrapperPage = styled.div<{ shouldNotScroll: boolean }>`
   background-color: #111115;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-gutter: stable;
 
   ${(props) =>
     props.shouldNotScroll &&

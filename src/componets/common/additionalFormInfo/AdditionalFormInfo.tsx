@@ -20,7 +20,13 @@ const AdditionalFormInfo: React.FC<IAddtionalFormInfoProps> = ({
   return (
     <StyledAdditional>
       <p>{label}</p>&nbsp;
-      <button onClick={infoClickHandler}>{labelLink}</button>
+      <button
+        onClick={infoClickHandler}
+        aria-label="info-button"
+        aria-labelledby="info"
+      >
+        {labelLink}
+      </button>
     </StyledAdditional>
   );
 };

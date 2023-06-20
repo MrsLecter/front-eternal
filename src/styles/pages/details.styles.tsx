@@ -8,6 +8,7 @@ export const WrapperDetailsCentring = styled.div<{ shouldNotScroll: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  scrollbar-gutter: stable;
   overflow: auto;
 
   ${(props) =>
@@ -15,6 +16,7 @@ export const WrapperDetailsCentring = styled.div<{ shouldNotScroll: boolean }>`
     css`
       height: 100%;
       overflow: hidden;
+      scrollbar-gutter: stable;
     `}
 
   @media (max-width: 870px) {

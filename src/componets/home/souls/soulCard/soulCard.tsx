@@ -9,9 +9,6 @@ import {
   StyledSoulCard,
 } from "./soulCard.styles";
 import { ISoulCard } from "./soulCard.types";
-import { useEffect } from "react";
-import soulsService from "@/api/souls-service";
-import { getMessageArray } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
 
 const SoulCard: React.FC<ISoulCard> = ({
@@ -23,10 +20,8 @@ const SoulCard: React.FC<ISoulCard> = ({
   enlargedImage = false,
   isReflected = false,
 }) => {
-  const { setFirstMessage, setSoulId, addHistory } = internalSlice.actions;
-  const { dialog } = useAppSelector((store) => store.internalReducer);
+  const { setFirstMessage, setSoulId } = internalSlice.actions;
   const dispatch = useAppDispatch();
-  const isAuth = localStorageHandler.getAccessToken();
 
   let largeWidth = 0;
   let largeHeight = 0;

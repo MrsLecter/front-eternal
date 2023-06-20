@@ -5,6 +5,8 @@ export const IMAGE_BASE_URL = "eternalai.s3.us-east-2.amazonaws.com";
 
 export const IMAGE_BASE_PATH = "/pictures_pack/**";
 
+export const TOKEN_LIFETIME_MINUTES = 30;
+
 export enum APP_SETTING {
   TabResolution = 870,
   PhoneResolution = 370,
@@ -19,6 +21,7 @@ export enum APP_ROUTES {
 export enum StorageCellEnum {
   USER = "@eternal-user",
   DIALOG = "@eternal-dialog",
+  SOUL_DATA = "@eternal-soul-data",
 }
 
 const BASE_API_URL = "https://eternalai.onrender.com";

@@ -32,15 +32,13 @@ class SoulsService {
   }
 
   public async getHistory({
-    page,
     soulid,
   }: {
-    page: number;
     soulid: string;
   }): Promise<IChatHistoryResponse> {
     try {
       const response: IChatHistoryResponse = await axiosInstance().post(
-        GET_HISTORY_URL + `/${page}`,
+        GET_HISTORY_URL,
         {
           soulid,
         },
@@ -53,8 +51,6 @@ class SoulsService {
       return response;
     } catch (err: any) {
       console.error("An error occured in getHistory request: ", err);
-      localStorageHandler.deleteUsersData();
-      window.location.replace(APP_ROUTES.Home);
       return err;
     }
   }
