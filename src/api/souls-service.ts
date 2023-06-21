@@ -1,7 +1,6 @@
-import { APP_ROUTES, ASK_QUESTION, GET_HISTORY_URL } from "@/constants/common";
+import {  ASK_QUESTION, GET_HISTORY_URL } from "@/constants/common";
 import { IChatHistoryResponse, ISoulsResponse } from "./souls-service-types";
 import axiosInstance from "./custom-axios-instance";
-import localStorageHandler from "@/utils/local-storage-hendler";
 
 class SoulsService {
   public async sendQuestion({

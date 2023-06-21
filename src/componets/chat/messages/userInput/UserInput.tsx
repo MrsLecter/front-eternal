@@ -29,13 +29,11 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
     addToDialog,
     toggleToSignup,
     toggleToPayment,
-    toggleToCardpay,
   } = internalSlice.actions;
 
   const { isTypingAllowed } = useAppSelector((store) => store.internalReducer);
   const dispatch = useAppDispatch();
   const [userInput, setUserInput] = useState<string>("");
-  const { shareLink } = useAppSelector((store) => store.userReducer);
   const lastChatMessage = document.getElementById("chatBottom");
   
   const submitQuestionHandler = (event: FormEvent) => {

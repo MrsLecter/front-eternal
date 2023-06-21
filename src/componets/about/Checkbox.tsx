@@ -4,6 +4,7 @@ import { StyledCheckbox } from "./Checkbox.styles";
 import { ICheckboxProps } from "./Checkbox.types";
 
 const Checkbox: React.FC<ICheckboxProps> = ({ label, checked, setChecked }) => {
+  
   const setCheckedOnEnter = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       setChecked(!checked);

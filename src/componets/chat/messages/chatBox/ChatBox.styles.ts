@@ -41,7 +41,6 @@ export const StyledChatBox = styled.div`
     height: 100%;
     min-height: 307px;
     max-height: 100%;
-
     bottom: 90px;
     margin-right: 0px;
     width: 88vw;

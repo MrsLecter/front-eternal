@@ -23,6 +23,8 @@ export const StyledSoulCard = styled.div`
   @media (max-width: 870px) {
     width: 162px;
     height: 281.72px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 
     img {
       height: 228.72px;
@@ -139,6 +141,7 @@ export const StyledSoulAbout = styled.div`
     line-height: 110%;
     backdrop-filter: none;
     background-color: transparent;
+    border-radius: 0px;
 
     div {
       margin-left: 0px;

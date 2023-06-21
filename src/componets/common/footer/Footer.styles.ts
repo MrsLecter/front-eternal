@@ -7,7 +7,7 @@ export const StyledFooter = styled.footer`
   height: 140px;
   min-height: 140px;
   margin: 150.84px 32px 32px 32px;
-  padding: 0px 48px;
+  padding: 0px 46px;
   height: 140px;
   display: flex;
   flex-direction: row;
