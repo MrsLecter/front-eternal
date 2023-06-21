@@ -22,6 +22,7 @@ const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
         value={props.cardNumberValue}
         onChange={(event) => props.cardNumberChangeHandler(event)}
         autoFocus={props.haveFocus}
+        autoComplete="off"
       />
       <StyledImageWrapper>
         <Image width={24} height={16} alt="cardIcon.svg" src={cardIcon} />
@@ -34,6 +35,7 @@ const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
         maxLength={5}
         value={props.mmyyValue}
         onChange={(event) => props.mmyyChangeHandler(event)}
+        autoComplete="off"
       />
       <StyledCodeInput
         type="text"
@@ -43,6 +45,7 @@ const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
         maxLength={3}
         value={props.cvvValue}
         onChange={(event) => props.cvvChangeHandler(event)}
+        autoComplete="off"
       />
     </StyledCardNumberInput>
   );
