@@ -1,4 +1,5 @@
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
+
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 import { ModalDiv } from "../modalWindow/ModalWindow.styles";
 import { ModalsContainer } from "./Payment.styles";
 import FreeOfferBlock from "./paymentlForm/freeOfferBlock/FreeOfferBlock";
@@ -16,20 +17,24 @@ const Payment: React.FC<IPaymentProps> = ({ modalClickHandler }) => {
   return (
     <ModalsContainer>
       <ModalDiv onMouseDown={(e) => modalDivClickHandler(e)}>
-        <WrapperModal
+        <WrapperModalWindow
           width={"514"}
           noBorder={true}
           isPayment={true}
           isPaddingSmall={true}
         >
           <FreeOfferBlock />
-        </WrapperModal>
+        </WrapperModalWindow>
       </ModalDiv>
 
       <ModalDiv onMouseDown={(e) => modalDivClickHandler(e)}>
-        <WrapperModal width={"320"} isPayment={true} isPaddingSmall={true}>
+        <WrapperModalWindow
+          width={"320"}
+          isPayment={true}
+          isPaddingSmall={true}
+        >
           <ProOfferBlock />
-        </WrapperModal>
+        </WrapperModalWindow>
       </ModalDiv>
     </ModalsContainer>
   );

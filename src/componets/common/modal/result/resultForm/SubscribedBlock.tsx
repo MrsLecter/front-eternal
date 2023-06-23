@@ -9,6 +9,7 @@ import { StyledProOfferBlock } from "../../payment/paymentlForm/proOfferBlock/Pr
 const SubscribedBlock: React.FC = () => {
   const { backdropClick } = internalSlice.actions;
   const dispatch = useAppDispatch();
+  
   const goToHomePage = () => {
     dispatch(backdropClick());
   };

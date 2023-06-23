@@ -1,6 +1,6 @@
 import * as Avenir from "@typography/Avenir";
-import ProBtn from "../buttons/ProBtn";
 import { StyledPricingBlock } from "./PricingBlock.styles";
+import ProLabel from "../label/ProLabel";
 
 interface IPricingBlockProps {
   paymentMonthly: number;
@@ -13,7 +13,7 @@ const PricingBlock: React.FC<IPricingBlockProps> = ({
 }) => {
   return (
     <StyledPricingBlock>
-      <ProBtn />
+      <ProLabel />
       <Avenir.H4>${paymentMonthly}&nbsp;/&nbsp;month</Avenir.H4>
       <Avenir.BodyMedium>
         {!!nextPayment

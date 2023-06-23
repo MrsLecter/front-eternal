@@ -1,5 +1,4 @@
 import UpdatePaymentBlock from "@/componets/details/updatePaymentBlock/UpdatePaymentBlock";
-import WrapperModal from "@/componets/common/wrappers/wrapperModal/WrapperModal";
 import React, { useEffect, useState } from "react";
 import Header from "@/componets/common/header/Header";
 import Footer from "@/componets/common/footer/Footer";
@@ -20,6 +19,7 @@ import { useSync } from "@/hooks/use-sync";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import BackgroundDetails from "@/componets/details/BackgroundDetails";
 import { liftToTop } from "@/utils/functions";
+import WrapperModalWindow from "@/componets/common/wrappers/wrapperModalWindow/WrapperModalWindow";
 
 const Details: React.FC = () => {
   const { signin } = userSlice.actions;
@@ -27,7 +27,7 @@ const Details: React.FC = () => {
   const sync = useSync();
   const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
     internalSlice.actions;
-  const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
+  const { showCommonModal, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
   const [initialRenderComplete, setInitialRenderComplete] =
@@ -54,7 +54,7 @@ const Details: React.FC = () => {
         >
           <Header />
           <StyledModalWrapper>
-            <WrapperModal
+            <WrapperModalWindow
               width={"760"}
               isPaddingSmall={true}
               minHeight={480}
@@ -64,9 +64,9 @@ const Details: React.FC = () => {
                 <p>Account Details</p>
                 <DetailsForm />
               </WrapperDetailsForm>
-            </WrapperModal>
+            </WrapperModalWindow>
 
-            <WrapperModal
+            <WrapperModalWindow
               width={"760"}
               isPaddingSmall={true}
               minHeight={380}
@@ -76,11 +76,11 @@ const Details: React.FC = () => {
                 <p>Change password</p>
                 <ChangePasswordForm />
               </WrapperDetailsForm>
-            </WrapperModal>
+            </WrapperModalWindow>
 
-            <WrapperModal width={"760"} isPaddingSmall={true}>
+            <WrapperModalWindow width={"760"} isPaddingSmall={true}>
               <UpdatePaymentBlock />
-            </WrapperModal>
+            </WrapperModalWindow>
           </StyledModalWrapper>
           <Footer />
           <ModalContainer />

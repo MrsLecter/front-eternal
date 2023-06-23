@@ -93,7 +93,7 @@ export const StyledCodeInput = styled(StyledInput)`
 
 export const StyledImageWrapper = styled.div`
   position: absolute;
-  top: 23.25px;
+  top: 19.25px;
   left: 16.25px;
 
   @media (max-width: 870px) {

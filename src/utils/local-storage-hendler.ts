@@ -79,6 +79,7 @@ class LocalStorageHandler {
     if (userData) {
       const userDataObject = JSON.parse(userData);
       userDataObject.readabout = true;
+
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -96,6 +97,7 @@ class LocalStorageHandler {
       userDataObject.nextpayment = new Date(
         currDate.setMonth(currDate.getMonth() + 1)
       );
+
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -108,6 +110,7 @@ class LocalStorageHandler {
 
     if (userData) {
       const userDataObject = JSON.parse(userData);
+
       if (userDataObject.questionsamount !== "Infinity") {
         userDataObject.questionsamount = userDataObject.questionsamount - 1;
       }
@@ -134,6 +137,7 @@ class LocalStorageHandler {
     if (userData) {
       const userDataObject = JSON.parse(userData);
       userDataObject.questionsamount = 5;
+
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -148,6 +152,7 @@ class LocalStorageHandler {
       const userDataObject = JSON.parse(userData);
       userDataObject.nextpayment = null;
       userDataObject.questionsamount = 0;
+
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -190,12 +195,14 @@ class LocalStorageHandler {
     refreshToken: string;
   }) {
     const userData = localStorage.getItem(StorageCellEnum.USER);
+
     if (userData) {
       const userDataObject = JSON.parse(userData);
       userDataObject.accessToken = accessToken;
       userDataObject.expiresIn = getExpiresTokenDate();
       userDataObject.refreshToken = refreshToken;
       userDataObject.isGoogleAuth = false;
+
       localStorage.setItem(
         StorageCellEnum.USER,
         JSON.stringify(userDataObject)
@@ -213,6 +220,7 @@ class LocalStorageHandler {
       questionsamount: 0,
       smsAvailable: false,
     };
+
     localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userDataObject));
   }
 
@@ -230,6 +238,7 @@ class LocalStorageHandler {
       }
     | undefined {
     const dialogData = localStorage.getItem(StorageCellEnum.DIALOG);
+
     if (dialogData) {
       const dialogDataObject = JSON.parse(dialogData);
       return dialogDataObject;
@@ -246,6 +255,7 @@ class LocalStorageHandler {
 
   public getSoulData(): ISoulsData | undefined {
     const soulData = localStorage.getItem(StorageCellEnum.SOUL_DATA);
+
     if (soulData) {
       return JSON.parse(soulData);
     }
@@ -265,20 +275,24 @@ class LocalStorageHandler {
     phone: string;
   }) {
     const userData = localStorage.getItem(StorageCellEnum.USER);
+
     if (userData) {
       const userObject = JSON.parse(userData);
       userObject.email = email;
       userObject.name = name;
       userObject.phone = phone;
+
       localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userObject));
     }
   }
 
   public setGoogleAuth() {
     const userData = localStorage.getItem(StorageCellEnum.USER);
+
     if (userData) {
       const userObject = JSON.parse(userData);
       userObject.isGoogleAuth = true;
+
       localStorage.setItem(StorageCellEnum.USER, JSON.stringify(userObject));
     }
   }

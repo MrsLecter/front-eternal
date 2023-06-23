@@ -1,4 +1,4 @@
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 import { ModalDiv } from "../modalWindow/ModalWindow.styles";
 import SubscribedBlock from "./resultForm/SubscribedBlock";
 
@@ -8,7 +8,7 @@ const Result: React.FC = () => {
   };
   return (
     <ModalDiv onMouseDown={(e) => modalDivClickHandler(e)}>
-      <WrapperModal
+      <WrapperModalWindow
         width={"625"}
         isPayment={true}
         isPaddingSmall={true}
@@ -17,7 +17,7 @@ const Result: React.FC = () => {
         marginTop={95}
       >
         <SubscribedBlock />
-      </WrapperModal>
+      </WrapperModalWindow>
     </ModalDiv>
   );
 };

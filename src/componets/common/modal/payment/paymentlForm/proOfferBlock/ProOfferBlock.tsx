@@ -4,12 +4,12 @@ import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import TitlePricing from "@/componets/common/title/TitlePricing";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
-import ProBtn from "@/componets/common/buttons/ProBtn";
 import {
   StyledProBtnWrapper,
   StyledProOfferBlock,
   WrapperPrimary,
 } from "./ProOfferBlock.styles";
+import ProLabel from "@/componets/common/label/ProLabel";
 
 const ProOfferBlock: React.FC = () => {
   const isAuth = localStorageHandler.getAccessToken();
@@ -28,7 +28,7 @@ const ProOfferBlock: React.FC = () => {
   return (
     <StyledProOfferBlock onClick={(e) => blockClickHandler(e)}>
       <StyledProBtnWrapper>
-        <ProBtn />
+        <ProLabel />
       </StyledProBtnWrapper>
 
       <TitlePricing paymentMonthly={10} oneRow={true} />

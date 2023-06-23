@@ -1,5 +1,4 @@
 import { ABOUT_TEXT, ABOUT_TEXT_SECOND } from "@/constants/modals";
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import Checkbox from "@/componets/about/Checkbox";
 import { useEffect, useState } from "react";
 import { userSlice } from "@/store/reducers/userSlice";
@@ -11,10 +10,10 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import userService from "@/api/user-service";
 import PrimarySubmitBtn from "../../buttons/PrimarySubmitBtn";
 import { internalSlice } from "@/store/reducers/internalSlice";
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 
 const About: React.FC = () => {
   const [checked, setChecked] = useState<boolean>(false);
-
   const { setReadAbout } = userSlice.actions;
   const { backdropClick } = internalSlice.actions;
   const dispatch = useAppDispatch();
@@ -59,7 +58,7 @@ const About: React.FC = () => {
     }
   };
   return (
-    <WrapperModal
+    <WrapperModalWindow
       width={"721"}
       header={"About the platform"}
       text={ABOUT_TEXT}
@@ -76,7 +75,7 @@ const About: React.FC = () => {
         label={"continue"}
         clickHandler={continueClickHandler}
       />
-    </WrapperModal>
+    </WrapperModalWindow>
   );
 };
 

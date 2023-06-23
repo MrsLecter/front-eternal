@@ -10,6 +10,7 @@ export const getMaskedUserInput = (
       if (!userInput) {
         return "";
       }
+
       if (userInput.length >= 1) {
         let substr = userInput.substring(userInput.indexOf("(") + 1);
         if (userInput.indexOf("(") < 0) {
@@ -23,6 +24,7 @@ export const getMaskedUserInput = (
     };
 
     let clearInput = unmasked(eValue);
+
     if (clearInput.length === 0) {
       return maskWihtCode;
     } else if (clearInput.length === 1) {
@@ -56,7 +58,9 @@ export const getMaskedUserInput = (
       }
       return only_number!.join("") || "";
     };
+
     const clearInput = unmasked(eValue);
+
     if (clearInput.length === 0) {
       return "";
     } else if (clearInput.length === 1) {
@@ -73,13 +77,16 @@ export const getMaskedUserInput = (
       if (!userInput) {
         return "";
       }
-      let only_number = userInput.match(/[0-9]/g);
-      if (!only_number) {
-        return "";
+      let only_number = userInput.match(/[\d]/g);
+
+      if (only_number) {
+        return only_number.join("");
       }
-      return only_number!.join("") || "";
+      return "";
     };
+
     const clearInput = unmasked(eValue);
+
     if (clearInput.length === 0) {
       return "";
     } else if (clearInput.length === 1) {
@@ -130,7 +137,9 @@ export const getMaskedUserInput = (
       }
       return only_number!.join("") || "";
     };
+
     const clearInput = unmasked(eValue);
+
     return clearInput;
   }
   return eValue.substring(0, mask.length);

@@ -16,23 +16,12 @@ import TextMenuBtn from "./components/TextMenuBtn";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
-import { useEffect, useRef } from "react";
 
-interface IMenuProps {
-  signupHandler?: () => void;
-  signinHandler?: () => void;
-}
-
-const Menu: React.FC<IMenuProps> = ({ signupHandler, signinHandler }) => {
+const Menu: React.FC = () => {
   const router = useRouter();
 
-  const {
-    backdropClick,
-    toggleToPayment,
-    toggleToAbout,
-    toggleToLogin,
-    toggleToSignup,
-  } = internalSlice.actions;
+  const { backdropClick, toggleToPayment, toggleToLogin, toggleToSignup } =
+    internalSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
   const { signout } = userSlice.actions;
   const dispatch = useAppDispatch();
@@ -63,34 +52,37 @@ const Menu: React.FC<IMenuProps> = ({ signupHandler, signinHandler }) => {
 
   return (
     <StyledMenuWrapper>
-      <StyledMenu>
-        <li>
-          <Link href={APP_ROUTES.Home}>{"About us"}</Link>
-        </li>
-        <li>
-          <button
-            onClick={showPaymentModal}
-            aria-label="pricing-button"
-            aria-labelledby="pricing"
-          >
-            Pricing
-          </button>
-        </li>
-        <li>
-          <Link href={APP_ROUTES.Home}>{"How it works"}</Link>
-        </li>
-        {isAuth && (
+      <nav>
+        <StyledMenu>
+          <li>
+            <Link href={APP_ROUTES.Home}>{"About us"}</Link>
+          </li>
           <li>
             <button
-              onClick={goToDetailsPage}
-              aria-label="account-button"
-              aria-labelledby="account"
+              onClick={showPaymentModal}
+              aria-label="pricing-button"
+              aria-labelledby="pricing"
             >
-              {"My account"}
+              Pricing
             </button>
           </li>
-        )}
-      </StyledMenu>
+          <li>
+            <Link href={APP_ROUTES.Home}>{"How it works"}</Link>
+          </li>
+          {isAuth && (
+            <li>
+              <button
+                onClick={goToDetailsPage}
+                aria-label="account-button"
+                aria-labelledby="account"
+              >
+                {"My account"}
+              </button>
+            </li>
+          )}
+        </StyledMenu>
+      </nav>
+
       <StyledSocialContainer>
         <div>
           <a href={SOCIAL_LINKS.Facebook} target="_blank">

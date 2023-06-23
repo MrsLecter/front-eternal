@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { internalSlice } from "@/store/reducers/internalSlice";
-import ProBtn from "@/componets/common/buttons/ProBtn";
 import TitlePricing from "@/componets/common/title/TitlePricing";
 import CardNumberInput from "@/componets/common/input/cardNumberInput/CardNumberInput";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
@@ -22,6 +21,7 @@ import {
   StyledSubmitBtnWrapper,
   TitleWrapper,
 } from "./CardpayBlock.styles";
+import ProLabel from "@/componets/common/label/ProLabel";
 
 interface ICardpayBlockProps {
   isNeedSubmitBtn?: boolean;
@@ -32,9 +32,7 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
 }) => {
   const { setProPlan } = userSlice.actions;
   const { toggleToResult } = internalSlice.actions;
-  const { nextPayment } = useAppSelector((store) => store.userReducer);
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const {
     value: cardNumber,
@@ -81,6 +79,7 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
     }
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = monthYear.split("/");
+
       const cardObject = {
         card: CARD_NUMBER,
         exp_year: 20 + year,
@@ -117,7 +116,7 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
   return (
     <StyledProOfferBlock onClick={(e) => blockClickHandler(e)}>
       <ProBtnWrapper>
-        <ProBtn />
+        <ProLabel />
       </ProBtnWrapper>
 
       <TitleWrapper>

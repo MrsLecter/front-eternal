@@ -1,4 +1,4 @@
-export interface IWrapperModal {
+export interface IWrapperModalWindow {
   children: React.ReactNode;
   header?: string;
   text?: string;

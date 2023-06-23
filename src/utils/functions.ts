@@ -6,14 +6,17 @@ import { TOKEN_LIFETIME_MINUTES } from "@/constants/common";
 import localStorageHandler from "./local-storage-hendler";
 
 export const getSoulsDataForId = (id: string): ISoulsData | undefined => {
-  return SOULS_DATA.find((soul) => soul.id === parseInt(id));
+  const soulsData = SOULS_DATA.find((soul) => soul.id === parseInt(id));
+  return soulsData;
 };
 
 export const getRandomSoulId = (): number => {
   const maxId = SOULS_DATA.length;
   const minId = SOULS_DATA[0].id;
-
-  return Math.floor(Math.random() * (maxId - minId) + minId);
+  const randomSoulsIdInRange = Math.floor(
+    Math.random() * (maxId - minId) + minId
+  );
+  return randomSoulsIdInRange;
 };
 
 export function encrypt(text: string): string {
@@ -22,27 +25,31 @@ export function encrypt(text: string): string {
   const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
   let encrypted = cipher.update(text);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return encrypted.toString("hex");
+  const encryptedText = encrypted.toString("hex");
+  return encryptedText;
 }
 
-export const setNextPayment = (): Date => {
+export const getNextPaymentDate = (): Date => {
   const oneMonth = 1;
   const date = new Date();
-  return new Date(date.setMonth(date.getMonth() + oneMonth));
+  const nextPaymentDate = new Date(date.setMonth(date.getMonth() + oneMonth));
+  return nextPaymentDate;
 };
 
 export const isSubscriptionExpired = (nextPaymentDate: Date): boolean => {
   const currentDate = new Date();
   const nextDate = new Date(nextPaymentDate);
-  return currentDate.getTime() > nextDate.getTime();
+  const isSubscriptionExpired = currentDate.getTime() > nextDate.getTime();
+  return isSubscriptionExpired;
 };
 
 export const getCapitalizeName = (name: string): string => {
-  let capitalized: string[] = [];
+  let capitalizedChars: string[] = [];
+
   for (let word of name.split(" ")) {
-    capitalized.push(word[0].toUpperCase() + word.substring(1));
+    capitalizedChars.push(word[0].toUpperCase() + word.substring(1));
   }
-  return capitalized.join(" ");
+  return capitalizedChars.join(" ");
 };
 
 export const getPrettyDate = (date: Date | string): string => {
@@ -59,7 +66,7 @@ export const sendMessageToChannel = async ({
   soulId: string;
 }): Promise<void> => {
   try {
-    const response = await soulsService.sendQuestion({
+    await soulsService.sendQuestion({
       question: questionText,
       soulid: soulId,
     });
@@ -74,12 +81,14 @@ export const getMessageArray = ({
   messages: { [key: string]: string }[];
 }): string[][] => {
   let arrResult = [];
+
   if (messages && messages.length > 0) {
     for (let message of messages) {
       arrResult.push(["soul", Object.values(message)[0]]);
       arrResult.push(["user", Object.keys(message)[0]]);
     }
   }
+
   return arrResult;
 };
 
@@ -112,7 +121,6 @@ export const liftToTop = (): void => {
 
 export const getExpiresTokenDate = (): Date => {
   const currentDate = new Date();
-
   currentDate.setMinutes(currentDate.getMinutes() + TOKEN_LIFETIME_MINUTES);
   return currentDate;
 };
@@ -120,9 +128,6 @@ export const getExpiresTokenDate = (): Date => {
 export const isTokenExpired = (): boolean => {
   const currentDate = new Date();
   const tokenExpireDate = localStorageHandler.getTokenExpireDate();
-  if (tokenExpireDate) {
-    return tokenExpireDate < currentDate;
-  } else {
-    return true;
-  }
+  const isTokenExpired = tokenExpireDate ? tokenExpireDate < currentDate : true;
+  return isTokenExpired;
 };

@@ -19,12 +19,23 @@ password: 5TNT%#*_mtur
 login: testreg7@gmail.com
 password: 5TNT%#*_mtur
 
+login: testreg8@gmail.com
+password: 5TNT%#*_mtur
+
+
+login: testreg9@gmail.com
+password: 5TNT%#*_mtur
+
+
+login: testreg10@gmail.com
+password: 5TNT%#*_mtur
+
 login: testmobile@gmail.com
 password: 5MMM%#*mtur
 
 login: yper75@gmail.com
 password 5TNT%#*_mtur
-
+4242 4242 4242 4242
 TTT4%#*mtur
 
 1)apollo client SS4Ir6zgzOv9https://www.apollographql.com/blog/apollo-client/next-js/next-js-getting-started/

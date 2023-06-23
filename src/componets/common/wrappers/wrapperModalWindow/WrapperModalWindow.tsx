@@ -1,10 +1,10 @@
 import {
-  StyledWrapperModal,
-  StyledWrapperModalContainer,
-} from "./WrapperModal.styles";
-import { IWrapperModal } from "./WrapperModal.types";
+  StyledWrapperModalWindow,
+  StyledWrapperModalWindowContainer,
+} from "./WrapperModalWindow.styles";
+import { IWrapperModalWindow } from "./WrapperModalWindow.types";
 
-const WrapperModal: React.FC<IWrapperModal> = ({
+const WrapperModalWindow: React.FC<IWrapperModalWindow> = ({
   children,
   header,
   text,
@@ -17,24 +17,20 @@ const WrapperModal: React.FC<IWrapperModal> = ({
   minHeight = 0,
   marginTop = 0,
 }) => {
-
-
   return (
-    <StyledWrapperModalContainer
+    <StyledWrapperModalWindowContainer
       width={width}
       noBorder={noBorder}
       isPayment={isPayment}
       maxHeight={maxHeight}
       minHeight={minHeight}
       marginTop={marginTop}
-     
     >
-      <StyledWrapperModal
+      <StyledWrapperModalWindow
         noBorder={noBorder}
         paddingSmall={isPaddingSmall}
         isPayment={isPayment}
         id="modalActive"
-        
       >
         {header || text ? (
           <div>
@@ -47,9 +43,9 @@ const WrapperModal: React.FC<IWrapperModal> = ({
         )}
 
         {children}
-      </StyledWrapperModal>
-    </StyledWrapperModalContainer>
+      </StyledWrapperModalWindow>
+    </StyledWrapperModalWindowContainer>
   );
 };
 
-export default WrapperModal;
+export default WrapperModalWindow;

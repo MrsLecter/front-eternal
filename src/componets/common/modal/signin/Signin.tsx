@@ -1,8 +1,9 @@
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
+
 import AdditionalFormInfo from "@/componets/common/additionalFormInfo/AdditionalFormInfo";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import SignInForm from "./signinForm/SignInForm";
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 
 const Signin: React.FC = () => {
   const { toggleLoginSignup } = internalSlice.actions;
@@ -12,7 +13,7 @@ const Signin: React.FC = () => {
     dispatch(toggleLoginSignup());
   };
   return (
-    <WrapperModal
+    <WrapperModalWindow
       width={"721"}
       header={"Signin"}
       minHeight={512}
@@ -25,7 +26,7 @@ const Signin: React.FC = () => {
         labelLink="Sign up"
         clickHandler={changeToSignup}
       />
-    </WrapperModal>
+    </WrapperModalWindow>
   );
 };
 

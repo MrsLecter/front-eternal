@@ -1,11 +1,11 @@
 import RestorePasswordForm from "@/componets/restorePasswordForm/RestorePasswordForm";
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 
 const RestorePassword: React.FC = () => {
   return (
-    <WrapperModal width={"721"} header={"Change Password"} marginTop={95}>
+    <WrapperModalWindow width={"721"} header={"Change Password"} marginTop={95}>
       <RestorePasswordForm />
-    </WrapperModal>
+    </WrapperModalWindow>
   );
 };
 

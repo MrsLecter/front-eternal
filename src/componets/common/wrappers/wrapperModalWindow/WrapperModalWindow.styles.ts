@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledWrapperModalContainer = styled.div<{
+export const StyledWrapperModalWindowContainer = styled.div<{
   width: string;
   noBorder: boolean;
   isPayment: boolean;
@@ -40,7 +40,7 @@ export const StyledWrapperModalContainer = styled.div<{
   }
 `;
 
-export const StyledWrapperModal = styled.div<{
+export const StyledWrapperModalWindow = styled.div<{
   noBorder: boolean;
   paddingSmall?: boolean;
   isPayment: boolean;

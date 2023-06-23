@@ -1,7 +1,7 @@
 import Header from "@/componets/common/header/Header";
 import Greeting from "@/componets/home/greeting/Greeting";
 import Souls from "@/componets/home/souls/Souls";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Footer from "@/componets/common/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";

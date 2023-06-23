@@ -1,8 +1,8 @@
-import WrapperModal from "../../wrappers/wrapperModal/WrapperModal";
 import AdditionalFormInfo from "../../additionalFormInfo/AdditionalFormInfo";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import SignupForm from "@/componets/common/modal/signup/signupForm/SignupForm";
+import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 
 interface ISignupProps {}
 
@@ -15,7 +15,7 @@ const Signup: React.FC<ISignupProps> = () => {
   };
 
   return (
-    <WrapperModal
+    <WrapperModalWindow
       width={"721"}
       header={"Get started"}
       text={"To continue please create an account"}
@@ -28,7 +28,7 @@ const Signup: React.FC<ISignupProps> = () => {
         labelLink=" Sign in"
         clickHandler={changeToSignin}
       />
-    </WrapperModal>
+    </WrapperModalWindow>
   );
 };
 

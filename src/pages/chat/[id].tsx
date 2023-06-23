@@ -22,15 +22,14 @@ const Chat: React.FC = () => {
   const router = useRouter();
   const sync = useSync();
   const dispatch = useAppDispatch();
-  const { setSoulId, allowTyping, restoreDialog, addHistory } =
-    internalSlice.actions;
+  const { allowTyping } = internalSlice.actions;
   const soulId = router.query.id as string;
-  const { showCommonModal, isSmallHeader, showPaywallModal, dialog } =
-    useAppSelector((store) => store.internalReducer);
   const currentSoulsData = getSoulsDataForId(soulId);
+
   if (currentSoulsData) {
     localStorageHandler.setSoulData(currentSoulsData as ISoulsData);
   }
+  
   const isAuth = localStorageHandler.getAccessToken();
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);

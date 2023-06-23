@@ -1,4 +1,4 @@
-import { setNextPayment } from "@/utils/functions";
+import { getNextPaymentDate } from "@/utils/functions";
 import { IUserData } from "../../../types/app-common.types";
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
@@ -67,7 +67,7 @@ export const userSlice = createSlice({
 
     setProPlan(state) {
       state.questionsAmount = "Infinity";
-      state.nextPayment = setNextPayment();
+      state.nextPayment = getNextPaymentDate();
     },
 
     cancelSubscription(state) {
