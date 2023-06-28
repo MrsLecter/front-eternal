@@ -44,9 +44,11 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
           })
         );
         const lastChatMessage = document.getElementById("chatBottom");
+
         if (lastChatMessage) {
           lastChatMessage.scrollIntoView();
         }
+        
         dispatch(allowTyping());
       });
 

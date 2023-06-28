@@ -24,25 +24,22 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
 
   const isAuth = localStorageHandler.getAccessToken();
   const { removeOneQuestion } = userSlice.actions;
-  const {
-    disallowTyping,
-    addToDialog,
-    toggleToSignup,
-    toggleToPayment,
-  } = internalSlice.actions;
+  const { disallowTyping, addToDialog, toggleToSignup, toggleToPayment } =
+    internalSlice.actions;
 
   const { isTypingAllowed } = useAppSelector((store) => store.internalReducer);
   const dispatch = useAppDispatch();
   const [userInput, setUserInput] = useState<string>("");
   const lastChatMessage = document.getElementById("chatBottom");
-  
+
   const submitQuestionHandler = (event: FormEvent) => {
     event.preventDefault();
 
     if (!isAuth) {
       dispatch(toggleToSignup());
     }
-    if (!questionsAmount ) {
+
+    if (!questionsAmount) {
       dispatch(toggleToPayment());
     } else if (nextPayment && isSubscriptionExpired(nextPayment as Date)) {
       dispatch(toggleToPayment());
@@ -86,7 +83,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
         if (lastChatMessage) {
           lastChatMessage.scrollIntoView();
         }
-        const response = sendMessageToChannel({
+        sendMessageToChannel({
           questionText: userInput.trim(),
           soulId,
         });

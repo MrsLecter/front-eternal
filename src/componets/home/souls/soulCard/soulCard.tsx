@@ -9,7 +9,7 @@ import {
   StyledSoulCard,
 } from "./soulCard.styles";
 import { ISoulCard } from "./soulCard.types";
-import localStorageHandler from "@/utils/local-storage-hendler";
+import { useRouter } from "next/router";
 
 const SoulCard: React.FC<ISoulCard> = ({
   id,
@@ -22,6 +22,7 @@ const SoulCard: React.FC<ISoulCard> = ({
 }) => {
   const { setFirstMessage, setSoulId } = internalSlice.actions;
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   let largeWidth = 0;
   let largeHeight = 0;
@@ -40,8 +41,21 @@ const SoulCard: React.FC<ISoulCard> = ({
     dispatch(setSoulId({ soulid: id }));
   };
 
+  const handleSoulsPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      dispatch(setFirstMessage({ type: "intro" }));
+      dispatch(setSoulId({ soulid: id }));
+      router.push(APP_ROUTES.Chat + id);
+    }
+  };
+
   return (
-    <Link tabIndex={-1} href={APP_ROUTES.Chat + id} onClick={handleSoulClick}>
+    <Link
+      tabIndex={-1}
+      href={APP_ROUTES.Chat + id}
+      onClick={handleSoulClick}
+      onKeyDown={(e) => handleSoulsPress(e)}
+    >
       <StyledSoulCard tabIndex={0}>
         <StyledImageWrapper
           enlargedImage={enlargedImage}

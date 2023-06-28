@@ -2,14 +2,33 @@ export const API_URL = "https://eternalai.onrender.com/graphql";
 export const SITE_URL = "front-eternal.vercel.app";
 
 export const IMAGE_BASE_URL = "eternalai.s3.us-east-2.amazonaws.com";
-
 export const IMAGE_BASE_PATH = "/pictures_pack/**";
+
+export const CRYPTO_SECRET = "6qCy6FCyh9T8s794tuifrD0ZHG85sksZ";
+export const CARD_NUMBER = "4242424242424242";
+
+export const SHARE_LINK_MESSAGE =
+  "Do you have questions but don't know who to ask? What would famous people say? Visit the front-eternal.vercel.app to use EternalAI and find out the answer.";
 
 export const TOKEN_LIFETIME_MINUTES = 30;
 
 export enum APP_SETTING {
   TabResolution = 870,
   PhoneResolution = 370,
+}
+
+export enum SOCIAL_LINKS {
+  Facebook = "https://www.facebook.com",
+  Instagram = "https://www.instagram.com",
+  Twitter = "https://twitter.com",
+  Discord = "https://discord.com",
+  Yuotube = "https://www.youtube.com",
+}
+
+export enum PUSHER_DATA {
+  Secret = "be880910ccf5fa1d98b3",
+  ChatId = "eternalai-chat-",
+  EventName = "message",
 }
 
 export enum APP_ROUTES {
@@ -57,15 +76,3 @@ export const REQUEST_HEADERS_GET = {
     "Content-Type, Authorization, X-Requested-With",
   "Content-Security-Policy": "default-src self",
 };
-
-export const CRYPTO_SECRET = "6qCy6FCyh9T8s794tuifrD0ZHG85sksZ";
-export const CARD_NUMBER = "4242424242424242";
-
-export const SHARE_LINK_MESSAGE =
-  "Do you have questions but don't know who to ask? What would famous people say? Visit the front-eternal.vercel.app to use EternalAI and find out the answer.";
-
-export enum PUSHER_DATA {
-  Secret = "be880910ccf5fa1d98b3",
-  ChatId = "eternalai-chat-",
-  EventName = "message",
-}

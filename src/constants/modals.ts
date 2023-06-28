@@ -24,9 +24,4 @@ export const ABOUT_TEXT =
 export const ABOUT_TEXT_SECOND =
   "The creators of this platform have the best intentions with this project, and deeply admire each and every character on the site. You might even say they are our Heroes. In fact, you can say that.";
 
-export enum SOCIAL_LINKS {
-  Facebook = "https://www.facebook.com",
-  Instagram = "https://www.instagram.com",
-  Twitter = "https://twitter.com",
-  Discord = "https://discord.com",
-}
+

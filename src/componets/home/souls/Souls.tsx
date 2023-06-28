@@ -16,7 +16,7 @@ const Souls: React.FC = () => {
       />
       <SoulsContainer>
         {SOULS_DATA &&
-          SOULS_DATA.map((item, index) => {
+          SOULS_DATA.map((item) => {
             if (
               item.id === 0 ||
               item.id === 2 ||

@@ -110,10 +110,12 @@ const UpdatePaymentBlock: React.FC = () => {
         cvc: CVV,
       };
 
-      const encrypted = encrypt(JSON.stringify(cardObject));
+      const encryptedCardData = encrypt(JSON.stringify(cardObject));
 
       try {
-        const response = await userService.updateSubscription(encrypted);
+        const response = await userService.updateSubscription(
+          encryptedCardData
+        );
 
         if (response.status === 201) {
           dispatch(setProPlan());

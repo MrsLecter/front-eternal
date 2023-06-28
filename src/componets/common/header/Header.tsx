@@ -1,8 +1,9 @@
 import MenuBtn from "../buttons/MenuBtn";
-import Logo from "../logo/Logo";
-import TextBtn from "../buttons/TextBtn";
-import PrimaryBtn from "../buttons/PrimaryBtn";
+import ShareBtn from "./elements/ShareBtn";
 import CloseBtn from "../buttons/CloseBtn";
+import ButtonsContainer from "./elements/ButtonsContainer";
+import Logo from "../logo/Logo";
+import { StyledHeader } from "./Header.styles";
 import {
   APP_ROUTES,
   APP_SETTING,
@@ -10,11 +11,9 @@ import {
 } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { userSlice } from "@/store/reducers/userSlice";
+import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
-import { internalSlice } from "@/store/reducers/internalSlice";
-import ShareBtn from "./elements/ShareBtn";
-import { StyledHeader, StyledTextWrapper } from "./Header.styles";
 import { IHeader } from "./Header.types";
 
 const Header: React.FC<IHeader> = ({
@@ -28,7 +27,6 @@ const Header: React.FC<IHeader> = ({
   const { signout } = userSlice.actions;
   const { showMenuModal, backdropClick, toggleToLogin, toggleToSignup } =
     internalSlice.actions;
-
   const { showCommonModal, showPaywallModal } = useAppSelector(
     (store) => store.internalReducer
   );
@@ -106,41 +104,17 @@ const Header: React.FC<IHeader> = ({
           <CloseBtn clickHandler={closeClickHandler} />
         </div>
       )}
-      {!isSmall && (
-        <div>
-          {document.documentElement.clientWidth > APP_SETTING.TabResolution &&
-            (isAuth ? (
-              isHaveShareBtn ? (
-                <ShareBtn clickHandler={shareBtnHandler} />
-              ) : (
-                <>
-                  <StyledTextWrapper>
-                    <TextBtn label={"sign out"} clickHandler={signoutHandler} />
-                  </StyledTextWrapper>
-                </>
-              )
-            ) : (
-              <>
-                {isHaveShareBtn ? (
-                  <ShareBtn clickHandler={shareBtnHandler} />
-                ) : (
-                  <>
-                    <StyledTextWrapper>
-                      <TextBtn
-                        label={"login"}
-                        clickHandler={loginClickHandler}
-                      />
-                    </StyledTextWrapper>
-                    <PrimaryBtn
-                      label={"get started"}
-                      clickHandler={signupClickHandler}
-                    />
-                  </>
-                )}
-              </>
-            ))}
-        </div>
-      )}
+      {!isSmall &&
+        document.documentElement.clientWidth > APP_SETTING.TabResolution && (
+          <ButtonsContainer
+            isHaveShareBtn={isHaveShareBtn}
+            isAuth={isAuth}
+            shareBtnHandler={shareBtnHandler}
+            signoutHandler={signoutHandler}
+            signupClickHandler={signupClickHandler}
+            loginClickHandler={loginClickHandler}
+          />
+        )}
     </StyledHeader>
   );
 };

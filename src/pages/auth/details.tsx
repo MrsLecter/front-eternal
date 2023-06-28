@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Header from "@/componets/common/header/Header";
 import Footer from "@/componets/common/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { userSlice } from "@/store/reducers/userSlice";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import {
   StyledModalWrapper,
@@ -18,11 +17,9 @@ import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import BackgroundDetails from "@/componets/details/BackgroundDetails";
-import { liftToTop } from "@/utils/functions";
 import WrapperModalWindow from "@/componets/common/wrappers/wrapperModalWindow/WrapperModalWindow";
 
 const Details: React.FC = () => {
-  const { signin } = userSlice.actions;
   const dispatch = useAppDispatch();
   const sync = useSync();
   const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =

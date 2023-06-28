@@ -11,7 +11,6 @@ import { useLazyQuery } from "@apollo/client";
 import { getFreeAnswerQueryString } from "@/utils/graphql-query-string";
 import soulsService from "@/api/souls-service";
 import { StyledChatBox } from "./ChatBox.styles";
-
 import UserMessage from "./elements/userMessage/UserMessage";
 import SoulMessage from "./elements/soulMessage/SoulMessage";
 import ChatFeedback from "./elements/chatFeedback/ChatFeedback";
@@ -31,8 +30,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   const { userQuestionType, firstMessage, dialog } = useAppSelector(
     (store) => store.internalReducer
   );
-  const [isChatCompleteLoading, setisChatCompleteLoading] =
-    useState<boolean>(true);
 
   const {
     deleteFirstMessage,
@@ -43,8 +40,11 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     addHistory,
   } = internalSlice.actions;
 
+  const [isChatCompleteLoading, setisChatCompleteLoading] =
+    useState<boolean>(true);
   const [isHistoryLoading, setIsHistoryLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+
   const goToOldPosition = () => {
     if (positionRef.current) {
       setTimeout(function () {
@@ -70,6 +70,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
   useEffect(() => {
     if (dialog.length === 0) {
       const localDialogObj = localStorageHandler.getDialog();
+
       if (localDialogObj) {
         dispatch(
           restoreDialog({
@@ -102,7 +103,7 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
     if (firstMessage && data && data.souls[0]) {
       dispatch(disallowTyping());
       if (userQuestionType !== "intro" || !isAuth) {
-        const soulMessageDelay = setTimeout(() => {
+        setTimeout(() => {
           dispatch(
             addToDialog({
               message: getConstructedMessage({
@@ -124,7 +125,6 @@ const ChatBox: React.FC<IChatBoxProps> = ({ avatarImg, soulId }) => {
       }
 
       setisChatCompleteLoading(true);
-
       localStorageHandler.updateDialog({
         dialog,
       });
