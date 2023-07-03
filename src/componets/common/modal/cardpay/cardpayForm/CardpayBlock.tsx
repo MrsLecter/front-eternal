@@ -91,7 +91,7 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
       try {
         const response = await userService.setProPlan(encrypted);
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           dispatch(setProPlan());
           localStorageHandler.setProPlan();
           dispatch(toggleToResult());
