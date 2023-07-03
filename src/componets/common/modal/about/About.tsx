@@ -1,4 +1,4 @@
-import { ABOUT_TEXT, ABOUT_TEXT_SECOND } from "@/constants/modals";
+import { ABOUT_TEXT, ABOUT_TEXT_SECOND } from "@/constants/text-messages";
 import Checkbox from "@/componets/about/Checkbox";
 import { useEffect, useState } from "react";
 import { userSlice } from "@/store/reducers/userSlice";

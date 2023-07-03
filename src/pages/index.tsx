@@ -134,17 +134,7 @@ export default function Home() {
     localStorageHandler.removeSoulData();
   }, []);
 
-  useEffect(() => {
-    const pageContent = document.getElementById("content");
 
-    if ((pageContent && showCommonModal) || (pageContent && showPaywallModal)) {
-      pageContent.blur();
-    }
-
-    if (pageContent && !showCommonModal && !showPaywallModal) {
-      pageContent.focus();
-    }
-  }, []);
 
   const MainContent = useMemo(() => {
     return (

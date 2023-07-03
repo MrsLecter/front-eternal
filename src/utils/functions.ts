@@ -1,4 +1,4 @@
-import { SOULS_DATA } from "@/constants/greeting";
+import { SOULS_DATA } from "@/constants/souls-data";
 import { ISoulsData } from "../../types/app-common.types";
 import crypto from "crypto";
 import soulsService from "@/api/souls-service";

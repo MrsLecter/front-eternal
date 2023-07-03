@@ -2,7 +2,7 @@ import paypalIcon from "@icons/paypal.svg";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
 import { encrypt } from "@/utils/functions";
-import { CARD_NUMBER } from "@/constants/common";
+import { CARD_NUMBER_TEST } from "@/constants/common";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
@@ -81,7 +81,7 @@ const CardpayBlock: React.FC<ICardpayBlockProps> = ({
       const [month, year] = monthYear.split("/");
 
       const cardObject = {
-        card: CARD_NUMBER,
+        card: CARD_NUMBER_TEST,
         exp_year: 20 + year,
         exp_month: month,
         cvc: CVV,

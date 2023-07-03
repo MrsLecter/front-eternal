@@ -11,7 +11,7 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
-import { CARD_NUMBER } from "@/constants/common";
+import { CARD_NUMBER_TEST } from "@/constants/common";
 import {
   StyledCardWrapper,
   StyledTextWrapper,
@@ -104,7 +104,7 @@ const UpdatePaymentBlock: React.FC = () => {
     if (cardNumberIsValid && monthYearIsValid && CVVIsValid) {
       const [month, year] = (monthYear as string).split("/");
       const cardObject = {
-        card: CARD_NUMBER,
+        card: CARD_NUMBER_TEST,
         exp_year: 20 + year,
         exp_month: month,
         cvc: CVV,

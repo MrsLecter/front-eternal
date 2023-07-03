@@ -13,7 +13,7 @@ import {
   UPDATE_SUBSCRIPTION_URL,
   SET_FREE_SUBSCRIPTION,
   CHANGE_PASSWORD,
-} from "@/constants/common";
+} from "@/constants/routes-api";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import axiosInstance from "./custom-axios-instance";
 import {

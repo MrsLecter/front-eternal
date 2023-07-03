@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/constants/common";
-import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
+import { GREETING_USER_QUESTIONS } from "@/constants/greeting-user-questions";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { userSlice } from "@/store/reducers/userSlice";

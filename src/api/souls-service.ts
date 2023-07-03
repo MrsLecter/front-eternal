@@ -1,4 +1,4 @@
-import {  ASK_QUESTION, GET_HISTORY_URL } from "@/constants/common";
+import { ASK_QUESTION, GET_HISTORY_URL } from "@/constants/routes-api";
 import { IChatHistoryResponse, ISoulsResponse } from "./souls-service-types";
 import axiosInstance from "./custom-axios-instance";
 

@@ -1,4 +1,4 @@
-import { SOULS_DATA } from "@/constants/greeting";
+import { SOULS_DATA } from "@/constants/souls-data";
 import Title from "@/componets/common/title/Title";
 import { StyledSectionLeft } from "./Souls.styles";
 import SoulsContainer from "./soulsContainer/SoulsContainer";

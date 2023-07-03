@@ -3,7 +3,7 @@ import Header from "@/componets/common/header/Header";
 import { useRouter } from "next/router";
 import Messages from "@/componets/chat/messages/Messages";
 import { getSoulsDataForId } from "@/utils/functions";
-import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { useAppDispatch } from "@/hooks/reducers.hook";
 import HeadCommon from "@/componets/common/headCommon/HeadCommon";
 import WrapperPage from "@/componets/common/wrappers/wrapperPage/WrapperPage";
 import Loader from "@/componets/common/loader/Loader";
@@ -29,8 +29,7 @@ const Chat: React.FC = () => {
   if (currentSoulsData) {
     localStorageHandler.setSoulData(currentSoulsData as ISoulsData);
   }
-  
-  const isAuth = localStorageHandler.getAccessToken();
+
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
 

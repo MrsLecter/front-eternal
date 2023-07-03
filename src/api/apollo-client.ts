@@ -1,4 +1,4 @@
-import { API_URL } from "@/constants/common";
+import { API_URL } from "@/constants/routes-api";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const apolloClient = new ApolloClient({

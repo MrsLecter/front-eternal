@@ -1,4 +1,4 @@
-import { GREETING_USER_QUESTIONS } from "@/constants/greeting";
+import { GREETING_USER_QUESTIONS } from "@/constants/greeting-user-questions";
 import QuestionItem from "../questionItem/QuestionItem";
 import styled from "styled-components";
 import { TUserQuestion } from "../../../../../types/app-common.types";

@@ -1,5 +1,5 @@
 import FocusTrap from "focus-trap-react";
-import { FOCUS_TRAP_OPTIONS } from "@/constants/focus-trap-options";
+import { FOCUS_TRAP_OPTIONS } from "@/config/focus-trap-options";
 import { useAppSelector } from "@/hooks/reducers.hook";
 import Header from "../../header/Header";
 import { StyledModalWindowContainer } from "./ModalWindowContainer.styles";

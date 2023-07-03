@@ -4,17 +4,14 @@ import CloseBtn from "../buttons/CloseBtn";
 import ButtonsContainer from "./elements/ButtonsContainer";
 import Logo from "../logo/Logo";
 import { StyledHeader } from "./Header.styles";
-import {
-  APP_ROUTES,
-  APP_SETTING,
-  SHARE_LINK_MESSAGE,
-} from "@/constants/common";
+import { APP_ROUTES, APP_SETTING } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { userSlice } from "@/store/reducers/userSlice";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import { IHeader } from "./Header.types";
+import { SHARE_LINK_MESSAGE } from "@/constants/text-messages";
 
 const Header: React.FC<IHeader> = ({
   isHaveClose = false,

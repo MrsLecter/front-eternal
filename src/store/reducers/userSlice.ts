@@ -1,6 +1,6 @@
 import { getNextPaymentDate } from "@/utils/functions";
 import { IUserData } from "../../../types/app-common.types";
-import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const userSetting: IUserData = {
   id: 0,

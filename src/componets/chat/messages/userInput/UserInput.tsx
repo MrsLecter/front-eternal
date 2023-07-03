@@ -39,7 +39,7 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
       dispatch(toggleToSignup());
     }
 
-    if (!questionsAmount) {
+    if (!questionsAmount && isAuth) {
       dispatch(toggleToPayment());
     } else if (nextPayment && isSubscriptionExpired(nextPayment as Date)) {
       dispatch(toggleToPayment());

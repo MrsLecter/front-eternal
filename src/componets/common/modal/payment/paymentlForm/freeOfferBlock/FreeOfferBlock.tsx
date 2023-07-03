@@ -1,10 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { userSlice } from "@/store/reducers/userSlice";
-import { SHARE_LINK_MESSAGE } from "@/constants/common";
+import { SHARE_LINK_MESSAGE } from "@/constants/text-messages";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import userService from "@/api/user-service";
 import SecondaryWhiteBtn from "@/componets/common/buttons/SecondaryWhiteBtn";
-import { StyledBtnWrapper, StyledFreeOfferBlock, StyledLabel, StyledOffer } from "./FreeOfferBlock.styles";
+import {
+  StyledBtnWrapper,
+  StyledFreeOfferBlock,
+  StyledLabel,
+  StyledOffer,
+} from "./FreeOfferBlock.styles";
 
 const FreeOfferBlock: React.FC = () => {
   const { shareLink } = useAppSelector((store) => store.userReducer);
@@ -51,7 +56,5 @@ const FreeOfferBlock: React.FC = () => {
     </StyledFreeOfferBlock>
   );
 };
-
-
 
 export default FreeOfferBlock;
