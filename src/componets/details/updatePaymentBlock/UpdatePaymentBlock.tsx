@@ -1,8 +1,8 @@
-import CardNumberInput from "../../common/input/cardNumberInput/CardNumberInput";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
-import PricingBlock from "../../common/pricingBlock/PricingBlock";
-import TextBtn from "../../common/buttons/TextBtn";
-import SecondaryWhiteBtn from "../../common/buttons/SecondaryWhiteBtn";
+import CardNumberInput from "@common/input/cardNumberInput/CardNumberInput";
+import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
+import PricingBlock from "@common/pricingBlock/PricingBlock";
+import TextBtn from "@common/buttons/TextBtn";
+import SecondaryWhiteBtn from "@common/buttons/SecondaryWhiteBtn";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { encrypt, getPrettyDate } from "@/utils/functions";
 import { FormEvent, useState } from "react";

@@ -1,5 +1,5 @@
-import Input from "../../common/input/input/Input";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
+import Input from "@common/input/input/Input";
+import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
 import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
 import { FormEvent } from "react";

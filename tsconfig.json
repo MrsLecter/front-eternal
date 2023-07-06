@@ -20,6 +20,7 @@
       "@icons/*": ["./public/icons/*"],
       "@images/*": ["./public/images/*"],
       "@typography/*": ["./src/styles/textStyles/*"],
+      "@common/*": ["./src/componets/common/*"],
     }
   },
   "include": ["next-env.d.ts", "types/**/*.ts","**/*.ts", "**/*.tsx", "src/common/modals/menuModal/menuButtons", "sitemap.ts"],

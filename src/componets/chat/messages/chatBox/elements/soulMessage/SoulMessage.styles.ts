@@ -19,19 +19,6 @@ export const StyledSoulMessageBox = styled.div`
     border-radius: 50%;
     margin-right: 16px;
   }
-
-  button {
-    padding: 15px;
-    svg {
-      stroke: white;
-    }
-  }
-
-  button:hover {
-    svg {
-      stroke: ${({ theme }) => theme.color.pink};
-    }
-  }
 `;
 
 export const StyledSoulMessage = styled.div`
@@ -61,39 +48,6 @@ export const StyledSoulMessage = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    button {
-      width: 39px;
-      height: 39px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-
-      figure {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    button:focus {
-      svg {
-        stroke: ${({ theme }) => theme.color.pink};
-      }
-    }
-
-    svg {
-      width: 24px;
-      height: 24px;
-      stroke: white;
-      cursor: pointer;
-    }
-
-    svg:hover {
-      stroke: ${({ theme }) => theme.color.pink};
-    }
   }
 
   @media (max-width: 1000px) {

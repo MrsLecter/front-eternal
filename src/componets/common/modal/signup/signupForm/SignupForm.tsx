@@ -1,12 +1,11 @@
 "use client";
 
 import GoogleSignUp from "./elements/GoogleSignUpBtn";
-import PrimarySubmitBtn from "../../../buttons/PrimarySubmitBtn";
-import Input from "../../../input/input/Input";
+import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
+import Input from "@common/input/input/Input";
 import { FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { userSlice } from "@/store/reducers/userSlice";
 import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
@@ -15,7 +14,6 @@ import { internalSlice } from "@/store/reducers/internalSlice";
 import { StyledFormRow } from "./SignupForm.styles";
 
 const SignupForm: React.FC = () => {
-  const { setEmail } = userSlice.actions;
   const { toggleLoginSignup } = internalSlice.actions;
   const dispatch = useAppDispatch();
 

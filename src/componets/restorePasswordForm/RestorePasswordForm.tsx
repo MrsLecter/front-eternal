@@ -1,5 +1,3 @@
-import PrimarySubmitBtn from "../common/buttons/PrimarySubmitBtn";
-import Input from "../common/input/input/Input";
 import { FormEvent } from "react";
 import { useInput } from "@/hooks/use-input";
 import userService from "@/api/user-service";
@@ -7,9 +5,10 @@ import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { StyledFormRow } from "./RestorePassword.styles";
+import Input from "@common/input/input/Input";
+import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
 
-
-const RestorePasswordForm: React.FC= () => {
+const RestorePasswordForm: React.FC = () => {
   const { toggleLoginChangePassword } = internalSlice.actions;
   const dispatch = useAppDispatch();
 

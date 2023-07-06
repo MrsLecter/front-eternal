@@ -76,29 +76,41 @@ const SignInForm: React.FC = () => {
         });
 
         if (response.status === 201) {
+          const {
+            id,
+            email,
+            name,
+            phone,
+            readabout,
+            nextpayment,
+            questionsamount,
+            sharelink,
+            accesstoken,
+            refreshtoken,
+          } = response.data.message;
           dispatch(
             signin({
-              id: response.data.message.id,
-              email: response.data.message.email,
-              name: response.data.message.name,
-              phone: response.data.message.phone,
-              readAbout: response.data.message.readabout,
-              nextPayment: response.data.message.nextpayment,
-              questionsAmount: response.data.message.questionsamount,
-              shareLink: response.data.message.sharelink,
+              id,
+              email,
+              name,
+              phone,
+              readAbout: readabout,
+              nextPayment: nextpayment,
+              questionsAmount: questionsamount,
+              shareLink: sharelink,
             })
           );
           localStorageHandler.signin({
-            id: response.data.message.id,
-            email: response.data.message.email,
-            name: response.data.message.name,
-            phone: response.data.message.phone,
-            readabout: response.data.message.readabout,
-            nextpayment: response.data.message.nextpayment,
-            questionsamount: response.data.message.questionsamount,
-            accessToken: response.data.message.accesstoken,
-            refreshToken: response.data.message.refreshtoken,
-            shareLink: !!response.data.message.sharelink,
+            id,
+            email,
+            name,
+            phone,
+            readabout,
+            nextpayment,
+            questionsamount,
+            accessToken: accesstoken,
+            refreshToken: refreshtoken,
+            shareLink: !!sharelink,
             isGoogleAuth: false,
           });
           if (!response.data.message.readabout) {

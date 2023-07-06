@@ -18,19 +18,23 @@ const FreeOfferBlock: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const orderFreePlan = async () => {
-    if (shareLink) {
-      navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
-      alert("Link copied! Notice: you can get free questions only once");
-      const response = await userService.setFreePlan();
-    }
-    if (!shareLink) {
-      dispatch(setFreePlan());
-      localStorageHandler.setFreePaln();
-      navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
-      alert(
-        "Link copied. You now have the opportunity to ask 3 questions! Notice: you can get free questions only once"
-      );
-      const response = await userService.setFreePlan();
+    try {
+      if (shareLink) {
+        navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+        alert("Link copied! Notice: you can get free questions only once");
+        await userService.setFreePlan();
+      }
+      if (!shareLink) {
+        dispatch(setFreePlan());
+        localStorageHandler.setFreePaln();
+        navigator.clipboard.writeText(SHARE_LINK_MESSAGE);
+        alert(
+          "Link copied. You now have the opportunity to ask 3 questions! Notice: you can get free questions only once"
+        );
+        await userService.setFreePlan();
+      }
+    } catch (err) {
+      console.error("Error: bad purchase. Try again");
     }
   };
 

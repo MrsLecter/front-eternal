@@ -78,6 +78,7 @@ const Details: React.FC = () => {
             <WrapperModalWindow width={"760"} isPaddingSmall={true}>
               <UpdatePaymentBlock />
             </WrapperModalWindow>
+            
           </StyledModalWrapper>
           <Footer />
           <ModalContainer />

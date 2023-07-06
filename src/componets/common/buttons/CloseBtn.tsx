@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 interface ICloseBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
@@ -7,7 +6,7 @@ interface ICloseBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const CloseBtn: React.FC<ICloseBtnProps> = (props) => {
   const { clickHandler, ...defaultProps } = props;
-  const router = useRouter();
+
   return (
     <StyledCloseBtn
       onClick={clickHandler}

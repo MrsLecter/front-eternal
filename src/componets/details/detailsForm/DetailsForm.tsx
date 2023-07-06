@@ -1,5 +1,5 @@
-import Input from "../../common/input/input/Input";
-import PrimarySubmitBtn from "../../common/buttons/PrimarySubmitBtn";
+import Input from "@common/input/input/Input";
+import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
 import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from "@/utils/regexp";

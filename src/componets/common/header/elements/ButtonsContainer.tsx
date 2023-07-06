@@ -23,14 +23,14 @@ const ButtonsContainer: React.FC<IButttonsContainerProps> = ({
   return (
     <div>
       {isHaveShareBtn && <ShareBtn clickHandler={shareBtnHandler} />}
-      {isAuth && (
+      {isAuth && !isHaveShareBtn && (
         <>
           <StyledTextWrapper>
             <TextBtn label={"sign out"} clickHandler={signoutHandler} />
           </StyledTextWrapper>
         </>
       )}
-      {!isAuth && (
+      {!isAuth && !isHaveShareBtn && (
         <>
           <StyledTextWrapper>
             <TextBtn label={"login"} clickHandler={loginClickHandler} />

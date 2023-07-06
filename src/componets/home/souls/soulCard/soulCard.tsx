@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/constants/common";
-import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
+import { useAppDispatch } from "@/hooks/reducers.hook";
 import { internalSlice } from "@/store/reducers/internalSlice";
 import Image from "next/image";
 import Link from "next/link";
@@ -136,7 +136,6 @@ const SoulCard: React.FC<ISoulCard> = ({
                   zIndex: 3,
                   width: "100%",
                   height: "100%",
-
                   maxHeight: "228.72px",
                   objectFit: "cover",
                   borderRadius: "16px",

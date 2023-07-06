@@ -1,5 +1,4 @@
 import CheckmarkCircle from "../../payment/paymentlForm/elements/CheckmarkCircle";
-
 import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
