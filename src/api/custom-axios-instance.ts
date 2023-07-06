@@ -35,10 +35,6 @@ const axiosInstance = () => {
           window.location.replace(APP_ROUTES.Home);
         }
       }
-      // } else {
-      //   localStorageHandler.deleteUsersData();
-      //   window.location.replace(APP_ROUTES.Home);
-      // }
     } else {
       alert("Error! Try again");
       return error.response;

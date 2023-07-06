@@ -49,7 +49,8 @@ export const getCapitalizeName = (name: string): string => {
   for (let word of name.split(" ")) {
     capitalizedChars.push(word[0].toUpperCase() + word.substring(1));
   }
-  return capitalizedChars.join(" ");
+  const joinedName = capitalizedChars.join(" ");
+  return joinedName;
 };
 
 export const getPrettyDate = (date: Date | string): string => {

@@ -6,15 +6,13 @@ export const isValidInput = (
     return true;
   }
 
-  if (
-    type === "mmyy" &&
-    value.length > 4 &&
-    +value.split("/")[0] >0 &&
-    +value.split("/")[0] < 13 &&
-    +value.split("/")[1] >22 &&
-    +value.split("/")[1] < 28
-  ) {
-    return true;
+  if (type === "mmyy" && value.length > 4) {
+    const month = +value.split("/")[0];
+    const year = +value.split("/")[1];
+    
+    if (month > 0 && month <= 12 && year >= 23 && year < 28) {
+      return true;
+    }
   }
 
   if (type === "cardnumber" && value.length > 18) {
