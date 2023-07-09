@@ -1,6 +1,6 @@
 import { APP_ROUTES } from "@/constants/common";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import { setFirstMessage, setSoulId } from "@/store/reducers/internalSlice";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,8 +10,9 @@ import {
 } from "./soulCard.styles";
 import { ISoulCard } from "./soulCard.types";
 import { useRouter } from "next/router";
+import { FC } from "react";
 
-const SoulCard: React.FC<ISoulCard> = ({
+const SoulCard: FC<ISoulCard> = ({
   id,
   name,
   about,
@@ -20,7 +21,6 @@ const SoulCard: React.FC<ISoulCard> = ({
   enlargedImage = false,
   isReflected = false,
 }) => {
-  const { setFirstMessage, setSoulId } = internalSlice.actions;
   const dispatch = useAppDispatch();
   const router = useRouter();
 

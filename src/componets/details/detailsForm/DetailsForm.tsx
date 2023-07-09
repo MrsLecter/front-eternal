@@ -1,16 +1,15 @@
 import Input from "@common/input/input/Input";
 import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
-import { userSlice } from "@/store/reducers/userSlice";
+import { setNewUserDetails } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import userService from "@/api/user-service";
 import { StyledForm } from "./DetailsForm.styles";
 import localStorageHandler from "@/utils/local-storage-hendler";
 
-const DetailsForm: React.FC = () => {
-  const { setNewUserDetails } = userSlice.actions;
+const DetailsForm: FC = () => {
   const dispatch = useAppDispatch();
   const { email, name, phone } = useAppSelector((store) => store.userReducer);
 

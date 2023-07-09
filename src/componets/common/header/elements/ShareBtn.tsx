@@ -2,12 +2,13 @@ import styled from "styled-components";
 import Image from "next/image";
 import { StyledBorderedBtn, StyledSecondary } from "../../buttons/SecondaryBtn";
 import shareIcon from "@icons/share-btn.svg";
+import { FC } from "react";
 
 interface IShareBtnProps {
   clickHandler?: () => void;
 }
 
-const ShareBtn: React.FC<IShareBtnProps> = (props) => {
+const ShareBtn: FC<IShareBtnProps> = (props) => {
   const { clickHandler, ...rest } = props;
   const shareBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();

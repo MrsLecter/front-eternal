@@ -2,8 +2,9 @@ import Image from "next/image";
 import checkmarkIcon from "@icons/checkmark.svg";
 import { StyledCheckbox } from "./Checkbox.styles";
 import { ICheckboxProps } from "./Checkbox.types";
+import { FC } from "react";
 
-const Checkbox: React.FC<ICheckboxProps> = ({ label, checked, setChecked }) => {
+const Checkbox: FC<ICheckboxProps> = ({ label, checked, setChecked }) => {
   
   const setCheckedOnEnter = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface ITextBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -5,7 +6,7 @@ interface ITextBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
 }
 
-const TextBtn: React.FC<ITextBtnProps> = (props) => {
+const TextBtn: FC<ITextBtnProps> = (props) => {
   const { label, clickHandler, ...defaultProps } = props;
   const textBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();

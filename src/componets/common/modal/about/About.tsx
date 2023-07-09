@@ -1,7 +1,7 @@
 import { ABOUT_TEXT, ABOUT_TEXT_SECOND } from "@/constants/text-messages";
 import Checkbox from "@/componets/about/Checkbox";
-import { useEffect, useState } from "react";
-import { userSlice } from "@/store/reducers/userSlice";
+import { FC, useEffect, useState } from "react";
+import { setReadAbout, signin } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import { APP_ROUTES, StorageCellEnum } from "@/constants/common";
@@ -9,16 +9,13 @@ import { ILocalStorageData } from "../../../../../types/app-common.types";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import userService from "@/api/user-service";
 import PrimarySubmitBtn from "../../buttons/PrimarySubmitBtn";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
+import { backdropClick } from "@/store/reducers/modalSlice";
 
-const About: React.FC = () => {
+const About: FC = () => {
   const [checked, setChecked] = useState<boolean>(false);
-  const { setReadAbout } = userSlice.actions;
-  const { backdropClick } = internalSlice.actions;
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { signin } = userSlice.actions;
 
   useEffect(() => {
     let localData = localStorage.getItem(StorageCellEnum.USER);

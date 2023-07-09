@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import * as Arquitecta from "@typography/Arquitecta";
 import * as Avenir from "@/styles/textStyles/Avenir";
+import { FC } from "react";
 
 interface ITitleProps {
   label: string;
@@ -8,7 +9,7 @@ interface ITitleProps {
   center: boolean;
 }
 
-const Title: React.FC<ITitleProps> = ({ label, description, center }) => {
+const Title: FC<ITitleProps> = ({ label, description, center }) => {
   return (
     <StyledTitle center={center}>
       <Arquitecta.H1>{label}</Arquitecta.H1>

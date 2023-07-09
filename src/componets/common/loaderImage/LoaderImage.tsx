@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   BagelEllipse,
   BagelWrapper,
@@ -9,7 +10,7 @@ interface ILoaderImageProps {
   type?: "loader" | "background" | "mobile";
 }
 
-const LoaderImage: React.FC<ILoaderImageProps> = ({ type = "background" }) => {
+const LoaderImage: FC<ILoaderImageProps> = ({ type = "background" }) => {
   const basis = 1640;
   let aspectRatio: number;
   if (type === "loader") {

@@ -1,12 +1,13 @@
 import Logo from "../logo/Logo";
 import CloseBtn from "../buttons/CloseBtn";
 import { StyledHeaderModal } from "./HeaderModal.styles";
+import { FC } from "react";
 
 interface IHeaderModalProps {
   closeBtnHandler: () => void;
 }
 
-const HeaderModal: React.FC<IHeaderModalProps> = ({ closeBtnHandler }) => {
+const HeaderModal: FC<IHeaderModalProps> = ({ closeBtnHandler }) => {
   return (
     <StyledHeaderModal>
       <div>

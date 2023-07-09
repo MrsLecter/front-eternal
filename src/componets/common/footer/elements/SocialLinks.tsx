@@ -5,8 +5,9 @@ import facebokIcon from "@icons/social-facebook.svg";
 import { H6 } from "@/styles/textStyles/Arquitecta";
 import { StyledSocial } from "./SocialLinks.styled";
 import { SOCIAL_LINKS } from "@/constants/common";
+import { FC } from "react";
 
-const SocialLinks: React.FC = () => {
+const SocialLinks: FC = () => {
   return (
     <StyledSocial>
       <H6>follow us</H6>

@@ -1,6 +1,5 @@
 import OfferList from "../elements/OfferList";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import TitlePricing from "@/componets/common/title/TitlePricing";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
@@ -10,11 +9,11 @@ import {
   WrapperPrimary,
 } from "./ProOfferBlock.styles";
 import ProLabel from "@/componets/common/label/ProLabel";
+import { toggleToCardpay } from "@/store/reducers/modalSlice";
+import { FC } from "react";
 
-const ProOfferBlock: React.FC = () => {
+const ProOfferBlock: FC = () => {
   const isAuth = localStorageHandler.getAccessToken();
-
-  const { toggleToCardpay } = internalSlice.actions;
   const dispatch = useAppDispatch();
 
   const goToCardPay = () => {

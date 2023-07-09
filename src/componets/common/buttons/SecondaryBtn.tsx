@@ -1,5 +1,6 @@
 import shareIcon from "@icons/share-btn.svg";
 import Image from "next/image";
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IBorderedBtnProps
@@ -7,7 +8,7 @@ interface IBorderedBtnProps
   clickHandler?: () => void;
 }
 
-const BorderedBtn: React.FC<IBorderedBtnProps> = (props) => {
+const BorderedBtn: FC<IBorderedBtnProps> = (props) => {
   const { clickHandler, ...defaultProps } = props;
   return (
     <StyledShareBorderBtn onClick={clickHandler} {...defaultProps}>

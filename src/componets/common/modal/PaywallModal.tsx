@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import BackScreenWithImage from "./backScreen/BackScreenWithImage";
 import ModalWindowContainer from "./modalWindow/ModalWindowContainer";
@@ -8,12 +8,8 @@ interface IPaywallModal {
   backClickHandler: () => void;
 }
 
-const PaywallModal: React.FC<IPaywallModal> = ({
-  children,
-  backClickHandler,
-}) => {
+const PaywallModal: FC<IPaywallModal> = ({ children, backClickHandler }) => {
   const [render, setRender] = useState(false);
-
   useEffect(() => setRender(true), []);
 
   if (render) {

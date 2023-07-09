@@ -3,7 +3,7 @@ import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
 import { encrypt } from "@/utils/functions";
 import { CARD_NUMBER_TEST } from "@/constants/common";
-import { userSlice } from "@/store/reducers/userSlice";
+import { setProPlan, userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
@@ -21,16 +21,14 @@ import {
   TitleWrapper,
 } from "./CardpayBlock.styles";
 import ProLabel from "@/componets/common/label/ProLabel";
+import { FC } from "react";
+import { toggleToResult } from "@/store/reducers/modalSlice";
 
 interface ICardpayBlockProps {
   isNeedSubmitBtn?: boolean;
 }
 
-const CardpayBlock: React.FC<ICardpayBlockProps> = ({
-  isNeedSubmitBtn = true,
-}) => {
-  const { setProPlan } = userSlice.actions;
-  const { toggleToResult } = internalSlice.actions;
+const CardpayBlock: FC<ICardpayBlockProps> = ({ isNeedSubmitBtn = true }) => {
   const dispatch = useAppDispatch();
 
   const {

@@ -3,15 +3,16 @@ import FocusTrap from "focus-trap-react";
 import Header from "../../header/Header";
 import { useAppSelector } from "@/hooks/reducers.hook";
 import { ContentWrapper, ModalDiv, ModalWrapper } from "./ModalWindow.styles";
+import { FC } from "react";
 
 export interface IModalWindowProps {
   children: React.ReactNode;
   closeModal: () => void;
 }
 
-const ModalWindow: React.FC<IModalWindowProps> = ({ children, closeModal }) => {
+const ModalWindow: FC<IModalWindowProps> = ({ children, closeModal }) => {
   const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
 
   const backdropClickHandler = (event: React.MouseEvent) => {

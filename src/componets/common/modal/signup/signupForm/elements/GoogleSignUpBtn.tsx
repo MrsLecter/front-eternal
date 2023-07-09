@@ -2,12 +2,13 @@
 import googleIcon from "@icons/google-btn.svg";
 import Image from "next/image";
 import { StyledGoogleBtn, StyledGoogleWrapper } from "./GoogleSignUpBtn.styles";
+import { FC } from "react";
 
 interface IGoogleSignUpProps {
   clickHandler: () => void;
 }
 
-const GoogleSignUp: React.FC<IGoogleSignUpProps> = ({ clickHandler }) => {
+const GoogleSignUp: FC<IGoogleSignUpProps> = ({ clickHandler }) => {
   return (
     <StyledGoogleWrapper
       type="button"

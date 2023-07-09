@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import LoaderSVG from "@images/loader.svg";
 import LoaderImage from "@/componets/common/loaderImage/LoaderImage";
 import { WrapperLoader } from "./Loader.styles";
 import Image from "next/image";
 
-const Loader: React.FC = () => {
+const Loader: FC = () => {
   let loaderWidth = 0;
   let loaderHeight = 0;
   let logoWidth = 0;

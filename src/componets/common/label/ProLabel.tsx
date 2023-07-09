@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styled from "styled-components";
 
-const ProLabel: React.FC = () => {
+const ProLabel: FC = () => {
   return (
     <StyledProLabel>
       <div>pro</div>

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface ITileMediumProps {
@@ -5,7 +6,7 @@ interface ITileMediumProps {
   description: string;
 }
 
-const TileMedium: React.FC<ITileMediumProps> = ({ label, description }) => {
+const TileMedium: FC<ITileMediumProps> = ({ label, description }) => {
   return (
     <StyledTileMedium>
       <p>{label}</p>

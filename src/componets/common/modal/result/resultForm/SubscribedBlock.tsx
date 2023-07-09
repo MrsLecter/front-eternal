@@ -1,14 +1,14 @@
 import CheckmarkCircle from "../../payment/paymentlForm/elements/CheckmarkCircle";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
 import { StyledMessage } from "./SubscribedBlock.styles";
 import { StyledProOfferBlock } from "../../payment/paymentlForm/proOfferBlock/ProOfferBlock.styles";
+import { FC } from "react";
+import { backdropClick } from "@/store/reducers/modalSlice";
 
-const SubscribedBlock: React.FC = () => {
-  const { backdropClick } = internalSlice.actions;
+const SubscribedBlock: FC = () => {
   const dispatch = useAppDispatch();
-  
+
   const goToHomePage = () => {
     dispatch(backdropClick());
   };

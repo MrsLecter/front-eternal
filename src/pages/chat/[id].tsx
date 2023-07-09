@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Header from "@/componets/common/header/Header";
 import { useRouter } from "next/router";
 import Messages from "@/componets/chat/messages/Messages";
@@ -13,16 +13,15 @@ import {
 } from "@/styles/pages/chat.styled";
 import ModalContainer from "@/componets/common/modal/ModalContainer";
 import { useSync } from "@/hooks/use-sync";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import { allowTyping } from "@/store/reducers/internalSlice";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Soul from "@/componets/chat/soul/Soul";
 import { ISoulsData } from "../../../types/app-common.types";
 
-const Chat: React.FC = () => {
+const Chat: FC = () => {
   const router = useRouter();
   const sync = useSync();
   const dispatch = useAppDispatch();
-  const { allowTyping } = internalSlice.actions;
   const soulId = router.query.id as string;
   const currentSoulsData = getSoulsDataForId(soulId);
 

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IWrapperCentringProps {
@@ -5,7 +6,7 @@ interface IWrapperCentringProps {
   children: React.ReactNode;
 }
 
-const WrapperCentring: React.FC<IWrapperCentringProps> = ({
+const WrapperCentring: FC<IWrapperCentringProps> = ({
   children,
   minHeight,
 }) => {

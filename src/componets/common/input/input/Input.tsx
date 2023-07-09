@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { StyledInputRounded, StyledInputWrapper } from "./Input.styles";
 import { IInputProps } from "./Input.types";
 
-export const Input: React.FC<IInputProps> = (props) => {
+export const Input: FC<IInputProps> = (props) => {
   const {
     label = "",
     type,

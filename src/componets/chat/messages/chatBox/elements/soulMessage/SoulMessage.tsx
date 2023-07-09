@@ -4,7 +4,7 @@ import avatarStub from "@images/backgrounds/1_darkblue.png";
 import * as Avenir from "@typography/Avenir";
 import { SITE_URL } from "@/constants/common";
 import { StyledSoulMessage, StyledSoulMessageBox } from "./SoulMessage.styles";
-import React from "react";
+import React, { FC } from "react";
 import ShareMessageBtn from "./elements/ShareMessageBtn";
 
 interface ISoulMessageProps {
@@ -13,7 +13,7 @@ interface ISoulMessageProps {
   soulsName?: string;
 }
 
-const SoulMessage: React.FC<ISoulMessageProps> = ({
+const SoulMessage: FC<ISoulMessageProps> = ({
   text,
   avatarImg,
   soulsName,

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface PrimaryBtnProps
@@ -6,7 +7,7 @@ interface PrimaryBtnProps
   clickHandler?: () => void;
 }
 
-const PrimaryBtn: React.FC<PrimaryBtnProps> = (props) => {
+const PrimaryBtn: FC<PrimaryBtnProps> = (props) => {
   const { label, clickHandler, ...defaultProps } = props;
   const primaryBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();

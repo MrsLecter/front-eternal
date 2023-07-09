@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IAddtionalFormInfoProps {
@@ -6,7 +7,7 @@ interface IAddtionalFormInfoProps {
   clickHandler?: () => void;
 }
 
-const AdditionalFormInfo: React.FC<IAddtionalFormInfoProps> = ({
+const AdditionalFormInfo: FC<IAddtionalFormInfoProps> = ({
   label,
   labelLink,
   clickHandler,

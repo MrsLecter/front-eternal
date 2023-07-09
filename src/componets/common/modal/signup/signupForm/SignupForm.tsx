@@ -3,18 +3,17 @@
 import GoogleSignUp from "./elements/GoogleSignUpBtn";
 import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
 import Input from "@common/input/input/Input";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import { StyledFormRow } from "./SignupForm.styles";
+import { toggleLoginSignup } from "@/store/reducers/modalSlice";
 
-const SignupForm: React.FC = () => {
-  const { toggleLoginSignup } = internalSlice.actions;
+const SignupForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const changeToSignin = () => {

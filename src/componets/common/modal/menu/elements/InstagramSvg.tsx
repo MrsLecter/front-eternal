@@ -1,4 +1,6 @@
-const InstagramSvg: React.FC = () => {
+import { FC } from "react";
+
+const InstagramSvg: FC = () => {
   return (
     <svg
       width="25"

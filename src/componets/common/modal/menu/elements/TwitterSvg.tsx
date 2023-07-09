@@ -1,4 +1,6 @@
-const TwitterSvg: React.FC = () => {
+import { FC } from "react";
+
+const TwitterSvg: FC = () => {
   return (
     <svg
       width="25"

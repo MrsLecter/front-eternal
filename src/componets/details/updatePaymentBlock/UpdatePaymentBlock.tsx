@@ -5,10 +5,10 @@ import TextBtn from "@common/buttons/TextBtn";
 import SecondaryWhiteBtn from "@common/buttons/SecondaryWhiteBtn";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { encrypt, getPrettyDate } from "@/utils/functions";
-import { FormEvent, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { userSlice } from "@/store/reducers/userSlice";
+import { cancelSubscription, setProPlan } from "@/store/reducers/userSlice";
 import { useInput } from "@/hooks/use-input";
 import { CODE_REGEXP } from "@/utils/regexp";
 import { CARD_NUMBER_TEST } from "@/constants/common";
@@ -17,11 +17,9 @@ import {
   StyledTextWrapper,
   StyledUpadatePaymentBlock,
 } from "./UpdatePaymentBlock.styles";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import { toggleToPayment } from "@/store/reducers/modalSlice";
 
-const UpdatePaymentBlock: React.FC = () => {
-  const { setProPlan, cancelSubscription } = userSlice.actions;
-  const { toggleToPayment } = internalSlice.actions;
+const UpdatePaymentBlock: FC = () => {
   const { nextPayment } = useAppSelector((store) => store.userReducer);
   const [isActiveCardBlock, setCardBlockActive] = useState<boolean>(true);
   const dispatch = useAppDispatch();

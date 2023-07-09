@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styled from "styled-components";
 
-const OfferList: React.FC = () => {
+const OfferList: FC = () => {
   return (
     <StyledOfferList>
       <li>Unlimited questions</li>

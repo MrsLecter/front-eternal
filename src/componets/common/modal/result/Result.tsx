@@ -1,8 +1,9 @@
+import { FC } from "react";
 import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 import { ModalDiv } from "../modalWindow/ModalWindow.styles";
 import SubscribedBlock from "./resultForm/SubscribedBlock";
 
-const Result: React.FC = () => {
+const Result: FC = () => {
   const modalDivClickHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
   };

@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import Menu from "@/componets/common/modal/menu/Menu";
 import Signin from "@/componets/common/modal/signin/Signin";
 import Signup from "@/componets/common/modal/signup/Signup";
@@ -12,8 +11,10 @@ import Cardpay from "@/componets/common/modal/cardpay/Cardpay";
 import Modal from "@/componets/common/modal/Modal";
 import { PaywallWrapper } from "@/styles/pages/common";
 import RestorePassword from "@/componets/common/modal/restorePassword/RestorePassword";
+import { FC } from "react";
+import { backdropClick } from "@/store/reducers/modalSlice";
 
-const ModalContainer: React.FC = () => {
+const ModalContainer: FC = () => {
   const {
     showCommonModal,
     showMenuModal,
@@ -25,9 +26,8 @@ const ModalContainer: React.FC = () => {
     showPaywallResultModal,
     showPaywallCardpayModal,
     showRestorePasswordModal,
-  } = useAppSelector((store) => store.internalReducer);
+  } = useAppSelector((store) => store.modalReducer);
   const dispatch = useAppDispatch();
-  const { backdropClick } = internalSlice.actions;
 
   return (
     <>

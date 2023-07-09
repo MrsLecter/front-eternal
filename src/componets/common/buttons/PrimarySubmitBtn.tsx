@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { StyledPrimaryBtn } from "./PrimaryBtn";
+import { FC } from "react";
 
 interface IPrimarySubmitBtnProps {
   label: string;
@@ -7,7 +8,7 @@ interface IPrimarySubmitBtnProps {
   isHigh?: boolean;
 }
 
-const PrimarySubmitBtn: React.FC<IPrimarySubmitBtnProps> = (props) => {
+const PrimarySubmitBtn: FC<IPrimarySubmitBtnProps> = (props) => {
   const { label, clickHandler, isHigh = true, ...defaultProps } = props;
   const submitClickHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>

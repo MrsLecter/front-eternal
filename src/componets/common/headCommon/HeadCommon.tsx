@@ -1,6 +1,7 @@
 import Head from "next/head";
+import { FC } from "react";
 
-const HeadCommon: React.FC = () => {
+const HeadCommon: FC = () => {
   return (
     <Head>
       <title>Eternal AI</title>

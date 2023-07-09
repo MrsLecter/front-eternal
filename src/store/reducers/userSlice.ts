@@ -110,4 +110,19 @@ export const userSlice = createSlice({
   },
 });
 
+export const {
+  setEmail,
+  signin,
+  signout,
+  setReadAbout,
+  setFreePlan,
+  setProPlan,
+  cancelSubscription,
+  setNamePhone,
+  setNewUserDetails,
+  changePhone,
+  setQestion,
+  removeOneQuestion,
+} = userSlice.actions;
+
 export default userSlice.reducer;

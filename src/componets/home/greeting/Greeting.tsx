@@ -2,8 +2,9 @@ import { StyledSection, StyledTitleWrapper } from "./Greeting.styles";
 import Questions from "./questions/Questions";
 import Title from "@/componets/common/title/Title";
 import SoulsIntro from "@/componets/common/soulsIntro/SoulsIntro";
+import { FC } from "react";
 
-const Greeting: React.FC = () => {
+const Greeting: FC = () => {
   return (
     <StyledSection>
       <StyledTitleWrapper>

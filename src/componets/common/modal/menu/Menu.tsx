@@ -11,18 +11,20 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
 import PrimaryMenuBtn from "./elements/PrimaryMenuBtn";
 import TextMenuBtn from "./elements/TextMenuBtn";
-import { userSlice } from "@/store/reducers/userSlice";
+import { signout } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import SocialLinksContainer from "./elements/SocialLinksContainer/SocialLinksContainer";
+import { FC } from "react";
+import {
+  backdropClick,
+  toggleToLogin,
+  toggleToPayment,
+  toggleToSignup,
+} from "@/store/reducers/modalSlice";
 
-const Menu: React.FC = () => {
+const Menu: FC = () => {
   const router = useRouter();
-
-  const { backdropClick, toggleToPayment, toggleToLogin, toggleToSignup } =
-    internalSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
-  const { signout } = userSlice.actions;
   const dispatch = useAppDispatch();
 
   const signoutHandler = () => {

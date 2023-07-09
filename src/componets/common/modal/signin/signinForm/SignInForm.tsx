@@ -1,18 +1,20 @@
-import { userSlice } from "@/store/reducers/userSlice";
 import { useAppDispatch } from "@/hooks/reducers.hook";
 import { useInput } from "@/hooks/use-input";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "@/utils/regexp";
 import userService from "@/api/user-service";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import { Input } from "@/componets/common/input/input/Input";
 import PrimarySubmitBtn from "@/componets/common/buttons/PrimarySubmitBtn";
 import { StyledLink } from "./SignInForm.styles";
+import {
+  backdropClick,
+  toggleLoginChangePassword,
+  toggleToAbout,
+} from "@/store/reducers/modalSlice";
+import { FC } from "react";
+import { signin } from "@/store/reducers/userSlice";
 
-const SignInForm: React.FC = () => {
-  const { signin } = userSlice.actions;
-  const { backdropClick, toggleToAbout, toggleLoginChangePassword } =
-    internalSlice.actions;
+const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { StyledMessages } from "./Messages.styles";
 import UserInput from "./userInput/UserInput";
 import ChatBox from "./chatBox/ChatBox";
@@ -6,7 +6,11 @@ import Pusher from "pusher-js";
 import { PUSHER_DATA } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import {
+  addToDialog,
+  allowTyping,
+  deleteLastDialogMessage,
+} from "@/store/reducers/internalSlice";
 import { getConstructedMessage } from "@/utils/functions";
 
 interface IMessagesProps {
@@ -14,11 +18,9 @@ interface IMessagesProps {
   soulId: string;
 }
 
-const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
+const Messages: FC<IMessagesProps> = ({ avatarImg, soulId }) => {
   const userId = localStorageHandler.getUserId();
   const dispatch = useAppDispatch();
-  const { addToDialog, deleteLastDialogMessage, allowTyping } =
-    internalSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
   const { questionsAmount } = useAppSelector((store) => store.userReducer);
   const { firstMessage, dialog } = useAppSelector(
@@ -48,7 +50,7 @@ const Messages: React.FC<IMessagesProps> = ({ avatarImg, soulId }) => {
         if (lastChatMessage) {
           lastChatMessage.scrollIntoView();
         }
-        
+
         dispatch(allowTyping());
       });
 

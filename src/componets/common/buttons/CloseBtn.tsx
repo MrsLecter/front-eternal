@@ -1,10 +1,11 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface ICloseBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
 }
 
-const CloseBtn: React.FC<ICloseBtnProps> = (props) => {
+const CloseBtn: FC<ICloseBtnProps> = (props) => {
   const { clickHandler, ...defaultProps } = props;
 
   return (

@@ -1,22 +1,16 @@
 import { APP_ROUTES } from "@/constants/common";
 import { GREETING_USER_QUESTIONS } from "@/constants/greeting-user-questions";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
-import { userSlice } from "@/store/reducers/userSlice";
+import { setFirstMessage } from "@/store/reducers/internalSlice";
 import { getConstructedMessage, getRandomSoulId } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import Link from "next/link";
 import { StyledLabelBox, StyledQuestionItem } from "./QuestionItem.styles";
 import { IQuestionItemProps } from "./QuestionItem.types";
-import React from "react";
+import React, { FC } from "react";
+import { removeOneQuestion } from "@/store/reducers/userSlice";
 
-const QuestionItem: React.FC<IQuestionItemProps> = ({
-  id,
-  label,
-  questionType,
-}) => {
-  const { setFirstMessage } = internalSlice.actions;
-  const { removeOneQuestion } = userSlice.actions;
+const QuestionItem: FC<IQuestionItemProps> = ({ id, label, questionType }) => {
   const dispatch = useAppDispatch();
   const randomSoulId = getRandomSoulId();
 
@@ -49,3 +43,4 @@ const QuestionItem: React.FC<IQuestionItemProps> = ({
 };
 
 export default QuestionItem;
+

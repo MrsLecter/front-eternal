@@ -8,8 +8,9 @@ import {
   StyledDateInput,
   StyledImageWrapper,
 } from "./CardNumberInput.styles";
+import { FC } from "react";
 
-const CardNumberInput: React.FC<ICardNumberInputProps> = (props) => {
+const CardNumberInput: FC<ICardNumberInputProps> = (props) => {
   const inputHeight = props.isHeigh ? "62px" : "56px";
   return (
     <StyledCardNumberInput inputHeight={inputHeight}>

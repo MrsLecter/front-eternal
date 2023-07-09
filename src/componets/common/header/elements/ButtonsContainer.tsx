@@ -2,6 +2,7 @@ import ShareBtn from "./ShareBtn";
 import { StyledTextWrapper } from "../Header.styles";
 import TextBtn from "../../buttons/TextBtn";
 import PrimaryBtn from "../../buttons/PrimaryBtn";
+import { FC } from "react";
 
 interface IButttonsContainerProps {
   isHaveShareBtn: boolean;
@@ -12,7 +13,7 @@ interface IButttonsContainerProps {
   loginClickHandler: () => void;
 }
 
-const ButtonsContainer: React.FC<IButttonsContainerProps> = ({
+const ButtonsContainer: FC<IButttonsContainerProps> = ({
   isHaveShareBtn,
   isAuth,
   shareBtnHandler,

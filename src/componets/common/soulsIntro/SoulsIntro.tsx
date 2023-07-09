@@ -9,18 +9,18 @@ import Image from "next/image";
 import backgroundLight from "@images/all-souls/light.png";
 import conversation from "@images/all-souls/conversation.png";
 import pinkSpot from "@images/all-souls/pink-spot.png";
-
 import first from "@images/souls/2_martin_luther_king.png";
 import secondL from "@images/souls/1_steve_jobs.png";
 import secondR from "@images/souls/4_albert_einstein.png";
 import thirdL from "@images/souls/3_elon_mask.png";
 import thirdR from "@images/souls/5_mother_teresa.png";
+import { FC } from "react";
 
 interface ISoulsIntroProps {
   isBlured?: boolean;
 }
 
-const SoulsIntro: React.FC<ISoulsIntroProps> = ({ isBlured = true }) => {
+const SoulsIntro: FC<ISoulsIntroProps> = ({ isBlured = true }) => {
   return (
     <>
       <SoulsWrapper isBlured={isBlured}>

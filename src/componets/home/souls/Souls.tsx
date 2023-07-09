@@ -3,8 +3,9 @@ import Title from "@/componets/common/title/Title";
 import { StyledSectionLeft } from "./Souls.styles";
 import SoulsContainer from "./soulsContainer/SoulsContainer";
 import SoulCard from "./soulCard/soulCard";
+import { FC } from "react";
 
-const Souls: React.FC = () => {
+const Souls: FC = () => {
   return (
     <StyledSectionLeft>
       <Title

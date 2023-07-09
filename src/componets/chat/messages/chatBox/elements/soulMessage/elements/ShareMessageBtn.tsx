@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import ShareSvg from "./ShareSvg";
+import { FC } from "react";
 
 interface IShareMessageBtnProps {
   clickHandler: () => void;
 }
 
-const ShareMessageBtn: React.FC<IShareMessageBtnProps> = ({ clickHandler }) => {
+const ShareMessageBtn: FC<IShareMessageBtnProps> = ({ clickHandler }) => {
   return (
     <StyledShareMessageBtn
       onClick={clickHandler}

@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styled from "styled-components";
 
-const BackgroundDetails: React.FC = () => {
+const BackgroundDetails: FC = () => {
   return (
     <StyledBackgroundDetails>
       <StyledTopGradient />

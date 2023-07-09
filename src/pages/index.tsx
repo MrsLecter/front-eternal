@@ -19,17 +19,17 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import Loader from "@/componets/common/loader/Loader";
 import { useSync } from "@/hooks/use-sync";
 import { isTokenExpired, liftToTop } from "@/utils/functions";
+import { showReadAboutModal } from "@/store/reducers/modalSlice";
 
 export default function Home() {
   const session = useSession();
   const sync = useSync();
   const { signin } = userSlice.actions;
-  const { showReadAboutModal } = internalSlice.actions;
   const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
     internalSlice.actions;
   const { signout } = userSlice.actions;
   const { showCommonModal, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
   const dispatch = useAppDispatch();
 
@@ -133,8 +133,6 @@ export default function Home() {
     localStorageHandler.removeDialog();
     localStorageHandler.removeSoulData();
   }, []);
-
-
 
   const MainContent = useMemo(() => {
     return (

@@ -1,8 +1,9 @@
+import { FC } from "react";
 import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
 import { ModalDiv } from "../modalWindow/ModalWindow.styles";
 import CardpayBlock from "./cardpayForm/CardpayBlock";
 
-const Cardpay: React.FC = () => {
+const Cardpay: FC = () => {
   const modalDivClickHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
   };

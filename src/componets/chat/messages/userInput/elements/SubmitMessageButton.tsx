@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styled from "styled-components";
 
-const SubmitMessageBtn: React.FC = () => {
+const SubmitMessageBtn: FC = () => {
   return (
     <StyledSubmitMessageButton
       aria-label="message-button"

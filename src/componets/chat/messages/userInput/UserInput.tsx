@@ -1,32 +1,27 @@
 import { APP_SETTING } from "@/constants/common";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
-import { userSlice } from "@/store/reducers/userSlice";
+import { addToDialog, disallowTyping } from "@/store/reducers/internalSlice";
 import {
   getConstructedMessage,
   isSubscriptionExpired,
   sendMessageToChannel,
 } from "@/utils/functions";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import React from "react";
+import React, { FC } from "react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { StyledMessageInputWrapper, StyledUserInput } from "./UserInput.styles";
 import SubmitMessageBtn from "./elements/SubmitMessageButton";
+import { toggleToPayment, toggleToSignup } from "@/store/reducers/modalSlice";
 
 interface IUserInputProps {
   soulId: string;
 }
 
-const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
+const UserInput: FC<IUserInputProps> = ({ soulId }) => {
   const { questionsAmount, nextPayment } = useAppSelector(
     (store) => store.userReducer
   );
-
   const isAuth = localStorageHandler.getAccessToken();
-  const { removeOneQuestion } = userSlice.actions;
-  const { disallowTyping, addToDialog, toggleToSignup, toggleToPayment } =
-    internalSlice.actions;
-
   const { isTypingAllowed } = useAppSelector((store) => store.internalReducer);
   const dispatch = useAppDispatch();
   const [userInput, setUserInput] = useState<string>("");
@@ -118,3 +113,6 @@ const UserInput: React.FC<IUserInputProps> = ({ soulId }) => {
 };
 
 export default UserInput;
+function removeOneQuestion(): any {
+  throw new Error("Function not implemented.");
+}

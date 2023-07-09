@@ -1,10 +1,11 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IBackdropProps {
   backClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-const BackScreen: React.FC<IBackdropProps> = ({ backClickHandler }) => {
+const BackScreen: FC<IBackdropProps> = ({ backClickHandler }) => {
   return <StyledBackdrop onMouseDown={backClickHandler} />;
 };
 

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface ITextBtnProps {
@@ -5,7 +6,7 @@ interface ITextBtnProps {
   clickHandler?: () => void;
 }
 
-const TextMenuBtn: React.FC<ITextBtnProps> = ({ label, clickHandler }) => {
+const TextMenuBtn: FC<ITextBtnProps> = ({ label, clickHandler }) => {
   return (
     <StyledTextMenuBtn
       type="button"

@@ -1,9 +1,14 @@
 import UpdatePaymentBlock from "@/componets/details/updatePaymentBlock/UpdatePaymentBlock";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "@/componets/common/header/Header";
 import Footer from "@/componets/common/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import {
+  allowTyping,
+  deleteDialog,
+  deleteFirstMessage,
+  deleteSoulId,
+} from "@/store/reducers/internalSlice";
 import {
   StyledModalWrapper,
   WrapperDetailsCentring,
@@ -19,13 +24,11 @@ import localStorageHandler from "@/utils/local-storage-hendler";
 import BackgroundDetails from "@/componets/details/BackgroundDetails";
 import WrapperModalWindow from "@/componets/common/wrappers/wrapperModalWindow/WrapperModalWindow";
 
-const Details: React.FC = () => {
+const Details: FC = () => {
   const dispatch = useAppDispatch();
   const sync = useSync();
-  const { deleteDialog, deleteFirstMessage, deleteSoulId, allowTyping } =
-    internalSlice.actions;
   const { showCommonModal, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
   const [initialRenderComplete, setInitialRenderComplete] =
     useState<boolean>(false);
@@ -78,7 +81,6 @@ const Details: React.FC = () => {
             <WrapperModalWindow width={"760"} isPaddingSmall={true}>
               <UpdatePaymentBlock />
             </WrapperModalWindow>
-            
           </StyledModalWrapper>
           <Footer />
           <ModalContainer />

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import styled from "styled-components";
 import checkmarkIcon from "@icons/checkmark.svg";
+import { FC } from "react";
 
-const CheckmarkCircle: React.FC = () => {
+const CheckmarkCircle: FC = () => {
   return (
     <StyledCheckmarkCircle>
       <Image src={checkmarkIcon} alt="checkmark.svg" />
@@ -17,7 +18,8 @@ const StyledCheckmarkCircle = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: ${({ theme }) => theme.backgroundColorGradient}; img {
+  background: ${({ theme }) => theme.backgroundColorGradient};
+  img {
     margin-top: 6px;
     width: 35px;
     height: 28.75px;

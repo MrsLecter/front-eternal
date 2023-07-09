@@ -6,12 +6,12 @@ import {
   StyledSoulLabel,
 } from "./Soul.styles";
 import * as Arquitecta from "@typography/Arquitecta";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import LoaderImage from "@/componets/common/loaderImage/LoaderImage";
 import { useImageLoadStatus } from "@/hooks/use-image-load-status";
 import localStorageHandler from "@/utils/local-storage-hendler";
 
-const Soul: React.FC = () => {
+const Soul: FC = () => {
   const soulData = localStorageHandler.getSoulData();
 
   const [imgSourse, setImageSource] = useState<string>(soulData!.placeholder);

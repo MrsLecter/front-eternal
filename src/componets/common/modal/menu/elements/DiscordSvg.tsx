@@ -1,4 +1,6 @@
-const DiscordSvg: React.FC = () => {
+import { FC } from "react";
+
+const DiscordSvg: FC = () => {
   return (
     <svg
       width="25"

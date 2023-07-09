@@ -1,10 +1,11 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IMenuProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickHandler?: () => void;
 }
 
-const MenuBtn: React.FC<IMenuProps> = (props) => {
+const MenuBtn: FC<IMenuProps> = (props) => {
   const { clickHandler, ...defaultProps } = props;
   const menuBtnClickHandler = (e: React.MouseEvent) => {
     e.stopPropagation();

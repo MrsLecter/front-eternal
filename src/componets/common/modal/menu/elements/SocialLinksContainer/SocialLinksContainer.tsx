@@ -4,8 +4,9 @@ import FacebokSvg from "../FacebookSvg";
 import InstagramSvg from "../InstagramSvg";
 import TwitterSvg from "../TwitterSvg";
 import DiscordSvg from "../DiscordSvg";
+import { FC } from "react";
 
-const SocialLinksContainer: React.FC = () => {
+const SocialLinksContainer: FC = () => {
   return (
     <StyledSocialContainer>
       <div>

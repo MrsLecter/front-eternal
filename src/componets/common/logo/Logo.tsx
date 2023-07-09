@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import eternalImage from "@icons/eternal-logo.svg";
 import styled from "styled-components";
+import { FC } from "react";
 
-const Logo: React.FC = () => {
+const Logo: FC = () => {
   return (
     <StyledLogo>
       <Link href="/">

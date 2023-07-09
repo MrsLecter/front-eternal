@@ -4,18 +4,19 @@ import { useAppSelector } from "@/hooks/reducers.hook";
 import Header from "../../header/Header";
 import { StyledModalWindowContainer } from "./ModalWindowContainer.styles";
 import { ContentWrapper, ModalWrapper } from "./ModalWindow.styles";
+import { FC } from "react";
 
 export interface IModalsContainerProps {
   children: React.ReactNode;
   closeModal: () => void;
 }
 
-const ModalWindowContainer: React.FC<IModalsContainerProps> = ({
+const ModalWindowContainer: FC<IModalsContainerProps> = ({
   children,
   closeModal,
 }) => {
   const { showCommonModal, isSmallHeader, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
 
   const backdropClickHandler = (event: React.MouseEvent) => {

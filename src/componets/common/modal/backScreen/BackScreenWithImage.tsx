@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import SoulsIntro from "../../soulsIntro/SoulsIntro";
+import { FC } from "react";
 
 interface IBackdropProps {
   backClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-const BackScreenWithImage: React.FC<IBackdropProps> = ({
-  backClickHandler,
-}) => {
+const BackScreenWithImage: FC<IBackdropProps> = ({ backClickHandler }) => {
   return (
     <StyledBackdropWithImage onClick={backClickHandler}>
       <div>

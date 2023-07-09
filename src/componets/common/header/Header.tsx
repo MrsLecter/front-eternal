@@ -6,14 +6,20 @@ import Logo from "../logo/Logo";
 import { StyledHeader } from "./Header.styles";
 import { APP_ROUTES, APP_SETTING } from "@/constants/common";
 import localStorageHandler from "@/utils/local-storage-hendler";
-import { userSlice } from "@/store/reducers/userSlice";
-import { internalSlice } from "@/store/reducers/internalSlice";
+import { signout } from "@/store/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
 import { useRouter } from "next/router";
 import { IHeader } from "./Header.types";
 import { SHARE_LINK_MESSAGE } from "@/constants/text-messages";
+import { FC } from "react";
+import {
+  backdropClick,
+  showMenuModal,
+  toggleToLogin,
+  toggleToSignup,
+} from "@/store/reducers/modalSlice";
 
-const Header: React.FC<IHeader> = ({
+const Header: FC<IHeader> = ({
   isHaveClose = false,
   isHaveShareBtn = false,
   isSmall = false,
@@ -21,11 +27,8 @@ const Header: React.FC<IHeader> = ({
   ref,
 }) => {
   const isAuth = localStorageHandler.getAccessToken();
-  const { signout } = userSlice.actions;
-  const { showMenuModal, backdropClick, toggleToLogin, toggleToSignup } =
-    internalSlice.actions;
   const { showCommonModal, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
   const dispatch = useAppDispatch();
   const router = useRouter();

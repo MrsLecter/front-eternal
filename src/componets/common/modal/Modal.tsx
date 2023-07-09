@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import BackScreen from "./backScreen/BackScreen";
 import ModalWindow from "./modalWindow/ModalWindow";
@@ -10,10 +10,10 @@ interface IModalProps {
   haveClose?: boolean;
 }
 
-const Modal: React.FC<IModalProps> = ({ children, backClickHandler }) => {
+const Modal: FC<IModalProps> = ({ children, backClickHandler }) => {
   const [render, setRender] = useState(false);
   const { showCommonModal, showPaywallModal } = useAppSelector(
-    (store) => store.internalReducer
+    (store) => store.modalReducer
   );
 
   interface KeyboardEvent {

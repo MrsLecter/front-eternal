@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Image from "next/image";
 import bluredImage from "@images/background-blured.png";
+import { FC } from "react";
 
-const WrapperBackground: React.FC = () => {
+const WrapperBackground: FC = () => {
   return (
     <StyledWrapperBackground>
       <Image

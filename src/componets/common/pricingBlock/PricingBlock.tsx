@@ -1,13 +1,14 @@
 import * as Avenir from "@typography/Avenir";
 import { StyledPricingBlock } from "./PricingBlock.styles";
 import ProLabel from "../label/ProLabel";
+import { FC } from "react";
 
 interface IPricingBlockProps {
   paymentMonthly: number;
   nextPayment?: string | Date;
 }
 
-const PricingBlock: React.FC<IPricingBlockProps> = ({
+const PricingBlock: FC<IPricingBlockProps> = ({
   paymentMonthly,
   nextPayment,
 }) => {

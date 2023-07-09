@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/reducers.hook";
-import { userSlice } from "@/store/reducers/userSlice";
+import { setFreePlan, userSlice } from "@/store/reducers/userSlice";
 import { SHARE_LINK_MESSAGE } from "@/constants/text-messages";
 import localStorageHandler from "@/utils/local-storage-hendler";
 import userService from "@/api/user-service";
@@ -10,10 +10,10 @@ import {
   StyledLabel,
   StyledOffer,
 } from "./FreeOfferBlock.styles";
+import { FC } from "react";
 
-const FreeOfferBlock: React.FC = () => {
+const FreeOfferBlock: FC = () => {
   const { shareLink } = useAppSelector((store) => store.userReducer);
-  const { setFreePlan } = userSlice.actions;
   const isAuth = localStorageHandler.getAccessToken();
   const dispatch = useAppDispatch();
 

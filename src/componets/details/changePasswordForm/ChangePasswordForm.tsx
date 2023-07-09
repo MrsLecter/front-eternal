@@ -2,11 +2,11 @@ import Input from "@common/input/input/Input";
 import PrimarySubmitBtn from "@common/buttons/PrimarySubmitBtn";
 import { PASSWORD_REGEXP } from "@/utils/regexp";
 import { useInput } from "@/hooks/use-input";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import userService from "@/api/user-service";
 import { StyledForm } from "./ChangePasswordBlock.styles";
 
-const ChangePasswordForm: React.FC = () => {
+const ChangePasswordForm: FC = () => {
   const {
     value: passwordOld,
     error: passwordOldIsValid,

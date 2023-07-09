@@ -1,13 +1,12 @@
 import AdditionalFormInfo from "../../additionalFormInfo/AdditionalFormInfo";
 import { useAppDispatch } from "@/hooks/reducers.hook";
-import { internalSlice } from "@/store/reducers/internalSlice";
 import SignupForm from "@/componets/common/modal/signup/signupForm/SignupForm";
 import WrapperModalWindow from "../../wrappers/wrapperModalWindow/WrapperModalWindow";
+import { toggleLoginSignup } from "@/store/reducers/modalSlice";
 
 interface ISignupProps {}
 
 const Signup: React.FC<ISignupProps> = () => {
-  const { toggleLoginSignup } = internalSlice.actions;
   const dispatch = useAppDispatch();
 
   const changeToSignin = () => {

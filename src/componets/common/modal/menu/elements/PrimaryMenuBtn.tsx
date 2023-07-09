@@ -1,11 +1,12 @@
 import { StyledPrimaryBtn } from "@/componets/common/buttons/PrimaryBtn";
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IPrimaryMenuBtnProps {
   clickHandler?: () => void;
 }
 
-const PrimaryMenuBtn: React.FC<IPrimaryMenuBtnProps> = ({ clickHandler }) => {
+const PrimaryMenuBtn: FC<IPrimaryMenuBtnProps> = ({ clickHandler }) => {
   return (
     <StyledPrimaryMenuBtn
       type="submit"

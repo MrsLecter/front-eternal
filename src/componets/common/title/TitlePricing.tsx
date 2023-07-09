@@ -1,3 +1,4 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface ITitlePricingProps {
@@ -6,7 +7,7 @@ interface ITitlePricingProps {
   oneRow?: boolean;
 }
 
-const TitlePricing: React.FC<ITitlePricingProps> = ({
+const TitlePricing: FC<ITitlePricingProps> = ({
   paymentMonthly,
   nextPayment,
   oneRow = false,

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import * as Avenir from "@typography/Avenir";
+import { FC } from "react";
 
 interface IChatFeedbackProps {
   type: "loading" | "error";
 }
 
-const ChatFeedback: React.FC<IChatFeedbackProps> = ({ type }) => {
+const ChatFeedback: FC<IChatFeedbackProps> = ({ type }) => {
   return (
     <StyledChatFeedback>
       <Avenir.H5>

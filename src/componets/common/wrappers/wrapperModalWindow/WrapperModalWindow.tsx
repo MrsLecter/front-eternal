@@ -1,10 +1,11 @@
+import { FC } from "react";
 import {
   StyledWrapperModalWindow,
   StyledWrapperModalWindowContainer,
 } from "./WrapperModalWindow.styles";
 import { IWrapperModalWindow } from "./WrapperModalWindow.types";
 
-const WrapperModalWindow: React.FC<IWrapperModalWindow> = ({
+const WrapperModalWindow: FC<IWrapperModalWindow> = ({
   children,
   header,
   text,
